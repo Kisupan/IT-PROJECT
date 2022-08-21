@@ -1,0 +1,13 @@
+{
+    "defaultSeverity": "error",
+    "jsRules": {},
+    "rules": {
+    "trailing-comma": [ false ]
+    },
+    "rulesDirectory": [],
+    "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    },
+}
