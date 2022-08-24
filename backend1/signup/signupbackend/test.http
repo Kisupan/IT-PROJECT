@@ -1,0 +1,10 @@
+POST http://localhost:3000/app/signup
+Content-Type: application/json 
+
+{
+    "fullName": "john",
+    "username": "Joey",
+    "email": "joey@mail.com",
+    "password": "12345"
+}
+ 
