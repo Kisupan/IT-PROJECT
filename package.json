@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Kisupan/IT-PROJECT/issues"
   },
-  "homepage": "https://github.com/Kisupan/IT-PROJECT#readme"
+  "homepage": "https://github.com/Kisupan/IT-PROJECT#readme",
+  "dependencies": {
+    "mongoose": "^6.5.4"
+  }
 }
