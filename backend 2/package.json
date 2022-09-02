@@ -1,0 +1,29 @@
+{
+  "name": "vsbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node src/server.js",
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "author": "liping",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.18.13",
+    "@babel/node": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "formidable": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.3",
+    "npm": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
