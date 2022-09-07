@@ -1,9 +1,20 @@
+import { videoModel } from '../Models/Video.model'
+
 export class VideoController{
-    upload(request, response){
-        console.log('Filename:', request.filename)
-        console.log('Video name:', request.body.name)
-        console.log('Token:', request.token)
-        return response.status(200).json({msg:'Authenticated'})
+    async upload(request, response){
+
+        const newVideo = new videoModel({
+            owner:request.token._id,
+            name:request.body.name,
+            videopath:request.filename
+        })
+
+        try {
+            const saveVideo = await newVideo.save()
+            return response.status(201).json({msg:'Video uploaded successfully'})
+        }catch (error){
+            return response.status(500).json({msg:'Video upload failed'})
+        }
     }
 
 }
