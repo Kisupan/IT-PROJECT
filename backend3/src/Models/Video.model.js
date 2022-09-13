@@ -7,11 +7,11 @@ const videoSchema = new Schema({
     },
     name:{
         type:String,
-        required:[True, 'Upload video needs a video name']
+        required:[true, 'Upload video needs a video name']
     },
     videopath:{
         type:String,
-        required:[True, 'Upload video needs a video path'],
+        required:[true, 'Upload video needs a video path'],
         unique:[true, 'Video path already exist']
     },
     likes:{
