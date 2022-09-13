@@ -43,7 +43,7 @@ export class AuthController{
             if(error){
                 return response.status(500).json({msg:'Failed to signin'})
             }
-            const{ account, password} = fields;
+            const{account, password} = fields;
             // email log in 
             const isAccountEmail = account.includes('@');
             if(isAccountEmail){
@@ -115,5 +115,25 @@ export class AuthController{
             }
         })
     }
-    
+
+    //delete user account
+    delete(request, response){
+        const form = new IncomingForm();
+         
+
+        form.parse(request, async (error, fields, files) =>{
+            if (error){
+                return response.status(500).json({msg:'Failed to delete account, maybe try again later'})
+            }
+            const{ email} = fields;
+            try {
+                const user = await userModel.findOneAndDelete({email: email});
+                return response.status(200).json({msg:'delete successful'})
+
+            }catch(error){
+                return response.status(500).json({msg:'Failed to delete'})
+            }   
+        })
+    }
+
 }

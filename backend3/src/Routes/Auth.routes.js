@@ -18,5 +18,10 @@ router.post('/api/password-reset',(request,response)=>{
     Controller.forgotPassword(request, response)
 })
 
+router.post('/api/delete',(request,response)=>{
+    Controller.delete(request, response)
+})
+
+
 export default router;
 //module.exports = router;
