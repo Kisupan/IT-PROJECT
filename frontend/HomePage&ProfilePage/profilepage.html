@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>profilePage</title>
+    <link href="bootstrapPackage/bootstrap.min.css" rel="stylesheet">
+    <link href="draft.css" rel="stylesheet">
+    <link href="page-foot.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="profilePage" id="profile">
+        <div class="nav-area">
+            <nav class="navbar bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="resources/Logo03.PNG" alt="" width="50" height="50"
+                            class="d-inline-block align-text-center">
+                        <p class="web-name" style="color:rgb(86, 121, 182); display: inline-block;">VShare</p>
+                    </a>
+                    <form class="d-flex" role="search">
+                        <input id="search-bar" class="form-control" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button id="search-btn" class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+                    <div class="sign-out">
+                        <a class="btn btn-outline-primary" href="blankpage.html" role="button">Sign out</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+
+        <div class="profile-intro-upload">
+            <!-- <div class="avatar-area">
+                <div class="homepage-avatar-container">
+                    <a href="blankpage.html" target="_blank"><img class="account-avatar" src="resources/ZCC.JPG"
+                            style="width:125px; height:125px;"></a>
+                </div>
+            </div>
+            <div class="intro-area">
+                <div class="text-container">
+                    About Me
+                    dadadasdasdadfsyfgvyuehyguygfggfyisagfygyfgyfgyfgysgygyigyiugfwig dauhdgu fauiygfciudadu dfaudg
+                    dagufgafy fcagfdtaf dahsjgdfffag About Me
+                    dadadasdasdadfsyfgvyuehyguygfggfyisagfygyfgyfgyfgysgygyigyiugfwig dauhdgu fauiygfciudadu dfaudg
+                    dagufgafy fcagfdtaf dahsjgdfffag About Me
+                </div>
+            </div>
+            <div class="upload-area">
+                <div class="upload-btn">
+                    <a class="btn btn-light" href="blankpage.html" role="button"
+                        style="margin-left:130px; margin-top: 55px">Upload</a>
+                </div>
+            </div> -->
+            <div class="nav-area">
+                <nav class="navbar bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="profilepage.html">
+                            <img src="resources/ZCC.JPG" alt="" width="100" height="100"
+                                class="d-inline-block align-text-center" style="border-radius: 50%;">
+                            <p class="web-name" style="color:black; display: inline-block;">Congcong Zhao</p>
+                        </a>
+                        <div class="text-container">
+                            <p v-for="info in infoList">
+                                {{info.intro}}
+                            </p>
+                        </div>
+                        <div class="upload">
+                            <a class="btn btn-outline-primary" href="uploadpage.html" role="button"
+                                target="_blank">Upload Video</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="tabs">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="my-video-tab" data-bs-toggle="tab"
+                            data-bs-target="#my-video-tab-pane" type="button" role="tab"
+                            aria-controls="my-video-tab-pane" aria-selected="true">My Video</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="favourite-tab" data-bs-toggle="tab"
+                            data-bs-target="#favourite-tab-pane" type="button" role="tab"
+                            aria-controls="favourite-tab-pane" aria-selected="false">Favourite</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane"
+                            type="button" role="tab" aria-controls="intro-tab-pane"
+                            aria-selected="false">Profile</button>
+                    </li>
+                    <!-- <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="disabled-tab" data-bs-toggle="tab"
+                            data-bs-target="#disabled-tab-pane" type="button" role="tab"
+                            aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
+                    </li> -->
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="my-video-tab-pane" role="tabpanel"
+                        aria-labelledby="my-video-tab" tabindex="0">
+                        <div class="my-videos-area">
+                            <div class="row row-cols-4">
+                                <div class="col" v-for="video in myVideoList">
+                                    <div class="card">
+                                        <a href="blankpage.html" target="_blank">
+                                            <img src="resources/ZCC.JPG" class="card-img-top" alt="...">
+                                        </a>
+                                        <div class="card-body">
+                                            <h5>{{video.title}}</h5>
+                                            <p>{{video.author}}</p>
+                                            <p>{{video.date}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="tab-pane fade" id="favourite-tab-pane" role="tabpanel" aria-labelledby="favourite-tab"
+                        tabindex="0">
+                        <div class="favourite-videos-area">
+                            <div class="row row-cols-4">
+                                <div class="col" v-for="video in favouriteVideoList">
+                                    <div class="card">
+                                        <a href="blankpage.html" target="_blank">
+                                            <img src="resources/ZCC.JPG" class="card-img-top" alt="...">
+                                        </a>
+                                        <div class="card-body">
+                                            <h5>{{video.title}}</h5>
+                                            <p>{{video.author}}</p>
+                                            <p>{{video.date}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="tab-pane fade" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab"
+                        tabindex="0">
+                        <ul type="none">
+                            <li class="profile-info" v-for="info in infoList">
+                                <!-- {{info.email}} - {{info.password}} - {{info.username}} - {{info.dateOfBirth}} - {{info.gender}} -->
+                                E-Mail: {{info.email}} <br>
+                                Password: {{info.password}} <br>
+                                Username: {{info.username}} <br>
+                                Date of birth: {{info.dateOfBirth}} <br>
+                                Gender: {{info.gender}} <br>
+                            </li>
+                        </ul>
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label" for="inputPhoto">Photo</label>
+                                <input type="file" class="form-control" id="inputPhoto">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4"
+                                    v-model="profileFormData.email">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputPassword4" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="inputPassword4" v-model="profileFormData.password"
+                                    maxlength="16">
+                            </div>
+                            <div class="col-6">
+                                <label for="inputUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="inputUsername" v-model="profileFormData.username"
+                                    maxlength="16">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="inputDOB" class="form-label">DateOfBirth</label>
+                                <input type="date" class="form-control" id="inputDOB" v-model="profileFormData.dateOfBirth">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputGender" class="form-label">Gender</label>
+                                <select id="inputGender" class="form-select" v-model="profileFormData.gender">
+                                    <option selected>Please select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="introduction" class="form-label">Introduction</label>
+                                <textarea id="introduction" class="form-control" rows="3" maxlength="450" v-model="profileFormData.intro"></textarea>
+                            </div>
+                            <!-- <div class="col-12">
+                                <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
+                            </div> -->
+                        </form>
+                        <div class="update-button">
+                            <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
+                        </div>
+                    </div>
+                    <!-- <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab"
+                        tabindex="0">...</div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="foot-page">
+            <div class="foot-container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="resources/Logo03.PNG" alt="" width="100" height="100"
+                        class="d-inline-block align-text-center" style="margin-top:50px; margin-left: 50px;">
+                </a>
+                <div class="foot-btn">
+                    <div class="term-btn">
+                        <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
+                            style="margin-left:200px; margin-top: 55px">Term</a>
+                    </div>
+                </div>
+                <div class="foot-btn">
+                    <div class="privacy-btn">
+                        <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
+                            style="margin-left:130px; margin-top: 55px">Privacy</a>
+                    </div>
+                </div>
+                <div class="foot-btn">
+                    <div class="support-btn">
+                        <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
+                            style="margin-left:130px; margin-top: 55px">Support</a>
+                    </div>
+                </div>
+                <div class="foot-btn">
+                    <div class="contact-btn">
+                        <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
+                            style="margin-left:130px; margin-top: 55px">Contact</a>
+                    </div>
+                </div>
+                <div class="foot-btn">
+                    <div class="about-btn">
+                        <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
+                            style="margin-left:130px; margin-top: 55px">About us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrapPackage/bootstrap.bundle.min.js"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+<script>
+    new Vue({
+        el: "#profile",
+        data: {
+            infoList: [],
+            profileFormData: {
+                email: "",
+                password: "",
+                username: "",
+                dateOfBirth: "",
+                gender: "",
+                intro:""
+            },
+            myVideoList: [{id:0, title: "Title", author:"ZCC", date:"1/9/2022"}, {id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"}],
+            videoData: {
+                id: 0,
+                imageAddr:"resources/ZCC.JPG",
+                videoAddr:"blankpage.html",
+                title: "Title",
+                author:"ZCC",
+                date:"1/9/2022"
+            },
+            favouriteVideoList: [{id:0, title: "Title", author:"HXX", date:"2/9/2022"}, {id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"}],
+        },
+        
+        mounted() {
+            this.getInfo();
+        },
+
+        methods: {
+            getInfo: function() {
+                var profileInfo = window.localStorage.getItem("profileInfo");
+                if (profileInfo) {
+                    this.infoList = JSON.parse(profileInfo);
+                }
+            },
+
+            updateInfo: function() {
+                var profileFormData = {
+                    email: this.profileFormData.email,
+                    password: this.profileFormData.password,
+                    username: this.profileFormData.username,
+                    dateOfBirth: this.profileFormData.dateOfBirth,
+                    gender: this.profileFormData.gender,
+                    intro: this.profileFormData.intro
+                };
+                this.infoList.splice(0,1);
+                this.infoList.push(profileFormData);
+                window.localStorage.setItem("profileInfo", JSON.stringify(this.infoList));
+            }
+        }
+    });
+</script>
+
+</html>
