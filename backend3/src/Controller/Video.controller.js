@@ -17,4 +17,25 @@ export class VideoController{
         }
     }
 
+    like (request, response){
+        const video_id = request.params.id;
+        videoModel.findOneAndUpdate({_id:video_id}, {$inc:{likes:1}},
+            {new:true}, (error,doc)=>{
+                if (error){
+                    return response.status(500).json({msg:'Network Error: Failed to like video'})
+                }
+                return response.status(200).json({msg:'Video liked'})
+            })
+    }
+
+    dislike (request, response){
+        const video_id = request.params.id;
+        videoModel.findOneAndUpdate({_id:video_id}, {$inc:{dislikes:1}},
+            {new:true}, (error,doc)=>{
+                if (error){
+                    return response.status(500).json({msg:'Network Error: Failed to like video'})
+                }
+                return response.status(200).json({msg:'Video disliked'})
+            })
+    }
 }

@@ -11,4 +11,12 @@ router.post('/api/video', json(), Authenticate, videoUpload.single('video'), (re
     Controller.upload(request,response)
 })
 
+router.get('/api/video-like/:id',(request, response)=>{
+    Controller.like(request, response)
+})
+
+router.get('/api/video-dislike/:id',(request, response)=>{
+    Controller.dislike(request, response)
+})
+
 export default router;
