@@ -23,9 +23,7 @@ Body --> Form --> fill in email
 GET --> http://localhost:3000/api/findall
 
 --> Like
-POST --> http://localhost:3000/api/video-like
-SEND
+GET --> http://localhost:3000/api/video-like/videopath
 
 --> Dislike
-POST --> http://localhost:3000/api/video-dislike
-SEND
+GET --> http://localhost:3000/api/video-dislike/videopath
