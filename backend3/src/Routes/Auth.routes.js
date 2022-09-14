@@ -14,13 +14,27 @@ router.post('/api/signin',(request,response)=>{
     Controller.signin(request, response)
 })
 
+// reset password
 router.post('/api/password-reset',(request,response)=>{
     Controller.forgotPassword(request, response)
 })
 
+// delet a user from mongo DB
 router.post('/api/delete',(request,response)=>{
     Controller.delete(request, response)
 })
+
+//find all user and return 
+router.get('/api/findall',(request,response)=>{
+    Controller.findAllUser (request, response)
+})
+
+// update user information
+router.put('/api/update/:email',(request,response)=>{
+    Controller.update (request, response)
+})
+
+
 
 
 export default router;

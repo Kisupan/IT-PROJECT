@@ -115,6 +115,23 @@ export class AuthController{
             }
         })
     }
+   /* // updat user info such as user name via email.
+    update(request, response){
+        const form = new IncomingForm();
+        form.parse(request, async (error, fields, files)=>{
+            if(error){
+                return response.status(500).json({msg:'Failed to update'})
+            }
+            try{
+                const updatedAccount = userModel.findOneAndUpdate({email:email}, { $set:{username:username}})
+                return response.send(user)   
+                //return response.status(200).json({msg:'update successful'})
+            }catch(error){
+                return response.status(500).json({msg:'Failed to update, maybe try again later'})
+            }
+        })
+    } */
+
 
     //delete user account
     delete(request, response){
@@ -132,6 +149,26 @@ export class AuthController{
 
             }catch(error){
                 return response.status(500).json({msg:'Failed to delete'})
+            }   
+        })
+    }
+
+    // find all user
+    findAllUser(request, response){
+        const form = new IncomingForm();      
+
+        form.parse(request, async (error, fields, files) =>{
+            if (error){
+                return response.status(500).json({msg:'Failed to delete account, maybe try again later'})
+            }
+            //const{ email} = fields;
+            try {
+                const user = await userModel.find() 
+                return response.send(user)          
+                //return response.status(200).json({msg:'return all users successful'})
+
+            }catch(error){
+                return response.status(500).json({msg:'Failed find all users'})
             }   
         })
     }
