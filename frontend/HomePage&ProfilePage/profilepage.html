@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>profilePage</title>
     <link href="bootstrapPackage/bootstrap.min.css" rel="stylesheet">
-    <link href="draft.css" rel="stylesheet">
+    <link href="profilepage.css" rel="stylesheet">
     <link href="page-foot.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css" /> -->
 </head>
 
 <body>
@@ -58,10 +59,16 @@
             <div class="nav-area">
                 <nav class="navbar bg-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="profilepage.html">
+                        <a class="navbar-brand" href="profilepage.html" v-for="info in infoList">
                             <img src="resources/ZCC.JPG" alt="" width="100" height="100"
                                 class="d-inline-block align-text-center" style="border-radius: 50%;">
-                            <p class="web-name" style="color:black; display: inline-block;">Congcong Zhao</p>
+                            <!-- <div>
+                                <el-form-item label="图片" prop="img">
+                                    <imageUpload v-on:change="change" />
+                                </el-form-item>
+                            </div> -->
+                            <p class="web-name" style="color:black; display: inline-block;">
+                                {{info.username}}</p>
                         </a>
                         <div class="text-container">
                             <p v-for="info in infoList">
@@ -75,6 +82,7 @@
                     </div>
                 </nav>
             </div>
+
 
             <div class="tabs">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -92,6 +100,11 @@
                         <button class="nav-link" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane"
                             type="button" role="tab" aria-controls="intro-tab-pane"
                             aria-selected="false">Profile</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="manage-tab" data-bs-toggle="tab" data-bs-target="#manage-tab-pane"
+                            type="button" role="tab" aria-controls="manage-tab-pane" aria-selected="false">Manage
+                            profile</button>
                     </li>
                     <!-- <li class="nav-item" role="presentation">
                         <button class="nav-link" id="disabled-tab" data-bs-toggle="tab"
@@ -118,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-                        <nav aria-label="Page navigation">
+                        <!-- <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
                                     <a class="page-link">Previous</a>
@@ -130,7 +143,7 @@
                                     <a class="page-link" href="#">Next</a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> -->
                     </div>
                     <div class="tab-pane fade" id="favourite-tab-pane" role="tabpanel" aria-labelledby="favourite-tab"
                         tabindex="0">
@@ -150,7 +163,7 @@
                                 </div>
                             </div>
                         </div>
-                        <nav aria-label="Page navigation">
+                        <!-- <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
                                     <a class="page-link">Previous</a>
@@ -162,7 +175,7 @@
                                     <a class="page-link" href="#">Next</a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> -->
                     </div>
                     <div class="tab-pane fade" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab"
                         tabindex="0">
@@ -176,7 +189,7 @@
                                 Gender: {{info.gender}} <br>
                             </li>
                         </ul>
-                        <form class="row g-3">
+                        <!-- <form class="row g-3">
                             <div class="col-md-12">
                                 <label class="form-label" for="inputPhoto">Photo</label>
                                 <input type="file" class="form-control" id="inputPhoto">
@@ -184,21 +197,22 @@
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="inputEmail4"
-                                    v-model="profileFormData.email">
+                                    v-model="profileFormData.email" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputPassword4" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" v-model="profileFormData.password"
-                                    maxlength="16">
+                                <input type="password" class="form-control" id="inputPassword4"
+                                    v-model="profileFormData.password" maxlength="16">
                             </div>
                             <div class="col-6">
                                 <label for="inputUsername" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="inputUsername" v-model="profileFormData.username"
-                                    maxlength="16">
+                                <input type="text" class="form-control" id="inputUsername"
+                                    v-model="profileFormData.username" maxlength="16">
                             </div>
                             <div class="col-md-2">
                                 <label for="inputDOB" class="form-label">DateOfBirth</label>
-                                <input type="date" class="form-control" id="inputDOB" v-model="profileFormData.dateOfBirth">
+                                <input type="date" class="form-control" id="inputDOB"
+                                    v-model="profileFormData.dateOfBirth">
                             </div>
                             <div class="col-md-4">
                                 <label for="inputGender" class="form-label">Gender</label>
@@ -211,18 +225,60 @@
                             </div>
                             <div class="col-12">
                                 <label for="introduction" class="form-label">Introduction</label>
-                                <textarea id="introduction" class="form-control" rows="3" maxlength="450" v-model="profileFormData.intro"></textarea>
+                                <textarea id="introduction" class="form-control" rows="3" maxlength="450"
+                                    v-model="profileFormData.intro"></textarea>
                             </div>
-                            <!-- <div class="col-12">
-                                <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
-                            </div> -->
+                        </form>
+                        <div class="update-button">
+                            <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
+                        </div> -->
+                    </div>
+                    <div class="tab-pane fade" id="manage-tab-pane" role="tabpanel" aria-labelledby="manage-tab"
+                        tabindex="0">
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label" for="inputPhoto">Photo</label>
+                                <input type="file" class="form-control" id="inputPhoto">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4"
+                                    v-model="profileFormData.email" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputPassword4" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="inputPassword4"
+                                    v-model="profileFormData.password" maxlength="16">
+                            </div>
+                            <div class="col-6">
+                                <label for="inputUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="inputUsername"
+                                    v-model="profileFormData.username" maxlength="16">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="inputDOB" class="form-label">DateOfBirth</label>
+                                <input type="date" class="form-control" id="inputDOB"
+                                    v-model="profileFormData.dateOfBirth">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputGender" class="form-label">Gender</label>
+                                <select id="inputGender" class="form-select" v-model="profileFormData.gender">
+                                    <option selected>Please select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="introduction" class="form-label">Introduction</label>
+                                <textarea id="introduction" class="form-control" rows="3" maxlength="450"
+                                    v-model="profileFormData.intro"></textarea>
+                            </div>
                         </form>
                         <div class="update-button">
                             <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
                         </div>
                     </div>
-                    <!-- <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab"
-                        tabindex="0">...</div> -->
                 </div>
             </div>
         </div>
@@ -268,45 +324,50 @@
     </div>
     <script src="bootstrapPackage/bootstrap.bundle.min.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Import component library -->
+<!-- <script src="//cdn.jsdelivr.net/npm/element-plus"></script> -->
 <script>
     new Vue({
         el: "#profile",
         data: {
             infoList: [],
             profileFormData: {
-                email: "",
+                email: "abccc@gmail.com",
+                avatar: "",
                 password: "",
                 username: "",
                 dateOfBirth: "",
                 gender: "",
-                intro:""
+                intro: ""
             },
-            myVideoList: [{id:0, title: "Title", author:"ZCC", date:"1/9/2022"}, {id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"}],
+            myVideoList: [{ id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }],
             videoData: {
                 id: 0,
-                imageAddr:"resources/ZCC.JPG",
-                videoAddr:"blankpage.html",
+                imageAddr: "resources/ZCC.JPG",
+                videoAddr: "blankpage.html",
                 title: "Title",
-                author:"ZCC",
-                date:"1/9/2022"
+                author: "ZCC",
+                date: "1/9/2022"
             },
-            favouriteVideoList: [{id:0, title: "Title", author:"HXX", date:"2/9/2022"}, {id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"},{id:0, title: "Title", author:"ZCC", date:"1/9/2022"}],
+            favouriteVideoList: [{ id: 0, title: "Title", author: "HXX", date: "2/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }],
         },
-        
+
         mounted() {
-            this.getInfo();
+            this.getProfileInfo();
         },
 
         methods: {
-            getInfo: function() {
+            getProfileInfo: function () {
                 var profileInfo = window.localStorage.getItem("profileInfo");
                 if (profileInfo) {
                     this.infoList = JSON.parse(profileInfo);
                 }
             },
 
-            updateInfo: function() {
+
+            updateInfo: function () {
                 var profileFormData = {
                     email: this.profileFormData.email,
                     password: this.profileFormData.password,
@@ -315,10 +376,83 @@
                     gender: this.profileFormData.gender,
                     intro: this.profileFormData.intro
                 };
-                this.infoList.splice(0,1);
+                this.infoList.splice(0, 1);
                 this.infoList.push(profileFormData);
                 window.localStorage.setItem("profileInfo", JSON.stringify(this.infoList));
+                // axios.post('http://localhost:3000/api/update/:email', {
+                //     email: this.profileFormData.email,
+                //     username: this.profileFormData.username,
+                //     password: this.profileFormData.password,
+                // })
+                //     .then(function (response) {
+                //         console.log(response);
+                //         if (result.status != 200) {
+                //             alert("Update Unsuccessful. Please Try Again!");
+                //         }
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+                axios.post('http://localhost:3000/api/password-reset', {
+                    email: this.profileFormData.email,
+                    password: this.profileFormData.password,
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        if (result.status != 200) {
+                            alert("Update Unsuccessful. Please Try Again!");
+                        } else {
+                            alert("Update successful. Please Try Again!");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+
+
+            getMyVideoInfo: function () {
+                var that = this;
+                // Make a request for a user with a given ID
+                axios.get('/user?ID=12345')
+                    .then(function (response) {
+                        // handle success
+                        var result = response.data;
+                        console.log(result);
+                        if (result.status == 200) {
+                            that.myVideoList = result;
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+            },
+
+            getFavouriteVideoInfo: function () {
+                // Make a request for a user with a given ID
+                axios.get('/user?ID=12345')
+                    .then(function (response) {
+                        // handle success
+                        var result = response.data;
+                        console.log(result);
+                        if (result.status == 200) {
+                            that.favouriteVideoList = result;
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
             }
+
         }
     });
 </script>

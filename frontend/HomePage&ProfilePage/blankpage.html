@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Draft</title>
+    <link href="bootstrapPackage/bootstrap.min.css" rel="stylesheet">
+    <link href="uploadpage.css" rel="stylesheet">
+    <link href="page-foot.css" rel="stylesheet">
+
+    <style>
+        .list-image {
+            width: 600px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fuck">
+        <el-form-item label="视频">
+            <div>
+                //限制上传完成才能上传下一个
+                <label v-if="progress === 0" class="btn" for="uploadvideo">上传视频</label>
+                <label v-else class="btn" @click="uploading">上传视频</label>
+                <input id="uploadvideo" style="display:none;" type="file" accept="video/*"
+                    @change="selectvideo($event)">
+            </div>
+        </el-form-item>
+        <el-form-item>
+            <div class="list-image">
+                <div v-for="(item,index) in videolist" :key="index">
+                    <video class="video" :src="item.data" alt="" />
+                    <span><i class="el-icon-delete" @click="deletevideo(index)" /><i class="el-icon-caret-right"
+                            style="font-size: 23px;margin-left: 5px;" @click="pay(index)" /></span>
+                </div>
+                <el-progress v-if="progress" type="circle" :percentage="progress" style="height: 126px; width: 126px;"
+                    :status="exception" />
+            </div>
+        </el-form-item>
+    </div>
+    <script src="bootstrapPackage/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+</body>
+<script>
+    import axios from 'axios'
+
+    new Vue({
+        el: "*fuck",
+        data: {
+            exception: '-', //进度条当前状态
+            videolist: [], // 视频合集
+            progress: 0, // 进度条
+            video: '',  // 保存预览地址
+        },
+        methods: {
+            uploading() {
+                this.$message({
+                    message: '请等待上传完成',
+                    type: 'error'
+                })
+            },
+            selectvideo(e) {
+                this.exception = '-'
+                const file = e.target.files[0] // 获取选中的文件
+                if ([
+                    'video/mp4',
+                    'video/ogg',
+                    'video/flv',
+                    'video/avi',
+                    'video/wmv',
+                    'video/rmvb',
+                    'video/mov'
+                ].indexOf(file.type) === -1
+                ) {
+                    // layer.msg('请上传正确的视频格式')
+                    return false
+                }
+                if (!file.size) {
+                    // layer.msg('视频大小不能超过50MB')
+                    return false
+                }
+                const reader = new FileReader()
+                reader.onload = e => {
+                    let data
+                    if (typeof e.target.result === 'object') {
+                        data = window.URL.createObjectURL(new Blob([e.target.result]))
+                    } else {
+                        data = e.target.result
+                    }
+                    this.videosrc = data
+                    // 获取转换后的地址地址
+                }
+                // 转化为base64
+                reader.readAsDataURL(file)
+                const formData = new FormData() // 创建form对象
+                formData.append('file', file) // 通过append向form对象添加数据const res = await upLoadImage(formData);
+                axios({
+                    url: this.apiUrl + '/file',
+                    method: 'post',
+                    data: formData,
+                    headers: { 'Content-Type': 'multipart/form-data', Authorization: `${this.uploadHeaders.Authorization}` },
+                    // 原生获取上传进度的事件
+                    onUploadProgress: progressEvent => {
+                        const process = ((progressEvent.loaded / progressEvent.total) * 100) | 0
+                        this.progress = process
+                    }
+                }).then(res => {
+                    this.$message({ message: `上传${res.data.msg}`, type: 'success' })
+                    // 进度条变成成功状态
+                    this.exception = 'success'
+                    // 延时初始化进度条
+                    setTimeout(() => {
+                        this.progress = 0
+                        // 数据填充 获取本地转化为base64的地址和上传成功地址
+                        this.videolist.push({ data: this.videosrc, src: this.apiUrl + '/file/getImgStream?idFile=' + res.data.data.realFileName })
+                    }, 500)
+                }).catch(_error => {
+                    this.$message({ message: `上传失败`, type: 'error' })
+                    // 进度条变成失败状态
+                    this.exception = 'exception'
+                    // 延时初始化进度条
+                    setTimeout(() => { this.progress = 0 }, 2000)
+                })
+                //   防止第二次同一个文件不能选中
+                e.target.value = ''
+            },
+        }
+
+    })
+</script>
+
+</html>
