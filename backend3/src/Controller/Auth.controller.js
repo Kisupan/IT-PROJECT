@@ -91,12 +91,12 @@ export class AuthController{
 
         form.parse(request, async (error, fields, files)=>{
             if(error){
-                return response.status(500).json({msg:'Failed to rset password'})
+                return response.status(500).json({msg:'Failed to reset password'})
             }
             const{ email, password } = fields;
 
             if(!email || !password){
-                return response.status(400).json({msg:'email and password are required to reset password '})
+                return response.status(400).json({msg:'email and password are required to reset password'})
             }
             const salt = await genSalt(15);
             const hashedPassword = await hash(password, salt)
@@ -109,7 +109,7 @@ export class AuthController{
                 const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
                 return response.status(200).json({msg:'Password rest successful'}) */
                 const updatedAccount = userModel.findOneAndUpdate({email:email}, { $set:{ password: hashedPassword }})
-                return response.status(200).json({msg:'Password rest successful'})
+                return response.status(200).json({msg:'Password reset successful'})
             }catch(error){
                 return response.status(500).json({msg:'Failed to reset password'})
             }
@@ -173,4 +173,24 @@ export class AuthController{
         })
     }
 
+
+    // search for a user
+    searchUser (request, response){
+        const form = new IncomingForm();      
+        form.parse(request, async (error, fields, files) =>{
+            if (error){
+                return response.status(404).json({msg:'No matching results'})
+            }
+            // to make sure search also works for lowercases
+            let {username} = fields;
+            username = username.toLowerCase();
+            try {
+                let user = await userModel.find({username:  {$regex: username }  })
+                return response.send(user)     
+
+            }catch(error){
+                return response.status(500).json({msg:'No matching user'})
+            }   
+        })
+    }
 }

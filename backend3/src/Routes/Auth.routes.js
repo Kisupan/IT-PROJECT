@@ -35,6 +35,11 @@ router.put('/api/update/:email',(request,response)=>{
 })
 
 
+// search for a user
+router.get('/api/search/:username',(request,response)=>{
+    Controller.searchUser (request, response)
+})
+
 
 
 export default router;

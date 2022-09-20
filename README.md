@@ -27,3 +27,7 @@ GET --> http://localhost:3000/api/video-like/videopath
 
 --> Dislike
 GET --> http://localhost:3000/api/video-dislike/videopath
+
+--> Search a single user
+GET --> http://localhost:3000/api/search/key
+Body --> Json --> { "username": "key" }
