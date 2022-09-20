@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="table">
+            <div class="add">
+                <input type="text" placeholder="Email Address" v-model="obj.email">
+                <input type="text" placeholder="User Name" v-model="obj.username">
+                <input type="password" placeholder="Password" id='1' v-model="obj.password">
+                <button @click="add()" style="color:#f07e22">Add</button>
+            </div>
+
+            <table cellpadding="20" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Account ID</th>
+                        <th>Email Address</th>
+                        <th>User Name</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in items" :key='item._id'>
+                        <td>{{item._id}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.password}}</td>
+                        <td>
+                            <button @click="del(item.email)" style="color:red">Delete</button>
+                            <button @click="edit(item)" style="color:green">Edit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div id="layer" v-if="layer">
+                <div class="mask">
+                    <div class="title">
+                        Edit
+                    </div>
+                    <div class="content">
+                        <input type="text" placeholder="Email Address" v-model="editObj.email" readonly="readonly"
+                            style="color:grey">
+                        <input type="text" placeholder="User Name" v-model="editObj.username" readonly="readonly">
+                        <input type="text" placeholder="Password" v-model="editObj.password">
+                        <button @click="updateItems">Update</button>
+                        <button @click="layer = false">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!--1、导入axiose-->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--1、导入vue-->
+<script type="text/javascript">
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    var vm = new Vue({
+        el: '#app',
+        //data()方法 用于获取axios里面返回的数据
+        data() {
+            return {
+                //请求的返回参数格式，必须和axios所得到的json字符串一样
+                items: null,
+                layer: false,
+                editObj: {},
+                obj: {
+                    username: '',
+                    email: '',
+                    password: ''
+                }
+            }
+        },
+        methods: {
+            add() {
+                if (!this.obj.email || !this.obj.username
+                    || !this.obj.password)
+                    return;
+                var params = {
+                    email: this.obj.email,
+                    username: this.obj.username,
+                    password: this.obj.password
+                };
+                console.log(params);
+                axios.post('http://localhost:3000/api/signup', params)
+                    .then(function (request) {
+                        if (request.status == 201) {
+                            alert('账号添加成功！')
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert('邮箱或用户名已被注册');
+                    });
+                this.obj = {}
+            },
+            del(i) {
+                var params = {
+                    email: i
+                }
+                axios.post('http://localhost:3000/api/delete', params)
+                    .then(function (request) {
+                        if (request.status == 200) {
+                            alert('账号删除成功！')
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert('请稍后再试');
+                    });
+
+            },
+            edit(item) {
+                if (item.id != 1) {
+                    this.layer = true;
+                    this.editObj = {
+                        _id: item._id,
+                        email: item.Email,
+                        username: item.User_Name,
+                        password: item.Password,
+                    }
+                }
+            },
+            updateItems() {
+                for (var i = 0; i < this.items.length; i++) {
+                    if (this.items[i]._id == this.editObj._id) {
+                        this.items[i] = this.editObj;
+                        this.layer = false;
+                    }
+                }
+            }
+        },
+        mounted() {//钩子函数  链式编程  ES6新特性
+            var that = this;
+            axios.get('http://localhost:3000/api/findall')
+                .then(function (response) {
+                    that.items = response.data
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    });
+</script>
+
+</html>
