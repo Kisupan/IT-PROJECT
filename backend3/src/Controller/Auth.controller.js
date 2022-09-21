@@ -84,9 +84,39 @@ export class AuthController{
 
         }) 
     }
-
     // forgot password and reset
     forgotPassword(request, response){
+        const form = new IncomingForm();
+
+        form.parse(request, async (error, fields, files)=>{
+            if(error){
+                return response.status(500).json({msg:'Failed to rset password'})
+            }
+            const{ email, password } = fields;
+
+            if(!email || !password){
+                return response.status(400).json({msg:'email and password are required to reset password '})
+            }
+            const salt = await genSalt(15);
+            const hashedPassword = await hash(password, salt)
+
+            try{
+                const user = await userModel.findOne({email:email});
+                if(!user){
+                    return response.status(404).json({msg:'Account with this email does not exist'})
+                }
+               /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
+                return response.status(200).json({msg:'Password rest successful'}) */
+                const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password:hashedPassword }}, {new:true})
+                return response.status(200).json({msg:'Password rest successful'})
+            }catch(error){
+                return response.status(500).json({msg:'Failed to reset password'})
+            }
+        })
+    }
+
+    // forgot password and reset
+    orgotPassword(request, response){
         const form = new IncomingForm();
 
         form.parse(request, async (error, fields, files)=>{
@@ -114,7 +144,7 @@ export class AuthController{
                 return response.status(500).json({msg:'Failed to reset password'})
             }
         })
-    }
+    } 
    /* // updat user info such as user name via email.
     update(request, response){
         const form = new IncomingForm();
