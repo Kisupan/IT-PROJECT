@@ -62,7 +62,8 @@ export class AuthController{
                     username: user.username
                 }
                 const token  = sign(token_payload, process.env.cookie_secret, { expiresIn:'365d' })
-                return response.status(200).json({token})
+                const username = token_payload.username;
+                return response.status(200).json({token, username})
 
             }
             const user = await userModel.findOne({username:account});
@@ -80,7 +81,8 @@ export class AuthController{
                 username: user.username
             }
             const token  = sign(token_payload, process.env.cookie_secret, { expiresIn:'365d' })
-            return response.status(200).json({token})
+            const username = token_payload.username;
+            return response.status(200).json({token, username})
 
         }) 
     }
@@ -161,12 +163,9 @@ export class AuthController{
             if (error){
                 return response.status(500).json({msg:'Failed to delete account, maybe try again later'})
             }
-            //const{ email} = fields;
             try {
                 const user = await userModel.find() 
                 return response.send(user)          
-                //return response.status(200).json({msg:'return all users successful'})
-
             }catch(error){
                 return response.status(500).json({msg:'Failed find all users'})
             }   
@@ -185,7 +184,7 @@ export class AuthController{
             let {username} = fields;
             username = username.toLowerCase();
             try {
-                let user = await userModel.find({username:  {$regex: username }  })
+                let user = await userModel.find({username:  {$regex: username }})
                 return response.send(user)     
 
             }catch(error){
@@ -193,4 +192,6 @@ export class AuthController{
             }   
         })
     }
+
+    
 }
