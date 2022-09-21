@@ -93,25 +93,25 @@ export class AuthController{
 
         form.parse(request, async (error, fields, files)=>{
             if(error){
-                return response.status(500).json({msg:'Failed to reset password'})
+                return response.status(500).json({msg:'Failed to rset password'})
             }
             const{ email, password } = fields;
 
             if(!email || !password){
-                return response.status(400).json({msg:'email and password are required to reset password'})
+                return response.status(400).json({msg:'email and password are required to reset password '})
             }
             const salt = await genSalt(15);
             const hashedPassword = await hash(password, salt)
 
             try{
-                /*const user = await userModel.findOne({email:email});
+                const user = await userModel.findOne({email:email});
                 if(!user){
                     return response.status(404).json({msg:'Account with this email does not exist'})
                 }
-                const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
+               /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
                 return response.status(200).json({msg:'Password rest successful'}) */
-                const updatedAccount = userModel.findOneAndUpdate({email:email}, { $set:{ password: hashedPassword }})
-                return response.status(200).json({msg:'Password reset successful'})
+                const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password:hashedPassword }}, {new:true})
+                return response.status(200).json({msg:'Password rest successful'})
             }catch(error){
                 return response.status(500).json({msg:'Failed to reset password'})
             }
