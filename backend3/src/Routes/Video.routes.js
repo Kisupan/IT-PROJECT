@@ -11,12 +11,20 @@ router.post('/api/video', json(), Authenticate, videoUpload.single('video'), (re
     Controller.upload(request,response)
 })
 
+// like a video
 router.get('/api/video-like/:id',(request, response)=>{
     Controller.like(request, response)
 })
 
+
+// dislike a video
 router.get('/api/video-dislike/:id',(request, response)=>{
     Controller.dislike(request, response)
+})
+
+// search for a video
+router.get('/api/video-search/:key',(request,response)=>{
+    Controller.searchVideo (request, response)
 })
 
 export default router;

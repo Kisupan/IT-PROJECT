@@ -2,12 +2,12 @@ import{ Schema, model} from 'mongoose';
 
 
 const userSchema = new Schema({
-    username:{
+    username:{ // username should be unique
         type:String,
         reuqired: [true, 'Username is required'],
         unique:[true, 'Usename exist']
     },
-    email:{ // email shoulbe be unique
+    email:{ // email should be be unique
         type:String,
         required: [true, 'Email is required to create an account'],
         unique:[true, 'Account with this email already exist']

@@ -38,4 +38,16 @@ export class VideoController{
                 return response.status(200).json({msg:'Video disliked'})
             })
     }
+
+    async searchVideo (request, response){
+        const name = request.params.key;
+            try {
+                let video = await videoModel.find({name:  {$regex: name.toLowerCase() }  })
+                return response.send(video)     
+
+            }catch(error){
+                return response.status(500).json({msg:'No matching video'})
+            }   
+        }
+    
 }
