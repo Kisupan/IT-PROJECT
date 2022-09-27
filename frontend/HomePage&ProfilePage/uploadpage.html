@@ -46,12 +46,12 @@
 
         <div class="upload-area">
             <div class="video-file-container">
-                <input type="file" class="video-file">
+                <input type="file" class="video-file" v-model="myfile" accept="video/*">
             </div>
             <div class="video-info-container">
                 <form class="video-info">
-                    Title: <input type="text" class="video-title" maxlength="100"> <br>
-                    Category: <select id="inputCate" class="cate">
+                    Title: <input type="text" class="video-title" maxlength="100" v-model="title"> <br>
+                    <!-- Category: <select id="inputCate" class="cate">
                         <option selected>Please select</option>
                         <option>Sports</option>
                         <option>Music</option>
@@ -61,11 +61,14 @@
                         <option>News</option>
                         <option>Pet</option>
                         <option>Travel</option>
-                    </select>
+                    </select> -->
                 </form>
             </div>
+            <div class="video-cover">
+                <input type="file" class="video-cover-image" accept="image/*">
+            </div>
             <div class="submit-container">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" @click="uploadVideo()">Submit</button>
             </div>
         </div>
 
@@ -109,9 +112,66 @@
         </div>
         <script src="bootstrapPackage/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+        <!-- <script src="//cdn.jsdelivr.net/npm/element-plus"></script> -->
 </body>
+<script>
+    new Vue({
+        el: "myUploadPage",
+        data: {
+            uploadVideoData: {
+                _id: "",
+                title: "",
+                myfile: ""
+            }
+        },
 
+        methods: {
+            getProfileInfoServer: function () {
+                var that = this;
+                axios.get('http://localhost:3000/api/findall', {
+                    params: {
+                        email: ""
+                    }
+                })
+                    .then(function (response) {
+                        // handle success
+                        var result = response.data;
+                        console.log(result);
+                        if (result.status == 200) {
+                            that.uploadVideoData._id = result._id;
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+            },
+
+            uploadVideo: function () {
+                var that = this;
+                axios.post('http://localhost:3000/api/video', {
+                    _id: uploadVideoData._id,
+                    title: uploadVideoData.title,
+                    file: uploadVideoData.myfile
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.status == 201) {
+                            alert("Update successful!");
+                        } else {
+                            alert("Update Unsuccessful, please try again!");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        },
+    })
+</script>
 
 
 </html>
