@@ -46,7 +46,7 @@ export class VideoController{
                 return response.send(video)     
 
             }catch(error){
-                return response.status(500).json({msg:'No matching video'})
+                return response.status(700).json({msg:'No matching video'})
             }   
         }
     

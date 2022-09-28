@@ -173,24 +173,20 @@ export class AuthController{
     }
 
 
-    // search for a user
-    searchUser (request, response){
-        const form = new IncomingForm();      
-        form.parse(request, async (error, fields, files) =>{
-            if (error){
-                return response.status(404).json({msg:'No matching results'})
-            }
-            // to make sure search also works for lowercases
-            let {username} = fields;
-            username = username.toLowerCase();
-            try {
-                let user = await userModel.find({username:  {$regex: username }})
-                return response.send(user)     
+    // search for a user by request params
+    async searchUser (request, response){
 
-            }catch(error){
-                return response.status(500).json({msg:'No matching user'})
-            }   
-        })
+        const name = request.params.username;
+
+        try {
+            let user = await userModel.find({username:  {$regex: name }})
+            return response.send(user)     
+        }catch(error){
+            return response.status(500).json({msg:'No matching user'})
+        }   
+
+  
+    
     }
 
     
