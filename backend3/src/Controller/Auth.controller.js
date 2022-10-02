@@ -29,7 +29,7 @@ export class AuthController{
                 return response.status(201).json({msg:'Account created successfully'})
             }catch(error){
                 console.log(error)
-                return response.status(500).json({msg:'Failed to create account'})
+                return response.status(501).json({msg:'Username/Email already exist'})
             }      
 
         })
