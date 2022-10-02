@@ -35,27 +35,6 @@
 
 
         <div class="profile-intro-upload">
-            <!-- <div class="avatar-area">
-                <div class="homepage-avatar-container">
-                    <a href="blankpage.html" target="_blank"><img class="account-avatar" src="resources/ZCC.JPG"
-                            style="width:125px; height:125px;"></a>
-                </div>
-            </div>
-            <div class="intro-area">
-                <div class="text-container">
-                    About Me
-                    dadadasdasdadfsyfgvyuehyguygfggfyisagfygyfgyfgyfgysgygyigyiugfwig dauhdgu fauiygfciudadu dfaudg
-                    dagufgafy fcagfdtaf dahsjgdfffag About Me
-                    dadadasdasdadfsyfgvyuehyguygfggfyisagfygyfgyfgyfgysgygyigyiugfwig dauhdgu fauiygfciudadu dfaudg
-                    dagufgafy fcagfdtaf dahsjgdfffag About Me
-                </div>
-            </div>
-            <div class="upload-area">
-                <div class="upload-btn">
-                    <a class="btn btn-light" href="blankpage.html" role="button"
-                        style="margin-left:130px; margin-top: 55px">Upload</a>
-                </div>
-            </div> -->
             <div class="nav-area">
                 <nav class="navbar bg-light">
                     <div class="container-fluid">
@@ -101,11 +80,11 @@
                             type="button" role="tab" aria-controls="intro-tab-pane"
                             aria-selected="false">Profile</button>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <!-- <li class="nav-item" role="presentation">
                         <button class="nav-link" id="manage-tab" data-bs-toggle="tab" data-bs-target="#manage-tab-pane"
                             type="button" role="tab" aria-controls="manage-tab-pane" aria-selected="false">Manage
                             profile</button>
-                    </li>
+                    </li> -->
                     <!-- <li class="nav-item" role="presentation">
                         <button class="nav-link" id="disabled-tab" data-bs-toggle="tab"
                             data-bs-target="#disabled-tab-pane" type="button" role="tab"
@@ -189,6 +168,72 @@
                                 Gender: {{info.gender}} <br>
                             </li>
                         </ul>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#manage-profile">
+                            Manange profile
+                        </button>
+                        <div class="modal fade" id="manage-profile" tabindex="-1" aria-labelledby="myModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">Manage profile</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="row g-3">
+                                            <div class="col-md-12">
+                                                <label class="form-label" for="inputPhoto">Photo</label>
+                                                <input type="file" class="form-control" id="inputPhoto">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="inputEmail4" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="inputEmail4"
+                                                    v-model="profileFormData.email" disabled>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="inputUsername" class="form-label">Username</label>
+                                                <input type="text" class="form-control" id="inputUsername"
+                                                    v-model="profileFormData.username" maxlength="16">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputPassword4" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="inputPassword4"
+                                                    v-model="profileFormData.password" maxlength="16">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputDOB" class="form-label">DateOfBirth</label>
+                                                <input type="date" class="form-control" id="inputDOB"
+                                                    v-model="profileFormData.dateOfBirth">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputGender" class="form-label">Gender</label>
+                                                <select id="inputGender" class="form-select"
+                                                    v-model="profileFormData.gender">
+                                                    <option selected>Please select</option>
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                    <option>Others</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="introduction" class="form-label">Introduction</label>
+                                                <textarea id="introduction" class="form-control" rows="3"
+                                                    maxlength="350" v-model="profileFormData.intro"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            @click="updateInfo()">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- <form class="row g-3">
                             <div class="col-md-12">
                                 <label class="form-label" for="inputPhoto">Photo</label>
@@ -232,8 +277,9 @@
                         <div class="update-button">
                             <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
                         </div> -->
+
                     </div>
-                    <div class="tab-pane fade" id="manage-tab-pane" role="tabpanel" aria-labelledby="manage-tab"
+                    <!-- <div class="tab-pane fade" id="manage-tab-pane" role="tabpanel" aria-labelledby="manage-tab"
                         tabindex="0">
                         <form class="row g-3">
                             <div class="col-md-12">
@@ -278,7 +324,7 @@
                         <div class="update-button">
                             <button type="submit" class="btn btn-primary" @click="updateInfo()">Update</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -336,10 +382,10 @@
             profileFormData: {
                 email: "abccc@gmail.com",
                 avatar: "",
-                password: "",
-                username: "",
-                dateOfBirth: "",
-                gender: "",
+                password: "hxx211",
+                username: "hxx",
+                dateOfBirth: "01/09/2022",
+                gender: "Male",
                 intro: ""
             },
             myVideoList: [{ id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }],
@@ -364,6 +410,30 @@
                 if (profileInfo) {
                     this.infoList = JSON.parse(profileInfo);
                 }
+            },
+
+            getProfileInfoServer: function () {
+                var that = this;
+                axios.get('http://localhost:3000/api/findall', {
+                    params: {
+                        email: ""
+                    }
+                })
+                    .then(function (response) {
+                        // handle success
+                        var result = response.data;
+                        console.log(result);
+                        if (result.status == 200) {
+                            that.profileFormData = result;
+                        }
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
             },
 
 
@@ -399,10 +469,10 @@
                 })
                     .then(function (response) {
                         console.log(response);
-                        if (result.status != 200) {
+                        if (response.status != 200) {
                             alert("Update Unsuccessful. Please Try Again!");
                         } else {
-                            alert("Update successful. Please Try Again!");
+                            alert("Update successful!");
                         }
                     })
                     .catch(function (error) {
@@ -434,6 +504,7 @@
             },
 
             getFavouriteVideoInfo: function () {
+                var that = this;
                 // Make a request for a user with a given ID
                 axios.get('/user?ID=12345')
                     .then(function (response) {
