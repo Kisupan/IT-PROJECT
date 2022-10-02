@@ -176,7 +176,8 @@ export class AuthController{
     // search for a user by request params
     async searchUser (request, response){
 
-        const name = request.params.username;
+        // const name = request.params.username;
+        const name = request.query.username;
 
         try {
             let user = await userModel.find({username:  {$regex: name }})

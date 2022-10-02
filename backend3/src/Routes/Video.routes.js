@@ -23,7 +23,7 @@ router.get('/api/video-dislike/:id',(request, response)=>{
 })
 
 // search for a video
-router.get('/api/video-search/:key',(request,response)=>{
+router.get('/api/video-search/',(request,response)=>{
     Controller.searchVideo (request, response)
 })
 
