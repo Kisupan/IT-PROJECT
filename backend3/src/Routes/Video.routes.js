@@ -11,6 +11,11 @@ router.post('/api/video', json(), Authenticate, videoUpload.single('video'), (re
     Controller.upload(request,response)
 })
 
+// video stream
+router.get('/api/video/:filename', (request, response)=> {
+    Controller.stream(request, response)
+})
+
 // like a video
 router.get('/api/video-like/:id',(request, response)=>{
     Controller.like(request, response)
@@ -25,6 +30,10 @@ router.get('/api/video-dislike/:id',(request, response)=>{
 // search for a video
 router.get('/api/video-search/',(request,response)=>{
     Controller.searchVideo (request, response)
+})
+
+router.delete('/api/video/:video_id/:video_path', (request, response)=>{
+    Controller.delete(request, response)
 })
 
 export default router;
