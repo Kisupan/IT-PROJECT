@@ -3,9 +3,15 @@
         <div class="row row-cols-4">
             <div class="col" v-for="video in recommandVideoList" :key="video.id">
                 <div class="card">
-                    <a href="blankpage.html" target="_blank">
+                    <router-link target="_blank" :to="{
+                        path: '/video',
+                        query: {
+                            id: video.id,
+                            title: video.title
+                        }
+                    }">
                         <img src="resources/avatar.JPG" class="card-img-top" alt="...">
-                    </a>
+                    </router-link>
                     <div class="card-body">
                         <h5>{{video.title}}</h5>
                         <p>{{video.author}}</p>
@@ -24,6 +30,29 @@ export default {
         return {
             recommandVideoList: [{ id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 1, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 2, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 3, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 4, title: "Title", author: "ZCC", date: "1/9/2022" }],
         }
+    },
+
+    methods: {
+        getRecommandVideoInfo: function () {
+            var that = this;
+            // Make a request for a user with a given ID
+            this.axios.get('/user?ID=12345')
+                .then(function (response) {
+                    // handle success
+                    var result = response.data;
+                    console.log(result);
+                    if (result.status == 200) {
+                        that.recommandVideoList = result;
+                    }
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+        },
     }
     
 }

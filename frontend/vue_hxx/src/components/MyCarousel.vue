@@ -13,19 +13,25 @@
                 aria-label="Slide 5"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="4000">
-                <a href="blankpage.html" target="_blank">
+            <div class="carousel-item active" v-for="video in carouselVideoList" :key="video.id">
+                <router-link target="_blank" :to="{
+                    path: '/video',
+                    query: {
+                        id: video.id,
+                        title: video.title
+                    }
+                }">
                     <div class="overlay-image"
                         style="background-image:url(https://media.istockphoto.com/photos/forest-wooden-table-background-summer-sunny-meadow-with-green-grass-picture-id1353553203?b=1&k=20&m=1353553203&s=170667a&w=0&h=QTyTGI9tWQluIlkmwW0s7Q4z7R_IT8egpzzHjW3cSas=);">
                     </div>
-                </a>
+                </router-link>
                 <div class="carousel-item-container">
-                    <h1>Title</h1>
-                    <p>Author: Xuxiao He</p>
-                    <p>Date: 30/08/2022</p>
+                    <h1>{{video.title}}</h1>
+                    <p>{{video.author}}</p>
+                    <p>{{video.date}}</p>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="4000">
+            <!-- <div class="carousel-item" data-bs-interval="4000">
                 <a href="blankpage.html" target="_blank">
                     <div class="overlay-image"
                         style="background-image:url(https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000);">
@@ -48,7 +54,7 @@
                     <p>Author: Xuxiao He</p>
                     <p>Date: 30/08/2022</p>
                 </div>
-                <!-- <img src="..." class="d-block w-100"> -->
+                img src="..." class="d-block w-100">
             </div>
             <div class="carousel-item" data-bs-interval="4000">
                 <a href="blankpage.html" target="_blank">
@@ -73,7 +79,7 @@
                     <p>Author: Xuxiao He</p>
                     <p>Date: 30/08/2022</p>
                 </div>
-            </div>
+            </div> -->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#homepage-carousel"
             data-bs-slide="prev">
@@ -90,7 +96,35 @@
 
 <script>
 export default {
-    name: "HomePageCarousel"
+    name: "HomePageCarousel",
+    data() {
+        return {
+            carouselVideoList:[{ id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 1, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 2, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 3, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 4, title: "Title", author: "ZCC", date: "1/9/2022" }]
+        }
+    },
+
+    methods: {
+        getCarouselVideoInfo: function () {
+            var that = this;
+            // Make a request for a user with a given ID
+            this.axios.get('/user?ID=12345')
+                .then(function (response) {
+                    // handle success
+                    var result = response.data;
+                    console.log(result);
+                    if (result.status == 200) {
+                        that.carouselVideoList = result;
+                    }
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+        },
+    }
 }
 </script>
 
