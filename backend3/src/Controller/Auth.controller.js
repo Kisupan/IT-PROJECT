@@ -15,13 +15,22 @@ export class AuthController{
                 return response.status(500).json({msg:'Failed to create account, maybe try again later'})
             }
 
-            const{username, email, password} = fields; 
+            const{username, email, password, age, gender} = fields; 
+            if(password.length > 20 || password.length < 6){  // password minimum length = 6, maximum length = 20
+                return response.status(503).json({msg:'Password length need to be 6-20 range'})
+
+            }
+            if(age > 150 || age <0){
+                return response.status(502).json({msg:'Invalid age'})
+            }
             const salt = await genSalt(15);
             const hashedPassword = await hash(password, salt);
             const newAccount = new userModel({
                 username,
                 email,
-                password:hashedPassword
+                password:hashedPassword,
+                age,
+                gender
             })
             // create an account successful or failed
             try{
@@ -29,7 +38,7 @@ export class AuthController{
                 return response.status(201).json({msg:'Account created successfully'})
             }catch(error){
                 console.log(error)
-                return response.status(501).json({msg:'Username/Email already exist'})
+                return response.status(501).json({msg:'format error'})
             }      
 
         })
@@ -138,8 +147,6 @@ export class AuthController{
     //delete user account
     delete(request, response){
         const form = new IncomingForm();
-         
-
         form.parse(request, async (error, fields, files) =>{
             if (error){
                 return response.status(500).json({msg:'Failed to delete account, maybe try again later'})
