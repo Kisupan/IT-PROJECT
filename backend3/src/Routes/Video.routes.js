@@ -11,6 +11,10 @@ router.post('/api/video', json(), Authenticate, videoUpload.single('video'), (re
     Controller.upload(request,response)
 })
 
+router.get('/api/video/:filename', (request, response)=> {
+    Controller.stream(request, response)
+})
+
 // like a video
 router.get('/api/video-like/:id',(request, response)=>{
     Controller.like(request, response)
