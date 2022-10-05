@@ -6,6 +6,7 @@ export class VideoController{
 
         const newVideo = new videoModel({
             owner:request.token._id,
+            username:request.username,
             name:request.body.name,
             videopath:request.filename
         })
@@ -51,6 +52,18 @@ export class VideoController{
                 return response.status(700).json({msg:'No matching video'})
             }   
     }
+
+    // // search video by owner id
+    // async searchVideo (request, response){
+    //     const name = request.query.key;
+    //         try {
+    //             let video = await videoModel.find({name:  {$regex: name.toLowerCase() }  })
+    //             return response.send(video)     
+
+    //         }catch(error){
+    //             return response.status(700).json({msg:'No matching video'})
+    //         }   
+    // }
 
     // stream video 
     stream(request, response){

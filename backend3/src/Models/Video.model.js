@@ -5,6 +5,9 @@ const videoSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'user'
     },
+    username:{
+        type:String,
+    },
     name:{
         type:String,
         required:[true, 'Upload video needs a video name']
