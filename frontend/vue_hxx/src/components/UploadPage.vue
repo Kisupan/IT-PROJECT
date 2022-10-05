@@ -1,6 +1,6 @@
 <template>
     <div class="upload-page">
-        <ProfileHeader></ProfileHeader>
+        <!-- <ProfileHeader></ProfileHeader> -->
         <UploadVideo></UploadVideo>
         <VShareFooter></VShareFooter>
     </div>
@@ -8,13 +8,13 @@
 
 <script>
 import UploadVideo from './UploadVideo.vue';
-import ProfileHeader from './ProfileHeader.vue';
+// import ProfileHeader from './ProfileHeader.vue';
 import VShareFooter from './VShareFooter.vue';
 export default {
     name: 'UploadPage',
     components: {
     UploadVideo,
-    ProfileHeader,
+    // ProfileHeader,
     VShareFooter
 }
 }

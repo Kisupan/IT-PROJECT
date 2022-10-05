@@ -3,7 +3,7 @@
         <div class="nav-area">
             <nav class="navbar bg-light">
                 <div class="container-fluid">
-                    <div class="navbar-brand" href="profilepage.html" v-for="info in infoList" :key="info._id">
+                    <div class="navbar-brand" href="profilepGender.html" v-for="info in infoList" :key="info._id">
                         <img src="/resources/ZCC.JPG" alt="" width="100" height="100"
                             class="d-inline-block align-text-center" style="border-radius: 50%;">
                         <p class="web-name" style="color:black; display: inline-block;">
@@ -15,8 +15,8 @@
                         </p>
                     </div>
                     <div class="upload">
-                        <a class="btn btn-outline-primary" href="uploadpage.html" role="button"
-                            target="_blank">Upload Video</a>
+                        <router-link class="btn btn-outline-primary" to="/upload" role="button"
+                            target="_blank">Upload Video</router-link>
                     </div>
                 </div>
             </nav>
@@ -48,7 +48,7 @@
                         <div class="row row-cols-4">
                             <div class="col" v-for="video in myVideoList" :key="video._id">
                                 <div class="card">
-                                    <a href="blankpage.html" target="_blank">
+                                    <a href="blankpGender.html" target="_blank">
                                         <img src="resources/ZCC.JPG" class="card-img-top" alt="...">
                                     </a>
                                     <div class="card-body">
@@ -67,7 +67,7 @@
                         <div class="row row-cols-4">
                             <div class="col" v-for="video in favouriteVideoList" :key="video._id">
                                 <div class="card">
-                                    <a href="blankpage.html" target="_blank">
+                                    <a href="blankpGender.html" target="_blank">
                                         <img src="resources/ZCC.JPG" class="card-img-top" alt="...">
                                     </a>
                                     <div class="card-body">
@@ -84,25 +84,25 @@
                     tabindex="0">
                     <ul type="none">
                         <li class="profile-info" v-for="info in infoList" :key="info._id">
-                            <!-- {{info.email}} - {{info.password}} - {{info.username}} - {{info.dateOfBirth}} - {{info.gender}} -->
+                            <!-- {{info.email}} - {{info.password}} - {{info.username}} - {{info.age}} - {{info.Gender}} -->
                             E-Mail: {{info.email}} <br>
                             Password: {{info.password}} <br>
                             Username: {{info.username}} <br>
-                            Date of birth: {{info.dateOfBirth}} <br>
-                            Gender: {{info.gender}} <br>
+                            Age: {{info.age}} <br>
+                            Gender: {{info.Gender}} <br>
                         </li>
                     </ul>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#manage-profile">
+                        data-bs-target="#manGender-profile">
                         Manange profile
                     </button>
-                    <div class="modal fade" id="manage-profile" tabindex="-1" aria-labelledby="myModalLabel"
+                    <div class="modal fade" id="manGender-profile" tabindex="-1" aria-labelledby="myModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="myModalLabel">Manage profile</h5>
+                                    <h5 class="modal-title" id="myModalLabel">ManGender profile</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -128,14 +128,14 @@
                                                 v-model="profileFormData.password" maxlength="16">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="inputDOB" class="form-label">DateOfBirth</label>
+                                            <label for="inputDOB" class="form-label">age</label>
                                             <input type="date" class="form-control" id="inputDOB"
-                                                v-model="profileFormData.dateOfBirth">
+                                                v-model="profileFormData.age">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputGender" class="form-label">Gender</label>
                                             <select id="inputGender" class="form-select"
-                                                v-model="profileFormData.gender">
+                                                v-model="profileFormData.Gender">
                                                 <option selected>Please select</option>
                                                 <option>Male</option>
                                                 <option>Female</option>
@@ -174,8 +174,8 @@ export default {
                 avatar: "",
                 password: "hxx211",
                 username: "hxx",
-                dateOfBirth: "01/09/2022",
-                gender: "Male",
+                age: "01/09/2022",
+                Gender: "Male",
                 intro: ""}],
             profileFormData: {
                 _id: "",
@@ -183,15 +183,15 @@ export default {
                 avatar: "",
                 password: "hxx211",
                 username: "hxx",
-                dateOfBirth: "01/09/2022",
-                gender: "Male",
+                age: "01/09/2022",
+                Gender: "Male",
                 intro: ""
             },
             myVideoList: [{ id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }, { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" }],
             videoData: {
                 id: 0,
-                imageAddr: "resources/ZCC.JPG",
-                videoAddr: "blankpage.html",
+                imGenderAddr: "resources/ZCC.JPG",
+                videoAddr: "blankpGender.html",
                 title: "Title",
                 author: "ZCC",
                 date: "1/9/2022"
@@ -214,9 +214,9 @@ export default {
 
         getProfileInfoServer: function () {
             var that = this;
-            this.axios.get('http://localhost:3000/api/findall', {
+            this.axios.get('http://localhost:3000/api/searchUser', {
                 params: {
-                    email: ""
+                    username: "user2"
                 }
             })
                 .then(function (response) {
@@ -242,8 +242,8 @@ export default {
                 email: this.profileFormData.email,
                 password: this.profileFormData.password,
                 username: this.profileFormData.username,
-                dateOfBirth: this.profileFormData.dateOfBirth,
-                gender: this.profileFormData.gender,
+                age: this.profileFormData.age,
+                Gender: this.profileFormData.Gender,
                 intro: this.profileFormData.intro
             };
             this.infoList.splice(0, 1);

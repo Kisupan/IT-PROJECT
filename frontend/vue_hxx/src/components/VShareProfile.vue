@@ -1,6 +1,6 @@
 <template>
     <div class="profile-page">
-        <ProfileHeader></ProfileHeader>
+        <!-- <ProfileHeader></ProfileHeader> -->
         <ProfileBody></ProfileBody>
         <VShareFooter></VShareFooter>
     </div>
@@ -8,14 +8,14 @@
 
 <script>
 import VShareFooter from './VShareFooter.vue';
-import ProfileHeader from './ProfileHeader.vue';
+// import ProfileHeader from './ProfileHeader.vue';
 import ProfileBody from './ProfileBody.vue';
 
 export default {
     name: 'VShareProfile',
     components: {
         VShareFooter,
-        ProfileHeader,
+        // ProfileHeader,
         ProfileBody
 }
 }
