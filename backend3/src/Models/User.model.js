@@ -5,6 +5,9 @@ const uservalidator = (s) =>
 const emailvalidator = (s) =>
     /^[a-z0-9@.-_]{6,40}$/.test(s)
 
+const agevalidator = (s) =>
+    /^[0-9]{1,3}$/.test(s)
+
 const userSchema = new Schema({
     username:{ // username should be unique and no longer than 20 characters
         type:String,
@@ -18,14 +21,15 @@ const userSchema = new Schema({
         unique:[true, 'Account with this email already exist'],
         validate: [emailvalidator, 'Please enter numbers, alphabets, and @ . - _ only']
     },
-    password:{ // password maximum length = 20
+    password:{
         type:String,
         requried:[true, 'Password is required to create account'],
 
     },
-    age:{ // age should be within 0 - 150 range
+    age:{ // age should be within 0 - 120 range
         type:Number,
         requried:[true, 'Age is required to create an account'],
+        validate: [agevalidator, 'Please enter a number between 0-120']
 
     },
     gender:{
