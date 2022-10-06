@@ -126,24 +126,41 @@ export class AuthController{
             }
         })
     }
-   /* // updat user info such as user name via email.
+
+    // updat user info such as username, password, age and gender via email.
     update(request, response){
         const form = new IncomingForm();
+
         form.parse(request, async (error, fields, files)=>{
             if(error){
-                return response.status(500).json({msg:'Failed to update'})
+                return response.status(500).json({msg:'Failed to rset password'})
             }
+            const{ email, password, username, age, gender} = fields;
+
+            if(!email || !password || !username ||!age || !gender){
+                return response.status(400).json({msg:'email，password，username, age and gender are required to edit '})
+            }
+            const salt = await genSalt(15);
+            const hashedPassword = await hash(password, salt)
+            const newUsername = username
+            const newAge = age
+            const newGender=  gender
+
             try{
-                const updatedAccount = userModel.findOneAndUpdate({email:email}, { $set:{username:username}})
-                return response.send(user)   
-                //return response.status(200).json({msg:'update successful'})
+                const user = await userModel.findOne({email:email});
+                if(!user){
+                    return response.status(404).json({msg:'Account with this email does not exist'})
+                }
+               /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
+                return response.status(200).json({msg:'Password rest successful'}) */
+                const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password:hashedPassword, username:newUsername, age: newAge, gender: newGender}}, {new:true})
+                return response.status(200).json({msg:'Edit successful'})
             }catch(error){
-                return response.status(500).json({msg:'Failed to update, maybe try again later'})
+                return response.status(500).json({msg:'Failed to Edit'})
             }
         })
-    } */
-
-
+    }
+  
     //delete user account
     delete(request, response){
         const form = new IncomingForm();

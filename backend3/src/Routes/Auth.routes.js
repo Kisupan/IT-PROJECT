@@ -19,6 +19,7 @@ router.post('/api/password-reset',(request,response)=>{
     Controller.forgotPassword(request, response)
 })
 
+ 
 // delet a user from mongo DB
 router.post('/api/delete',(request,response)=>{
     Controller.delete(request, response)
@@ -40,7 +41,10 @@ router.get('/api/search/',(request,response)=>{
     Controller.searchUser (request, response)
 })
 
- 
+// Update user info including  email, password, username, age and gender
+router.post('/api/update',(request,response)=>{
+    Controller.update(request,response)  
+})
 
 
 
