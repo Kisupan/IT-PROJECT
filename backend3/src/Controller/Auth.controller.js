@@ -38,7 +38,7 @@ export class AuthController {
                 return response.status(201).json({ msg: 'Account created successfully' })
             } catch (error) {
                 console.log(error)
-                return response.status(501).json({ msg: 'format error' })
+                return response.status(501).json({ msg: 'This account has been registered. Change email or username' })
             }
 
         })
@@ -133,7 +133,7 @@ export class AuthController {
 
         form.parse(request, async (error, fields, files) => {
             if (error) {
-                return response.status(500).json({ msg: 'Failed to rset password' })
+                return response.status(500).json({ msg: 'Failed to update. Try again later' })
             }
             const { email, username, age, gender } = fields;
             const newUsername = username
@@ -150,7 +150,7 @@ export class AuthController {
                 const updatedAccount = await userModel.findOneAndUpdate({ email: email }, { $set: { username: newUsername, age: newAge, gender: newGender } }, { new: true })
                 return response.status(200).json({ msg: 'Edit successful' })
             } catch (error) {
-                return response.status(500).json({ msg: 'Failed to Edit' })
+                return response.status(500).json({ msg: 'Failed to update. Change email or username and try again' })
             }
         })
     }
