@@ -1,218 +1,212 @@
 import { IncomingForm } from 'formidable';
 import { genSalt, hash, compare } from 'bcrypt';
-import {config} from 'dotenv';
-import { verify, sign} from 'jsonwebtoken'; 
-import { userModel} from '../Models/User.model'
+import { config } from 'dotenv';
+import { verify, sign } from 'jsonwebtoken';
+import { userModel } from '../Models/User.model'
 config()
 
-export class AuthController{
+export class AuthController {
     //signup method
-    signup(request,response){
+    signup(request, response) {
         const form = new IncomingForm();
 
-        form.parse(request, async (error, fields, files) =>{
-            if (error){
-                return response.status(500).json({msg:'Failed to create account, maybe try again later'})
+        form.parse(request, async (error, fields, files) => {
+            if (error) {
+                return response.status(500).json({ msg: 'Failed to create account, maybe try again later' })
             }
 
-            const{username, email, password, age, gender} = fields; 
-            if(password.length > 20 || password.length < 6){  // password minimum length = 6, maximum length = 20
-                return response.status(503).json({msg:'Password length need to be 6-20 range'})
+            const { username, email, password, age, gender } = fields;
+            if (password.length > 20 || password.length < 6) {  // password minimum length = 6, maximum length = 20
+                return response.status(503).json({ msg: 'Password length need to be 6-20 range' })
 
             }
-            if(age > 150 || age <0){
-                return response.status(502).json({msg:'Invalid age'})
+            if (age > 150 || age < 0) {
+                return response.status(502).json({ msg: 'Invalid age' })
             }
             const salt = await genSalt(15);
             const hashedPassword = await hash(password, salt);
             const newAccount = new userModel({
                 username,
                 email,
-                password:hashedPassword,
+                password: hashedPassword,
                 age,
                 gender
             })
             // create an account successful or failed
-            try{
+            try {
                 const savedAccount = await newAccount.save();
-                return response.status(201).json({msg:'Account created successfully'})
-            }catch(error){
+                return response.status(201).json({ msg: 'Account created successfully' })
+            } catch (error) {
                 console.log(error)
-                return response.status(501).json({msg:'format error'})
-            }      
+                return response.status(501).json({ msg: 'format error' })
+            }
 
         })
     }
-    
+
     // sign in
-    signin(request, response){
+    signin(request, response) {
         const form = new IncomingForm();
 
-        form.parse(request,async (error, fields, files)=>{
-            if(error){
-                return response.status(500).json({msg:'Failed to signin'})
+        form.parse(request, async (error, fields, files) => {
+            if (error) {
+                return response.status(500).json({ msg: 'Failed to signin' })
             }
-            const{account, password} = fields;
+            const { account, password } = fields;
             // email log in 
             const isAccountEmail = account.includes('@');
-            if(isAccountEmail){
-                const user = await userModel.findOne({email:account});
-                
-                if(!user){
-                    return response.status(404).json({msg:'Email of this account does not exist'})
+            if (isAccountEmail) {
+                const user = await userModel.findOne({ email: account });
+
+                if (!user) {
+                    return response.status(404).json({ msg: 'Email of this account does not exist' })
                 }
                 const isPasswordValid = await compare(password, user.password);  // hashed password
-                if(!isPasswordValid){
-                    return response.status(400).json({msg:'Invalid password'})
+                if (!isPasswordValid) {
+                    return response.status(400).json({ msg: 'Invalid password' })
                 }
                 const token_payload = {
-                    _id:user._id,
+                    _id: user._id,
                     email: user.email,
                     username: user.username
                 }
-                const token  = sign(token_payload, process.env.cookie_secret, { expiresIn:'365d' })
+                const token = sign(token_payload, process.env.cookie_secret, { expiresIn: '365d' })
                 const username = token_payload.username;
-                return response.status(200).json({token, username})
+                return response.status(200).json({ token, username })
 
             }
-            const user = await userModel.findOne({username:account});
-                
-            if(!user){
-                return response.status(404).json({msg:'username of this account does not exist'})
+            const user = await userModel.findOne({ username: account });
+
+            if (!user) {
+                return response.status(404).json({ msg: 'username of this account does not exist' })
             }
             const isPasswordValid = await compare(password, user.password);  // hashed password
-            if(!isPasswordValid){
-                return response.status(400).json({msg:'Invalid password'})
+            if (!isPasswordValid) {
+                return response.status(400).json({ msg: 'Invalid password' })
             }
             const token_payload = {
-                _id:user._id,
+                _id: user._id,
                 email: user.email,
                 username: user.username
             }
-            const token  = sign(token_payload, process.env.cookie_secret, { expiresIn:'365d' })
+            const token = sign(token_payload, process.env.cookie_secret, { expiresIn: '365d' })
             const username = token_payload.username;
-            return response.status(200).json({token, username})
+            return response.status(200).json({ token, username })
 
-        }) 
+        })
     }
 
     // forgot password and reset
-    forgotPassword(request, response){
+    forgotPassword(request, response) {
         const form = new IncomingForm();
 
-        form.parse(request, async (error, fields, files)=>{
-            if(error){
-                return response.status(500).json({msg:'Failed to rset password'})
+        form.parse(request, async (error, fields, files) => {
+            if (error) {
+                return response.status(500).json({ msg: 'Failed to rset password' })
             }
-            const{ email, password } = fields;
+            const { email, password } = fields;
 
-            if(!email || !password){
-                return response.status(400).json({msg:'email and password are required to reset password '})
+            if (!email || !password) {
+                return response.status(400).json({ msg: 'email and password are required to reset password ' })
             }
             const salt = await genSalt(15);
             const hashedPassword = await hash(password, salt)
 
-            try{
-                const user = await userModel.findOne({email:email});
-                if(!user){
-                    return response.status(404).json({msg:'Account with this email does not exist'})
+            try {
+                const user = await userModel.findOne({ email: email });
+                if (!user) {
+                    return response.status(404).json({ msg: 'Account with this email does not exist' })
                 }
-               /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
-                return response.status(200).json({msg:'Password rest successful'}) */
-                const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password:hashedPassword }}, {new:true})
-                return response.status(200).json({msg:'Password rest successful'})
-            }catch(error){
-                return response.status(500).json({msg:'Failed to reset password'})
+                /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
+                 return response.status(200).json({msg:'Password rest successful'}) */
+                const updatedAccount = await userModel.findOneAndUpdate({ email: email }, { $set: { password: hashedPassword } }, { new: true })
+                return response.status(200).json({ msg: 'Password rest successful' })
+            } catch (error) {
+                return response.status(500).json({ msg: 'Failed to reset password' })
             }
         })
     }
 
     // updat user info such as username, password, age and gender via email.
-    update(request, response){
+    update(request, response) {
         const form = new IncomingForm();
 
-        form.parse(request, async (error, fields, files)=>{
-            if(error){
-                return response.status(500).json({msg:'Failed to rset password'})
+        form.parse(request, async (error, fields, files) => {
+            if (error) {
+                return response.status(500).json({ msg: 'Failed to rset password' })
             }
-            const{ email, password, username, age, gender} = fields;
-
-            if(!email || !password || !username ||!age || !gender){
-                return response.status(400).json({msg:'email，password，username, age and gender are required to edit '})
-            }
-            const salt = await genSalt(15);
-            const hashedPassword = await hash(password, salt)
+            const { email, username, age, gender } = fields;
             const newUsername = username
             const newAge = age
-            const newGender=  gender
+            const newGender = gender
 
-            try{
-                const user = await userModel.findOne({email:email});
-                if(!user){
-                    return response.status(404).json({msg:'Account with this email does not exist'})
+            try {
+                const user = await userModel.findOne({ email: email });
+                if (!user) {
+                    return response.status(404).json({ msg: 'Account with this email does not exist' })
                 }
-               /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
-                return response.status(200).json({msg:'Password rest successful'}) */
-                const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password:hashedPassword, username:newUsername, age: newAge, gender: newGender}}, {new:true})
-                return response.status(200).json({msg:'Edit successful'})
-            }catch(error){
-                return response.status(500).json({msg:'Failed to Edit'})
+                /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
+                 return response.status(200).json({msg:'Password rest successful'}) */
+                const updatedAccount = await userModel.findOneAndUpdate({ email: email }, { $set: { username: newUsername, age: newAge, gender: newGender } }, { new: true })
+                return response.status(200).json({ msg: 'Edit successful' })
+            } catch (error) {
+                return response.status(500).json({ msg: 'Failed to Edit' })
             }
         })
     }
-  
-    //delete user account
-    delete(request, response){
-        const form = new IncomingForm();
-        form.parse(request, async (error, fields, files) =>{
-            if (error){
-                return response.status(500).json({msg:'Failed to delete account, maybe try again later'})
-            }
-            const{ email} = fields;
-            try {
-                const user = await userModel.findOneAndDelete({email: email});
-                return response.status(200).json({msg:'delete successful'})
 
-            }catch(error){
-                return response.status(500).json({msg:'Failed to delete'})
-            }   
+    //delete user account
+    delete(request, response) {
+        const form = new IncomingForm();
+        form.parse(request, async (error, fields, files) => {
+            if (error) {
+                return response.status(500).json({ msg: 'Failed to delete account, maybe try again later' })
+            }
+            const { email } = fields;
+            try {
+                const user = await userModel.findOneAndDelete({ email: email });
+                return response.status(200).json({ msg: 'delete successful' })
+
+            } catch (error) {
+                return response.status(500).json({ msg: 'Failed to delete' })
+            }
         })
     }
 
     // find all user
-    findAllUser(request, response){
-        const form = new IncomingForm();      
+    findAllUser(request, response) {
+        const form = new IncomingForm();
 
-        form.parse(request, async (error, fields, files) =>{
-            if (error){
-                return response.status(500).json({msg:'Failed to delete account, maybe try again later'})
+        form.parse(request, async (error, fields, files) => {
+            if (error) {
+                return response.status(500).json({ msg: 'Failed to delete account, maybe try again later' })
             }
             try {
-                const user = await userModel.find() 
-                return response.send(user)          
-            }catch(error){
-                return response.status(500).json({msg:'Failed find all users'})
-            }   
+                const user = await userModel.find()
+                return response.send(user)
+            } catch (error) {
+                return response.status(500).json({ msg: 'Failed find all users' })
+            }
         })
     }
 
 
     // search for a user by request params
-    async searchUser (request, response){
+    async searchUser(request, response) {
 
         // const name = request.params.username;
         const name = request.query.username;
 
         try {
-            let user = await userModel.find({username:  {$regex: name }})
-            return response.send(user)     
-        }catch(error){
-            return response.status(500).json({msg:'No matching user'})
-        }   
+            let user = await userModel.find({ username: { $regex: name } })
+            return response.send(user)
+        } catch (error) {
+            return response.status(500).json({ msg: 'No matching user' })
+        }
 
-  
-    
+
+
     }
 
-    
+
 }
