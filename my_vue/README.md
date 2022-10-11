@@ -1,4 +1,4 @@
-# my_vue
+# front_end
 
 ## Project setup
 ```

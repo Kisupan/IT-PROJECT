@@ -1,0 +1,169 @@
+.carousel-item {
+    height: 32em;
+    background: #777;
+    color: white;
+    position: relative;
+
+}
+
+.carousel-item-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 50px;
+    padding-left: 100px;
+}
+
+.video-title {
+    text-decoration: none;
+    color: white;
+}
+
+.overlay-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
+}
+
+
+/* .logo {
+    display: inline-block;
+} */
+
+/* .HomepageHeader {
+    display: flex;
+}
+
+.left-container {
+    flex: 1;
+    margin-top: 20px;
+}
+
+.middle-container {
+    flex: 100;
+    margin: auto;
+    margin-top: 50px;
+    margin-left: 400px;
+}
+
+.right-container {
+    flex: 1;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.searchBar {
+    width: 250px;
+} */
+
+#search-bar {
+    width: 400px;
+}
+
+.recommend-videos-area {
+    margin-top: 30px;
+}
+
+.col {
+    padding: 30px;
+}
+
+.row {
+    padding-left: 15px;
+}
+
+/* .sign-up-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.sign-in-button:hover {
+    background-color: white;
+    color: black;
+} */
+
+/* .search-button:hover {
+    background-color: white;
+    color: black;
+} */
+
+/* .sign-up-button {
+    margin-left: 30px;
+    color: white;
+    background-color: rgb(86, 121, 182);
+    border-radius: 10px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.sign-in-button {
+    margin-left: 200px;
+    color: white;
+    background-color: rgb(86, 121, 182);
+    border-radius: 10px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+} */
+
+/* #search-button {
+    color: white;
+    background-color: rgb(86, 121, 182);
+    border-radius: 10px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+} */
+
+.account-avatar {
+    border-radius: 50%;
+}
+
+
+
+.channel-items {
+    grid-template-columns: repeat(9, 1fr);
+    padding-right: 20px;
+    display: grid;
+    width: 100%;
+    grid-auto-flow: column;
+    grid-column: span 4;
+    grid-gap: 10px;
+    border-right: 1px solid var(--line_regular);
+}
+
+.channel-link {
+    font-size: large;
+    height: 22px;
+    text-decoration: none;
+    line-height: 22px;
+    display: inline-block;
+    box-sizing: content-box;
+    width: 90%;
+    height: 100%;
+    border: 1px solid var(--line_light);
+    border-radius: 10px;
+    background-color: rgb(86, 121, 182);
+    color: white;
+    text-align: center;
+    font-weight: 400;
+    transition: background-color .3s, color .3s;
+}
+
+.homepage-channel-navigation-bar {
+    padding-left: 30px;
+    padding-top: 40px;
+}
+
+a:hover {
+    background-color: #fff;
+    color: black;
+}
+
+#homepage-carousel {
+    padding-top: 20px;
+}

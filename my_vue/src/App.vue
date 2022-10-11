@@ -1,28 +1,24 @@
 <template>
-  <div id="app">
-    <div v-if="isRouterAlive"><VShareHeader></VShareHeader></div>
-
+  <div>
     <router-view v-if="isRouterAlive"></router-view>
-    <!-- <VShareProfile></VShareProfile> -->
-    <!-- <VShareHomePage></VShareHomePage> -->
-    <!-- <UploadPage></UploadPage> -->
+    <div v-show="show">
+      <router-link to="/Administrator"
+        ><button @click="clickit" class="btn btn-outline-primary">
+          To Administrator
+        </button></router-link
+      >
+      <router-link to="/VideoPlay?path=/resources/sb.mp4"
+        ><button @click="clickit" class="btn btn-outline-primary">
+          To VideoPlay
+        </button></router-link
+      >
+    </div>
   </div>
 </template>
 
 <script>
-// import VShareProfile from './components/VShareProfile.vue';
-// import VShareHomePage from './components/VShareHomePage.vue'
-// import UploadPage from './components/UploadPage.vue'
-import VShareHeader from "./components/VShareHeader.vue";
-
 export default {
   name: "App",
-  components: {
-    // VShareProfile
-    // VShareHomePage,
-    // UploadPage
-    VShareHeader,
-  },
   provide() {
     return {
       reload: this.reload,
@@ -31,6 +27,7 @@ export default {
   data() {
     return {
       isRouterAlive: true,
+      show: true,
     };
   },
   methods: {
@@ -40,9 +37,14 @@ export default {
         this.isRouterAlive = true;
       });
     },
+    clickit() {
+      this.show = false;
+    },
   },
 };
 </script>
-
-<style>
+<style scoped>
+.active {
+  display: none;
+}
 </style>
