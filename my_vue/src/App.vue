@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <VShareHeader></VShareHeader>
+    <div v-if="isRouterAlive"><VShareHeader></VShareHeader></div>
+
     <router-view v-if="isRouterAlive"></router-view>
     <!-- <VShareProfile></VShareProfile> -->
     <!-- <VShareHomePage></VShareHomePage> -->

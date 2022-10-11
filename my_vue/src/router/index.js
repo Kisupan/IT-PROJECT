@@ -55,11 +55,13 @@ router.beforeEach((to, from, next) => {
         // }
         next()
     } else {
-        if (localStorage.getItem('login') === 'true') {
+        if (localStorage.getItem('Token') !== null) {
+            console.log(localStorage.getItem('Token'))
             next()
         } else {
-            next()
-            // alert('Please sign in first!')
+            //next()
+            alert('Please sign in first!')
+            console.log(localStorage.getItem('Token'))
         }
     }
 })

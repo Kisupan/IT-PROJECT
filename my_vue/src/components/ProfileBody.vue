@@ -96,13 +96,13 @@
             <div class="row row-cols-4">
               <div class="col" v-for="video in myVideoList" :key="video._id">
                 <div class="card">
-                  <a href="blankpGender.html" target="_blank">
+                  <router-link to="/video" target="_blank">
                     <img
                       src="resources/ZCC.JPG"
                       class="card-img-top"
                       alt="..."
                     />
-                  </a>
+                  </router-link>
                   <div class="card-body">
                     <h5>{{ video.title }}</h5>
                     <p>{{ video.author }}</p>
@@ -448,8 +448,11 @@ export default {
     getMyVideoInfo: function () {
       var that = this;
       // Make a request for a user with a given ID
+
       this.axios
-        .get("/user?ID=12345")
+        .get("http://localhost:3000/api/video-search/", {
+          params: {},
+        })
         .then(function (response) {
           // handle success
           var result = response.data;
@@ -500,11 +503,12 @@ export default {
   mounted() {
     var that = this;
     // this.getProfileInfo();
-
+    var name = localStorage.getItem("Username");
+    console.log(name);
     this.axios
       .get("http://localhost:3000/api/search/", {
         params: {
-          username: "user1",
+          username: name,
         },
       })
       .then(function (response) {
