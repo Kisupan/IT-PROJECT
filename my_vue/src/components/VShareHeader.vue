@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="my-header" v-if="profileFormData.notlogin">
+    <div class="my-header" v-if="notlogin">
       <nav class="navbar bg-light">
         <div class="container-fluid">
           <router-link class="navbar-brand" to="/homepage">
@@ -87,8 +87,9 @@
                     >
                       Cancel
                     </button>
+
                     <button
-                      type="submit"
+                      type="button"
                       class="btn btn-primary"
                       data-bs-dismiss="modal"
                       @click="Signin"
@@ -271,20 +272,11 @@
 <script>
 export default {
   name: "VShareHeader",
-  inject: ["reload"],
+  inject: ["reload", "admin_system_load"],
   data() {
     return {
-      profileFormData: {
-        _id: "",
-        email: "abccc@gmail.com",
-        avatar: "",
-        password: "hxx211",
-        username: "hxx",
-        dateOfBirth: "01/09/2022",
-        gender: "Male",
-        intro: "",
-        notlogin: true,
-      },
+      notlogin: true,
+      notadmin: true,
       SigninObj: {
         account: "",
         password: "",
@@ -313,9 +305,17 @@ export default {
         .post("http://localhost:3000/api/signin", params)
         .then(function (response) {
           console.log(response.data.token);
+          console.log(response.data.username);
           if (response.status == 200) {
             localStorage.setItem("Token", response.data.token);
             localStorage.setItem("Username", response.data.username);
+            if (localStorage.getItem("Username") === "admin") {
+              // that.notadmin = false;
+              // that.notlogin = false;
+              // that.$router.push("/admin");
+              that.admin_system_load();
+              return;
+            }
             that.reload();
             setTimeout(() => {
               alert("Login in successful!");
@@ -402,6 +402,7 @@ export default {
 
     Signout() {
       localStorage.clear();
+      this.notadmin = true;
       setTimeout(() => {
         this.reload();
       }, 900);
@@ -409,7 +410,7 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("Token") !== null) {
-      this.profileFormData.notlogin = false;
+      this.notlogin = false;
     }
   },
 };
