@@ -6,7 +6,8 @@ export class VideoController{
 
         const newVideo = new videoModel({
             owner:request.token._id,
-            username:request.username,
+           // owner: request.username,
+            username:request.body.username,
             name:request.body.name,
             videopath:request.filename
         })
