@@ -37,7 +37,7 @@ router.put('/api/update/:email',(request,response)=>{
 
 
 // search for a user
-router.get('/api/search/',(request,response)=>{
+router.get('/api/user-search/',(request,response)=>{
     Controller.searchUser (request, response)
 })
 
