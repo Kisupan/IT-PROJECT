@@ -42,9 +42,9 @@ router.delete('/api/video/:video_id/:video_path', (request, response)=>{
 //     Controller.searchCat (request, response)
 // })
 
-// //find all videoes and return 
-// router.get('/api/findallV',(request,response)=>{
-//     Controller.findAllVideo (request, response)
-// })
+//find all videos and return 
+router.get('/api/findallV',(request, response)=>{
+    Controller.findAllVideo (request, response)
+})
 
 export default router;

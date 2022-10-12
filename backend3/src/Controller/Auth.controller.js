@@ -191,21 +191,15 @@ export class AuthController {
     }
 
 
-    // search for a user by request params
+    // search for a user by request 
     async searchUser(request, response) {
-
-        // const name = request.params.username;
         const name = request.query.username;
-
         try {
             let user = await userModel.find({ username: { $regex: name } })
             return response.send(user)
         } catch (error) {
             return response.status(500).json({ msg: 'No matching user' })
         }
-
-
-
     }
 
 
