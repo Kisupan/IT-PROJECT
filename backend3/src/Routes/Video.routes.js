@@ -37,10 +37,15 @@ router.delete('/api/video/:video_id/:video_path', (request, response)=>{
     Controller.delete(request, response)
 })
 
-// // search for video under certain category
-// router.get('/api/cat-search/',(request,response)=>{
-//     Controller.searchCat (request, response)
-// })
+// search for video under certain user
+router.get('/api/user-video-search/',(request,response)=>{
+    Controller.searchUVideo (request, response)
+})
+
+// search for video under certain category
+router.get('/api/cat-search/',(request,response)=>{
+    Controller.searchCat (request, response)
+})
 
 //find all videos and return 
 router.get('/api/findallV',(request, response)=>{

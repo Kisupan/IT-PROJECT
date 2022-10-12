@@ -1,5 +1,6 @@
 import { videoModel } from '../Models/Video.model'
 import fs from 'fs'
+import { NONAME } from 'dns'
 
 export class VideoController{
     async upload(request, response){
@@ -65,17 +66,29 @@ export class VideoController{
             return response.status(700).json({msg:'No videos'})
         }
     }
-    // // search video by owner id
-    // async searchVideo (request, response){
-    //     const name = request.query.key;
-    //         try {
-    //             let video = await videoModel.find({name:  {$regex: name.toLowerCase() }  })
-    //             return response.send(video)     
+    // search video by username
+    async searchUVideo (request, response){
+        const name = request.query.key;
+            try {
+                let video = await videoModel.find({username:  {$regex: name }  })
+                return response.send(video)     
 
-    //         }catch(error){
-    //             return response.status(700).json({msg:'No matching video'})
-    //         }   
-    // }
+            }catch(error){
+                return response.status(700).json({msg:'No matching video'})
+            }   
+    }
+
+    // search video by category
+    async searchCat (request, response){
+        const cat = request.query.key;
+            try {
+                let video = await videoModel.find({category:  {$regex: cat }  })
+                return response.send(video)     
+
+            }catch(error){
+                return response.status(700).json({msg:'No matching video'})
+            }   
+    }    
 
     // stream video 
     stream(request, response){
