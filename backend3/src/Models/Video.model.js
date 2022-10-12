@@ -19,7 +19,7 @@ const videoSchema = new Schema({
     },
     category:{
         type: String,
-        enum: ["Sports", "News", "Tech", "Others"],
+        enum: ["Sports", "News", "Technology", "Music", "Games", "Fashion", "Pet", "Travel", "Others"],
         required: true
     },
     likes:{
