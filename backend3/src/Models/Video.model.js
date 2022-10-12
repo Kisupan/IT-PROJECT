@@ -17,6 +17,11 @@ const videoSchema = new Schema({
         required:[true, 'Upload video needs a video path'],
         unique:[true, 'Video path already exist']
     },
+    category:{
+        type: String,
+        enum: ["Sports", "News", "Tech", "Others"],
+        required: true
+    },
     likes:{
         type:Number,
         default:0
