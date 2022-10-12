@@ -54,6 +54,17 @@ export class VideoController{
             }   
     }
 
+    // search all videos and display
+    async findAllVideo(request, response) {
+
+       try {
+            let video = await videoModel.find()
+            return response.send(video)     
+
+        }catch(error){
+            return response.status(700).json({msg:'No videos'})
+        }
+    }
     // // search video by owner id
     // async searchVideo (request, response){
     //     const name = request.query.key;
