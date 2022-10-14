@@ -95,20 +95,29 @@
           <div class="my-videos-area">
             <div class="row row-cols-4">
               <div class="col" v-for="video in myVideoList" :key="video._id">
-                <div class="card">
-                  <a href="blankpGender.html" target="_blank">
+                <router-link
+                  target="_blank"
+                  :to="{
+                    path: '/video',
+                    query: {
+                      videoname: video.name,
+                      videopath: video.videopath,
+                    },
+                  }"
+                >
+                  <div class="card">
                     <img
                       src="resources/ZCC.JPG"
                       class="card-img-top"
                       alt="..."
                     />
-                  </a>
-                  <div class="card-body">
-                    <h5>{{ video.title }}</h5>
-                    <p>{{ video.author }}</p>
-                    <p>{{ video.date }}</p>
+                    <div class="card-body">
+                      <h5>{{ video.name }}</h5>
+                      <p>{{ video.username }}</p>
+                      <!-- <p>{{ video.date }}</p> -->
+                    </div>
                   </div>
-                </div>
+                </router-link>
               </div>
             </div>
           </div>
@@ -298,13 +307,7 @@ export default {
       // },
       profileFormData: null,
       manageObj: { username: "", email: "", password: "", age: "", gender: "" },
-      myVideoList: [
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-      ],
+      myVideoList: [],
       videoData: {
         id: 0,
         imGenderAddr: "resources/ZCC.JPG",
@@ -448,14 +451,20 @@ export default {
     getMyVideoInfo: function () {
       var that = this;
       // Make a request for a user with a given ID
+
       this.axios
-        .get("/user?ID=12345")
+        .get("http://localhost:3000/api/user-video-search/", {
+          params: {
+            name: this.manageObj.username,
+          },
+        })
         .then(function (response) {
           // handle success
           var result = response.data;
           console.log(result);
-          if (result.status == 200) {
+          if (result.status != 700) {
             that.myVideoList = result;
+            console.log(that.myVideoList);
           }
         })
         .catch(function (error) {
@@ -500,11 +509,18 @@ export default {
   mounted() {
     var that = this;
     // this.getProfileInfo();
-
+    var name = localStorage.getItem("Username");
+    const domain = "http://localhost:3000/api/video/";
+    const combineURLs = (baseURL, relativeURL) => {
+      return relativeURL
+        ? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
+        : baseURL;
+    };
+    console.log(name);
     this.axios
-      .get("http://localhost:3000/api/search/", {
+      .get("http://localhost:3000/api/user-search/", {
         params: {
-          username: "user1",
+          username: name,
         },
       })
       .then(function (response) {
@@ -513,6 +529,35 @@ export default {
         console.log(result);
         that.profileFormData = response.data;
         console.log(that.profileFormData);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+
+    this.axios
+      .get("http://localhost:3000/api/user-video-search/", {
+        params: {
+          key: name,
+        },
+      })
+      .then(function (response) {
+        // handle success
+        var result = response.data;
+        console.log(result[0].videopath);
+        if (result.status != 700) {
+          that.myVideoList = result;
+          console.log(that.myVideoList);
+          for (var i = 0; i < that.myVideoList.length; i++) {
+            var path = that.myVideoList[i].videopath;
+            that.myVideoList[i].videopath = combineURLs(domain, path);
+          }
+          console.log("sb");
+          console.log(that.myVideoList);
+        }
       })
       .catch(function (error) {
         // handle error

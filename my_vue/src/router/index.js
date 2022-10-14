@@ -4,7 +4,8 @@ import VueRouter from 'vue-router'
 import VShareHomePage from '../components/VShareHomePage.vue'
 import VShareProfile from '../components/VShareProfile.vue'
 import UploadPage from '../components/UploadPage.vue'
-
+import ManagementSystem from '../components/ManagementSystem.vue'
+import VideoPage from '../components/VideoPlay.vue'
 const router = new VueRouter({
     routes: [
         {
@@ -26,16 +27,17 @@ const router = new VueRouter({
             component: UploadPage,
             meta: { title: 'Upload' }
         },
-        // {
-        //     path: '/signin',
-        //     component: SignInPage,
-        //     meta: { title: 'Sign-in' }
-        // },
-        // {
-        //     path: '/signup',
-        //     component: SignUpPage,
-        //     meta: { title: 'Sign-Up' }
-        // }
+
+        {
+            path: "/admin",
+            component: ManagementSystem,
+            meta: { title: 'Administrator' }
+        },
+        {
+            path: "/video",
+            component: VideoPage,
+            meta: { title: 'Video' }
+        }
         // {
         //     path: '/video',
         //     component: VideoPage
@@ -47,7 +49,7 @@ const router = new VueRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/homepage' || to.path === '/signin' || to.path === '/signup') {
+    if (to.path === '/homepage') {
         // if (localStorage.getItem('login') === 'true') {
         //     next()
         // } else {
@@ -55,11 +57,16 @@ router.beforeEach((to, from, next) => {
         // }
         next()
     } else {
-        if (localStorage.getItem('login') === 'true') {
+        if (localStorage.getItem('Token') !== null) {
+            console.log(localStorage.getItem('Token'))
             next()
         } else {
-            next()
-            // alert('Please sign in first!')
+            //next()
+            next({ path: '/homepage' })
+            setTimeout(() => {
+                alert('Please sign in first!');
+            }, 900);
+            console.log(localStorage.getItem('Token'))
         }
     }
 })
