@@ -23,49 +23,25 @@ export class VideoController {
 
 
     like(request, response) {
-        const video_id = request.query.id;
-        const operation = request.query.operation
-        if (operation === 'false') {
-            videoModel.findOneAndUpdate({ _id: video_id }, { $inc: { likes: -1 } },
-                { new: true }, (error, doc) => {
-                    if (error) {
-                        return response.status(500).json({ msg: 'Network Error: Failed to cancel like video' })
-                    }
-                    return response.status(200).json({ msg: 'Video like cancelled' })
-                })
-
-        } else {
-            videoModel.findOneAndUpdate({ _id: video_id }, { $inc: { likes: 1 } },
-                { new: true }, (error, doc) => {
-                    if (error) {
-                        return response.status(500).json({ msg: 'Network Error: Failed to like video' })
-                    }
-                    return response.status(200).json({ msg: 'Video liked' })
-                })
-        }
+        const video_id = request.params.id;
+        videoModel.findOneAndUpdate({ _id: video_id }, { $inc: { likes: 1 } },
+            { new: true }, (error, doc) => {
+                if (error) {
+                    return response.status(500).json({ msg: 'Network Error: Failed to like video' })
+                }
+                return response.status(200).json({ msg: 'Video liked' })
+            })
     }
 
     dislike(request, response) {
-        const video_id = request.query.id;
-        const operation = request.query.operation
-        if (operation === 'false') {
-            videoModel.findOneAndUpdate({ _id: video_id }, { $inc: { dislikes: -1 } },
-                { new: true }, (error, doc) => {
-                    if (error) {
-                        return response.status(500).json({ msg: 'Network Error: Failed to cancel dislike video' })
-                    }
-                    return response.status(200).json({ msg: 'Video dislike cancelled' })
-                })
-
-        } else {
-            videoModel.findOneAndUpdate({ _id: video_id }, { $inc: { dislikes: 1 } },
-                { new: true }, (error, doc) => {
-                    if (error) {
-                        return response.status(500).json({ msg: 'Network Error: Failed to dislike video' })
-                    }
-                    return response.status(200).json({ msg: 'Video disliked' })
-                })
-        }
+        const video_id = request.params.id;
+        videoModel.findOneAndUpdate({ _id: video_id }, { $inc: { dislikes: 1 } },
+            { new: true }, (error, doc) => {
+                if (error) {
+                    return response.status(500).json({ msg: 'Network Error: Failed to like video' })
+                }
+                return response.status(200).json({ msg: 'Video disliked' })
+            })
     }
 
     async searchVideo(request, response) {
