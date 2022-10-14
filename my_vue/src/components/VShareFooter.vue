@@ -7,32 +7,32 @@
             </a>
             <div class="foot-btn">
                 <div class="term-btn">
-                    <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
-                        style="margin-left:200px; margin-top: 55px">Term</a>
+                    <router-link   to="/HelpPage" class="btn btn-light"  role="button" target="_blank"
+                        style="margin-left:200px; margin-top: 55px">Help</router-link>
                 </div>
             </div>
             <div class="foot-btn">
                 <div class="privacy-btn">
-                    <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
-                        style="margin-left:130px; margin-top: 55px">Privacy</a>
+                    <router-link   to="/TermPage" class="btn btn-light" role="button" target="_blank"
+                        style="margin-left:200px; margin-top: 55px">About us</router-link>
                 </div>
             </div>
             <div class="foot-btn">
                 <div class="support-btn">
-                    <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
-                        style="margin-left:130px; margin-top: 55px">Support</a>
+                    <router-link   to="/TermPage" class="btn btn-light"  role="button" target="_blank"
+                        style="margin-left:200px; margin-top: 55px">Terms</router-link>
                 </div>
             </div>
             <div class="foot-btn">
-                <div class="contact-btn">
-                    <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
-                        style="margin-left:130px; margin-top: 55px">Contact</a>
+                <div class="privacy-btn">
+                    <router-link   to="/TermPage" class="btn btn-light" role="button" target="_blank"
+                        style="margin-left:140px; margin-top: 55px">Policy</router-link>
                 </div>
             </div>
             <div class="foot-btn">
-                <div class="about-btn">
-                    <a class="btn btn-light" href="blankpage.html" role="button" target="_blank"
-                        style="margin-left:130px; margin-top: 55px">About us</a>
+                <div class="privacy-btn">
+                    <router-link   to="/TermPage" class="btn btn-light" role="button" target="_blank"
+                        style="margin-left:200px; margin-top: 55px">about us</router-link>
                 </div>
             </div>
         </div>
