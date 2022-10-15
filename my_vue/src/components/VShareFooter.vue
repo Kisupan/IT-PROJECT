@@ -27,12 +27,8 @@
                 <div class="privacy-btn">
                     <router-link   to="/TermPage" class="btn btn-light" role="button" target="_blank"
                         style="margin-left:140px; margin-top: 55px">Policy</router-link>
-                </div>
-            </div>
-            <div class="foot-btn">
-                <div class="privacy-btn">
-                    <router-link   to="/TermPage" class="btn btn-light" role="button" target="_blank"
-                        style="margin-left:200px; margin-top: 55px">about us</router-link>
+
+
                 </div>
             </div>
         </div>

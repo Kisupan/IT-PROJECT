@@ -217,6 +217,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$route.query.videoname);
     var that = this;
     var video_name = this.$route.query.videoname;
     this.axios

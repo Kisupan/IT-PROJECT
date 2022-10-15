@@ -19,20 +19,16 @@
             </p>
           </router-link>
           <form class="d-flex" role="search">
-            <input
-              id="search-bar"
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button
-              id="search-btn"
-              class="btn btn-outline-primary"
-              type="submit"
-            >
+            <input id="search-bar" class="form-control" type="text" placeholder="INPUT NAME" v-model="keyWord">
+            <router-link  :to="{
+                    path:'/SearchPage',
+                    query:{
+                         keyWord:this.keyWord,
+                      }
+                }">
+                <button id="search-btn" class="btn btn-outline-primary" type="submit">
               Search
-            </button>
+            </button></router-link>
           </form>
           <div class="sign-in-up">
             <button
@@ -226,20 +222,16 @@
             </p>
           </router-link>
           <form class="d-flex" role="search">
-            <input
-              id="search-bar"
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button
-              id="search-btn"
-              class="btn btn-outline-primary"
-              type="submit"
-            >
+            <input id="search-bar" class="form-control" type="text" placeholder="INPUT NAME" v-model="keyWord">
+            <router-link  :to="{
+                    path:'/SearchPage',
+                    query:{
+                         keyWord:this.keyWord,
+                      }
+                }">
+                <button id="search-btn" class="btn btn-outline-primary" type="submit">
               Search
-            </button>
+            </button></router-link>
           </form>
           <div class="sign-out">
             <router-link to="/homepage">
@@ -275,6 +267,7 @@ export default {
   inject: ["reload", "admin_system_load"],
   data() {
     return {
+      keyWord:"",
       notlogin: true,
       notadmin: true,
       SigninObj: {

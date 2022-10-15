@@ -1,8 +1,20 @@
 <template>
 	<body>
+
+	
 	<div class="Category">
 		<div class="box">
-			<ul>
+			<router-link
+            target="_blank"
+            :to="{
+              path: '/video',
+              query: {
+                      videoname: title,
+                      videopath: videopath,
+                    },
+            }"
+          ><ul>
+
 				<li><img src="../../public/resources/Logo01.png" class="img-thumbnail" alt="" width="300" height="300"></li>
 				<li>
 					<h1>{{title || $route.query.title}}</h1>
@@ -10,7 +22,9 @@
 					<p>Time:2001/01/01</p>
 					<p>label:  <el-button type="success" plain><router-link  target="_blank" :to="{
                     path:'/Pages',
-                    query:{ title:$route.query.label
+
+                    query:{ title:label
+
                     }
                 }">{{label}}{{$route.query.label}}</router-link></el-button>
 				</p>
@@ -20,6 +34,11 @@
 					<el-button @click="notfavour"  v-if="iffavour " type="primary" icon="el-icon-star-on">{{like}}{{$route.query.like}}</el-button>
 				</le>
 			</ul>
+
+            
+          </router-link>
+			
+
 		</div>
 	</div>	
 </body>
@@ -29,10 +48,14 @@
 export default {
 	data(){
 		return{
+
+			videopath : null,
 			iffavour : false,
 		}
 	},
 	props:{
+
+
 			author:{
 				type:String, 
 				required:true, 
@@ -46,7 +69,12 @@ export default {
 			},
 			label:{
 				type:String,
-			}
+
+			},
+			path: {
+			type: String,
+		},
+
 		},
 	methods:{
 				favour(){this.iffavour = true
@@ -56,8 +84,22 @@ export default {
 					alert('not favoured！')
 				},
 	},
-	name: 'ResultPage'
+
+	mounted() {
+		const domain = "http://localhost:3000/api/video/";
+		const combineURLs = (baseURL, relativeURL) => {
+			return relativeURL
+				? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
+				: baseURL;
+		};
+		console.log(this.path);
+		this.videopath = combineURLs(domain, this.path);
+		console.log(this.videopath);
+	},
+	name: 'ResultPage2'
 }
+
+
 </script>
 <style>
 .top {
@@ -275,6 +317,15 @@ li {
 	margin-top: 200px;
 	margin-left: 40px;
 }
+
+.le {
+	float: left;
+	width: 50px;
+	height: 30px;
+	margin-top: 200px;
+	margin-left: 40px;
+}
+
 
 .bar {
 	padding-left: 30px;

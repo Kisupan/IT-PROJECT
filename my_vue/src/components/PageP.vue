@@ -11,24 +11,51 @@
 				</li>
 			</div>
 		</div>
+
+
+		<MyCarousel></MyCarousel>
+
 		<el-row>
-			<el-col :span="4" offset="20">
+			<el-col :span="4" style="margin-left:120px; margin-top: 10px; margin-bottom: 30px;margin-right:1200px;">
+
 				<el-switch v-model="state" active-text="form detail" inactive-text="form easy">
 				</el-switch>
 				<div class="grid-content bg-purple-light"></div>
 			</el-col>
-		</el-row>
 
-		<MyCarousel></MyCarousel>
+			<el-button @click="threeperpage" v-if="!pagesort" size="mini" type="primary"
+				style="margin-left:10px;margin-top: 10px "> 3 per page</el-button>
+			<el-button @click="onepage" v-if="pagesort" size="mini" type="primary" style="margin-top: 10px "> 1 page
+			</el-button>
+		</el-row>
 		<h1 v-if="state">
-			<li v-for="per of dataShow" :key="per.id">
-				<ResultPage :id=per.id :title=per.title :author=per.name :like=per.like :label=per.label></ResultPage>
-			</li>
+			<h1 v-if="pagesort">
+				<li v-for="per of dataShow" :key="per.id">
+					<ResultPage :id=per.id :title=per.name :author=per.username :like=per.like :label=per.category :path=per.videopath>
+					</ResultPage>
+				</li>
+			</h1>
+			<h1 v-if="!pagesort">
+				<li v-for="per of persons" :key="per.id">
+					<ResultPage :id=per.id :title=per.name :author=per.username :like=per.like :label=per.category :path=per.videopath>
+					</ResultPage>
+				</li>
+			</h1>
 		</h1>
 		<h1 v-if="!state">
-			<mybox v-for="per of dataShow" :key="per.id">
-				<ResultPage2 :id=per.id :title=per.title :author=per.name :like=per.like :label=per.label></ResultPage2>
-			</mybox>
+			<h1 v-if="pagesort">
+				<li v-for="per of dataShow" :key="per.id">
+					<ResultPage2 :id=per.id :title=per.name :author=per.username :like=per.like :label=per.category :path=per.videopath>
+					</ResultPage2>
+				</li>
+			</h1>
+			<h1 v-if="!pagesort">
+				<li v-for="per of persons" :key="per.id">
+					<ResultPage2 :id=per.id :title=per.name :author=per.username :like=per.like :label=per.category :path=per.videopath>
+					</ResultPage2>
+				</li>
+			</h1>
+
 		</h1>
 		<ul class="pagination">
 			<input type="button" value="pre" @click="prePage" class="btn btn-info">
@@ -37,6 +64,8 @@
 			<input type="button" value="next" @click="nextPage" class="btn btn-info">
 		</ul>
 		<VShareFooter></VShareFooter>
+
+
 	</body>
 
 </template>
@@ -59,6 +88,10 @@ export default {
 	data() {
 
 		return {
+
+			persons: null,
+			pagesort: false,
+
 			mycate: this.$route.query.title,
 			state: true,
 			totalPage: [],
@@ -66,21 +99,9 @@ export default {
 			pageNum: 1,
 			dataShow: [],
 			currentPage: 0,
-			persons: [
-				{ id: '001', title: "bllads", name: 'zcc', like: 300, label: "Sport" },
-				{ id: '002', title: "blladd", name: 'zsb', like: 301, label: "Sport" },
-				{ id: '003', title: "blldda", name: 'hxx', like: 300, label: "Sport" },
-				{ id: '004', title: "bllabb", name: 'gq', like: 30, label: "Sport" }
-			],
-		}
-	},
-	created() {
-		this.pageNum = Math.ceil(this.persons.length / this.pageSize) || 1;
-		for (let i = 0; i < this.pageNum; i++) {
-			this.totalPage[i] = this.persons.slice(this.pageSize * i, this.pageSize * (i + 1))
-		}
 
-		this.dataShow = this.totalPage[this.currentPage];
+
+		}
 
 	},
 	methods: {
@@ -98,33 +119,44 @@ export default {
 		},
 		changestate() {
 			this.state = false;
-		}
 
+		},
+		threeperpage() {
+			this.pageNum = Math.ceil(this.persons.length / this.pageSize) || 1;
+			for (let i = 0; i < this.pageNum; i++) {
+				this.totalPage[i] = this.persons.slice(this.pageSize * i, this.pageSize * (i + 1))
+			}
+
+			this.dataShow = this.totalPage[this.currentPage];
+			this.pagesort = true
+		},
+		onepage() {
+			this.pagesort = false
+		},
 	},
 	mounted() {
 		var that = this;
+		var titles = this.$route.query.title;
 		this.axios
-      .get("http://localhost:3000/api/searchCat/", {
-        params: {
-          key: 'Sport',
-        },
-      })
-      .then(function (response) {
-        // handle success
-        var result = response.data;
-        console.log(result);
-        that.profileFormData = response.data;
-        console.log(that.profileFormData);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-	}
+			.get("http://localhost:3000/api/cat-search/", {
+				params: {
+					key: titles,
+				},	
+			})
+			.then(function (response) {
+				var result = response.data;
+				if (result.status != 700) {
+					that.persons = result;
+					console.log(that.persons);
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	},
 }
+
+
 
 </script>
 <style>

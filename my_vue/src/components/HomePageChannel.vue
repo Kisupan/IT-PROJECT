@@ -25,15 +25,16 @@ export default {
     data() {
         return {
             messageList: [
-                { id: '001', title: 'Sports    ' },
-                { id: '002', title: 'Music     ' },
-                { id: '003', title: 'Games     ' },
-                { id: '004', title: 'Fashion   ' },
+
+                { id: '001', title: 'Sports' },
+                { id: '002', title: 'Music' },
+                { id: '003', title: 'Games' },
+                { id: '004', title: 'Fashion' },
                 { id: '005', title: 'Technology' },
-                { id: '006', title: 'News      ' },
-                { id: '007', title: 'Pet       ' },
-                { id: '008', title: 'Travel    ' },
-                { id: '009', title: 'Others    ' },
+                { id: '006', title: 'News' },
+                { id: '007', title: 'Pet' },
+                { id: '008', title: 'Travel'},
+                { id: '009', title: 'Others'},
             ]
         }
 

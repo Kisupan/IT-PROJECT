@@ -1,49 +1,75 @@
 <template>
 	<div id="root">
-		<h2>{{$route.query.keyWord}}</h2>
-		<ul>
-			<li v-for="(p,id) of filPerons" :key="id">
-				<router-link :to="{
-					path:'/ResultPage',
-					query:{
-						id:p.id,
-						title:p.title,
-						author:p.name,
-						like:p.like
-					}
-				}">
-					{{p.title}}-{{p.name}}-{{p.like}}
-				</router-link>
-			</li>
-		</ul>
+
+		<h2>your search :{{$route.query.keyWord}}</h2>
+		<li v-for="per of persons" :key="per.id">
+			<ResultPage :id=per._id :title=per.name :author=per.username :like=per.like :label=per.category>
+			</ResultPage>
+		</li>
 	</div>
 
 </template>
+<router-view :key='$route.fullPath'></router-view >
 <script type="text/javascript"></script>
 <script>
+import ResultPage from './ResultPage.vue';
 	export default {
+		components: {
+		ResultPage,
+	},
 		data(){
-		return{  	opacity:1,
-					persons:[
-						{id:'001',title:"bllads",name:'zcc',like:300},
-						{id:'002',title:"blladd",name:'zsb',like:301},
-						{id:'003',title:"blldda",name:'hxx',like:300},
-						{id:'004',title:"bllabb",name:'gq',like:30}
-					],
-					filPerons:[],
-					keyWord: $route.query.keyWord,
+		return{  	
+			keyword:this.$route.query.keyWord,
+			persons:{},
 				}
 			},
-			watch:{
-					keyWord:{
-						immediate:true,
-						handler(val){
-							this.filPerons = this.persons.filter((p)=>{
-								return p.name.indexOf(keyWord) !== -1
-							})
+		mounted() {
+    var that = this;
+    var video_name = this.$route.query.keyWord;
+    this.axios
+      .get("http://localhost:3000/api/video-search/", {
+        params: {
+          key: video_name,
+        },
+      })
+      .then(function (response) {
+				var result = response.data;
+				if (result.status != 700) {
+					that.persons = result;
+					console.log(that.persons);
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	},
+	watch:{
+		$route:{
+			immediate :true,
+			deep:true,
+      handler(n){
+							var that = this;
+    var video_name = this.$route.query.keyWord;
+    this.axios
+      .get("http://localhost:3000/api/video-search/", {
+        params: {
+          key: video_name,
+        },
+      })
+      .then(function (response) {
+				var result = response.data;
+				if (result.status != 700) {
+					that.persons = result;
+					console.log(that.persons);
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 						}
 					}
-				},
-name:'SearchPageS'
+				},		
+name:'SearchPage'
+
 }
 </script>

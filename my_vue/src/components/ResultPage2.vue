@@ -1,52 +1,83 @@
 <template>
 
-    <body>
-        
-                        <div >
-                            <div class="caption">
-                                <h3>
-                                    {{title || $route.query.title}}
-                                </h3>
-                                <p>
-                                    Author: {{author}}{{$route.query.author}}
-                                    Time:2001/01/01
-                                    label: {{label}}{{$route.query.label}}
-                                </p>
-                                <p>
-                                     <a class="btn" href="#">watch vedio</a>
-                                </p>
-                            </div>
-                        </div>
-    </body>
+
+	<body>
+
+		<div>
+			<div class="caption">
+				<h3>
+					{{title || $route.query.title}}
+				</h3>
+				<p>
+					Author: {{author}}{{$route.query.author}}
+				</p>
+				<p>
+					label: {{label}}{{$route.query.label}}
+				</p>
+				<p>
+					<router-link
+            target="_blank"
+            :to="{
+              path: '/video',
+              query: {
+                      videoname: title,
+                      videopath: videopath,
+                    },
+            }"
+          >watch video
+            
+          </router-link>
+				</p>
+			</div>
+		</div>
+	</body>
+
 
 </template>
 
 <script>
 
 
+
+
 export default {
-    data() {
-        return {
-            iffavour: false,
-        }
-    },
-    props: {
-        author: {
-            type: String,
-            required: true,
-        },
-        title: {
-            type: String,
-        },
-        like: {
-            type: Number,
-            default: 0
-        },
-        label: {
-            type: String,
-        }
-    },
-    name: 'ResultPage2'
+	data() {
+		return {
+			videopath : null,
+			iffavour: false,
+		}
+	},
+	props: {
+		author: {
+			type: String,
+			required: true,
+		},
+		title: {
+			type: String,
+		},
+		like: {
+			type: Number,
+			default: 0
+		},
+		label: {
+			type: String,
+		},
+		path: {
+			type: String,
+		}
+	},
+	mounted() {
+		const domain = "http://localhost:3000/api/video/";
+		const combineURLs = (baseURL, relativeURL) => {
+			return relativeURL
+				? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
+				: baseURL;
+		};
+		console.log(this.path);
+		this.videopath = combineURLs(domain, this.path);
+		console.log(this.videopath);
+	},
+	name: 'ResultPage2'
 }
 
 </script>
