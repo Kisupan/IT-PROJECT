@@ -1,15 +1,15 @@
 <template>
   <div class="recommend-videos-area">
     <div class="row row-cols-4">
-      <div class="col" v-for="video in recommandVideoList" :key="video.id">
+      <div class="col" v-for="video in recommandVideoList" :key="video._id">
         <div class="card">
           <router-link
             target="_blank"
             :to="{
               path: '/video',
               query: {
-                id: video.id,
-                title: video.title,
+                videoname: video.name,
+                videopath: video.videopath,
               },
             }"
           >
@@ -18,7 +18,6 @@
           <div class="card-body">
             <h5>{{ video.name }}</h5>
             <p>{{ video.username }}</p>
-            <p>{{ video.date }}</p>
           </div>
         </div>
       </div>
@@ -31,13 +30,7 @@ export default {
   name: "RecommandVideos",
   data() {
     return {
-      recommandVideoList: [
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 1, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 2, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 3, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 4, title: "Title", author: "ZCC", date: "1/9/2022" },
-      ],
+      recommandVideoList: [],
     };
   },
 
@@ -67,6 +60,12 @@ export default {
 
   mounted() {
     var that = this;
+    const domain = "http://localhost:3000/api/video/";
+    const combineURLs = (baseURL, relativeURL) => {
+      return relativeURL
+        ? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
+        : baseURL;
+    };
     // Make a request for a user with a given ID
     this.axios
       .get("http://localhost:3000/api/findallV")
@@ -76,6 +75,10 @@ export default {
         console.log(result);
         if (result.status != 700) {
           that.recommandVideoList = result;
+          for (var i = 0; i < that.recommandVideoList.length; i++) {
+            var path = that.recommandVideoList[i].videopath;
+            that.recommandVideoList[i].videopath = combineURLs(domain, path);
+          }
           console.log(that.recommandVideoList);
         }
       })

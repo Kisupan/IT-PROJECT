@@ -145,6 +145,8 @@ export default {
               that.$data.video.likes = parseInt(that.video.likes) + 1;
               that.like = true;
               that.like_dislike_block = true;
+              localStorage.setItem("Like", that.like);
+              localStorage.setItem("Block", that.like_dislike_block);
             }
           })
           .catch(function (error) {
@@ -217,7 +219,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$route.query.videoname);
     var that = this;
     var video_name = this.$route.query.videoname;
     this.axios

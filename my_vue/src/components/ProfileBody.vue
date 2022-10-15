@@ -58,6 +58,20 @@
         <li class="nav-item" role="presentation">
           <button
             class="nav-link"
+            id="manage-video-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#manage-video-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="manage-video-tab-pane"
+            aria-selected="true"
+          >
+            Manage Video
+          </button>
+        </li>
+        <!-- <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
             id="favourite-tab"
             data-bs-toggle="tab"
             data-bs-target="#favourite-tab-pane"
@@ -68,7 +82,7 @@
           >
             Favourite
           </button>
-        </li>
+        </li> -->
         <li class="nav-item" role="presentation">
           <button
             class="nav-link"
@@ -95,34 +109,106 @@
           <div class="my-videos-area">
             <div class="row row-cols-4">
               <div class="col" v-for="video in myVideoList" :key="video._id">
-                <router-link
-                  target="_blank"
-                  :to="{
-                    path: '/video',
-                    query: {
-                      videoname: video.name,
-                      videopath: video.videopath,
-                    },
-                  }"
-                >
-                  <div class="card">
+                <div class="card">
+                  <router-link
+                    target="_blank"
+                    :to="{
+                      path: '/video',
+                      query: {
+                        videoname: video.name,
+                        videopath: video.videopath,
+                      },
+                    }"
+                  >
                     <img
                       src="resources/ZCC.JPG"
                       class="card-img-top"
                       alt="..."
                     />
-                    <div class="card-body">
-                      <h5>{{ video.name }}</h5>
-                      <p>{{ video.username }}</p>
-                      <!-- <p>{{ video.date }}</p> -->
-                    </div>
+                  </router-link>
+                  <div class="card-body">
+                    <h5>{{ video.name }}</h5>
+                    <p>{{ video.username }}</p>
+                    <!-- <p>{{ video.date }}</p> -->
                   </div>
-                </router-link>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div
+          class="tab-pane fade"
+          id="manage-video-tab-pane"
+          role="tabpanel"
+          aria-labelledby="manage-video-tab"
+          tabindex="0"
+        >
+          <div class="manage-videos-area">
+            <div class="row row-cols-4">
+              <div class="col" v-for="video in myVideoList" :key="video._id">
+                <div class="card">
+                  <img src="resources/ZCC.JPG" class="card-img-top" alt="..." />
+                  <div class="card-body">
+                    <h5>{{ video.name }}</h5>
+                    <p>{{ video.username }}</p>
+                    <!-- <p>{{ video.date }}</p> -->
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#manage-video"
+                      @click="manageVideo(video._id)"
+                    >
+                      Delete
+                    </button>
+                    <div
+                      class="modal fade"
+                      id="manage-video"
+                      tabindex="-1"
+                      aria-labelledby="myModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                              Delete video
+                            </h5>
+                          </div>
+                          <div class="modal-body">
+                            <h5>
+                              Are you sure to delete this video: "{{
+                                videoObj.video_name
+                              }}"
+                            </h5>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-danger"
+                              @click="deleteVideo()"
+                              data-bs-dismiss="modal"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div
           class="tab-pane fade"
           id="favourite-tab-pane"
           role="tabpanel"
@@ -153,7 +239,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div
           class="tab-pane fade"
           id="intro-tab-pane"
@@ -283,31 +369,10 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      // infoList: [
-      //   {
-      //     _id: "",
-      //     email: "",
-      //     avatar: "",
-      //     password: "",
-      //     username: "",
-      //     age: "",
-      //     Gender: "",
-      //     intro: "",
-      //   },
-      // ],
-      // profileFormData: {
-      //   _id: "",
-      //   email: "",
-      //   avatar: "",
-      //   password: "",
-      //   username: "",
-      //   age: "",
-      //   Gender: "",
-      //   intro: "",
-      // },
       profileFormData: null,
       manageObj: { username: "", email: "", password: "", age: "", gender: "" },
       myVideoList: [],
+      manageVideoList: [],
       videoData: {
         id: 0,
         imGenderAddr: "resources/ZCC.JPG",
@@ -316,68 +381,12 @@ export default {
         author: "ZCC",
         date: "1/9/2022",
       },
-      favouriteVideoList: [
-        { id: 0, title: "Title", author: "HXX", date: "2/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-        { id: 0, title: "Title", author: "ZCC", date: "1/9/2022" },
-      ],
+      favouriteVideoList: [],
+      videoObj: { video_id: "", video_path: "", video_name: "" },
     };
   },
 
   methods: {
-    // getProfileInfo: function () {
-    //   var profileInfo = window.localStorage.getItem("profileInfo");
-    //   if (profileInfo) {
-    //     this.infoList = JSON.parse(profileInfo);
-    //   }
-    // },
-
-    // getProfileInfoServer: function () {
-    //   var that = this;
-    //   this.axios
-    //     .get("http://localhost:3000/api/search/", {
-    //       params: {
-    //         username: "user1",
-    //       },
-    //     })
-    //     .then(function (response) {
-    //       // handle success
-    //       var result = response.data;
-    //       console.log(result);
-    //       that.profileFormData = result;
-    //       this.infoList.splice(0, 1);
-    //       this.infolist.push(this.infoList);
-    //     })
-    //     .catch(function (error) {
-    //       // handle error
-    //       console.log(error);
-    //     })
-    //     .then(function () {
-    //       // always executed
-    //     });
-    // },
-
-    // updateInfo: function () {
-    //   this.axios
-    //     .post("http://localhost:3000/api/password-reset", {
-    //       email: this.profileFormData.email,
-    //       password: this.profileFormData.password,
-    //     })
-    //     .then(function (response) {
-    //       console.log(response);
-    //       if (response.status != 200) {
-    //         alert("Update Unsuccessful. Please Try Again!");
-    //       } else {
-    //         alert("Update successful!");
-    //       }
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // },
-
     updateInfo: function () {
       var that = this;
       var params = {
@@ -448,34 +457,6 @@ export default {
       }
     },
 
-    getMyVideoInfo: function () {
-      var that = this;
-      // Make a request for a user with a given ID
-
-      this.axios
-        .get("http://localhost:3000/api/user-video-search/", {
-          params: {
-            name: this.manageObj.username,
-          },
-        })
-        .then(function (response) {
-          // handle success
-          var result = response.data;
-          console.log(result);
-          if (result.status != 700) {
-            that.myVideoList = result;
-            console.log(that.myVideoList);
-          }
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .then(function () {
-          // always executed
-        });
-    },
-
     getFavouriteVideoInfo: function () {
       var that = this;
       // Make a request for a user with a given ID
@@ -504,6 +485,40 @@ export default {
       this.manageObj.gender = item.gender;
       this.manageObj.password = "";
     },
+    manageVideo(video_id) {
+      var that = this;
+      that.videoObj.video_id = video_id;
+      for (var i = 0; i < that.manageVideoList.length; i++) {
+        if (that.manageVideoList[i].video_id == video_id) {
+          that.videoObj.video_path = that.manageVideoList[i].videopath;
+          that.videoObj.video_name = that.manageVideoList[i].video_name;
+        }
+      }
+    },
+
+    deleteVideo() {
+      var that = this;
+      this.axios
+        .delete("http://localhost:3000/api/video/", {
+          params: {
+            video_id: that.videoObj.video_id,
+            video_path: that.videoObj.video_path,
+          },
+        })
+        .then(function (response) {
+          var result = response.data;
+          console.log(result);
+          if (response.status == 200) {
+            that.reload();
+            setTimeout(() => {
+              alert("Delete successful");
+            }, 1500);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
 
   mounted() {
@@ -528,7 +543,6 @@ export default {
         var result = response.data;
         console.log(result);
         that.profileFormData = response.data;
-        console.log(that.profileFormData);
       })
       .catch(function (error) {
         // handle error
@@ -547,16 +561,21 @@ export default {
       .then(function (response) {
         // handle success
         var result = response.data;
-        console.log(result[0].videopath);
         if (result.status != 700) {
           that.myVideoList = result;
-          console.log(that.myVideoList);
+          // that.manageVideoList = result;
           for (var i = 0; i < that.myVideoList.length; i++) {
+            var _id = that.myVideoList[i]._id;
             var path = that.myVideoList[i].videopath;
+            var name = that.myVideoList[i].name;
+            that.manageVideoList.push({
+              video_id: _id,
+              videopath: path,
+              video_name: name,
+            });
             that.myVideoList[i].videopath = combineURLs(domain, path);
           }
-          console.log("sb");
-          console.log(that.myVideoList);
+          // console.log(that.myVideoList);
         }
       })
       .catch(function (error) {
