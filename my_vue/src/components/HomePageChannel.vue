@@ -25,6 +25,7 @@ export default {
     data() {
         return {
             messageList: [
+
                 { id: '001', title: 'Sports' },
                 { id: '002', title: 'Music' },
                 { id: '003', title: 'Games' },
