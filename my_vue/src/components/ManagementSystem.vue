@@ -3,28 +3,27 @@
     <div class="homepage">
       <nav class="navbar bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
+          <div class="navbar-brand">
             <img
               src="/resources/vshare.png"
-              alt=""
               width="50"
               height="50"
               class="d-inline-block align-text-center"
             />
-            <p
+            <span
               class="web-name"
               style="color: rgb(86, 121, 182); display: inline-block"
             >
               VShare
-            </p>
-          </a>
+            </span>
+          </div>
           <div class="d-flex" role="search">
             <input
               id="search-bar"
               class="form-control"
               type="text"
               v-model="search_username"
-              placeholder="Search"
+              placeholder="Search username"
               aria-label="Search"
             />
             <button
@@ -57,6 +56,7 @@
 
       <div v-show="load_search_accounts">
         <div class="Back">
+          <br />
           <button
             id="search-btn"
             class="btn btn-outline-primary"
@@ -66,32 +66,42 @@
             Back
           </button>
         </div>
-        <table cellpadding="20" cellspacing="0">
+        <br />
+        <table v-if="not_empty_table">
           <thead>
             <tr>
               <th>Email Address</th>
               <th>User Name</th>
+              <th>Age</th>
+              <th>Gender</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in matching_user" :key="item._id">
               <td>{{ item.email }}</td>
               <td>{{ item.username }}</td>
+              <td>{{ item.age }}</td>
+              <td>{{ item.gender }}</td>
               <td>
                 <button
                   @click="del_click(item)"
+                  id="search-btn"
                   class="btn btn-outline-primary"
                   style="color: red"
                   data-bs-toggle="modal"
+                  type="button"
                   data-bs-target="#DeleteModal"
                 >
                   Delete
                 </button>
+                &nbsp;
                 <button
                   @click="edit(item)"
+                  id="search-btn"
                   class="btn btn-outline-primary"
                   style="color: orange"
                   data-bs-toggle="modal"
+                  type="button"
                   data-bs-target="#EditModal"
                 >
                   Edit
@@ -100,6 +110,9 @@
             </tr>
           </tbody>
         </table>
+        <div v-else>
+          <h1>User is not found!</h1>
+        </div>
 
         <div
           class="modal fade"
@@ -239,14 +252,16 @@ export default {
   },
   data() {
     return {
-      continues: "",
+      not_empty_table: true,
+      video_list: [],
+      del_videopath_list: [],
+      continues: false,
       matching_user: null,
       search_username: "",
       load_all_accounts: true,
       load_search_accounts: false,
       del_account: "",
       editObj: { username: "", email: "", password: "", age: "", gender: "" },
-      abs: "",
     };
   },
   methods: {
@@ -255,30 +270,50 @@ export default {
       this.load_search_accounts = false;
     },
     search_user() {
+      this.not_empty_table = true;
       this.load_all_accounts = false;
       this.load_search_accounts = true;
       var that = this;
       this.axios
-        .get("http://localhost:3000/api/search/", {
+        .get("http://localhost:3000/api/user-search/", {
           params: { username: this.search_username },
         })
         .then(function (response) {
           if (response.data.length == 0) {
-            setTimeout(() => {
-              alert("User is not found");
-            }, 600);
+            that.not_empty_table = false;
           }
-          console.log(response);
           that.matching_user = response.data;
-          console.log(that.matching_user);
         })
         .catch(function (error) {
           console.log(error);
         });
     },
     del_click(item) {
+      var that = this;
       this.del_account = item.email;
+      this.del_username = item.username;
+      this.axios
+        .get("http://localhost:3000/api/user-video-search/", {
+          params: {
+            key: this.del_username,
+          },
+        })
+        .then(function (response) {
+          var result = response.data;
+          if (result.status != 700) {
+            that.video_list = result;
+            for (var i = 0; i < that.video_list.length; i++) {
+              var path = that.video_list[i].videopath;
+              that.del_videopath_list.push(path);
+            }
+          }
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
     },
+
     delete_account() {
       var that = this;
       if (this.del_account != "admin@gmail.com") {
@@ -289,6 +324,22 @@ export default {
           .post("http://localhost:3000/api/delete", params)
           .then(function (request) {
             if (request.status == 200) {
+              that.axios
+                .delete("http://localhost:3000/api/user-video-delete/", {
+                  params: {
+                    username: that.del_username,
+                    video_list: that.del_videopath_list,
+                  },
+                })
+                .then()
+                .catch(function (error) {
+                  if (error.request.status == 500) {
+                    that.reload();
+                    setTimeout(() => {
+                      alert(error.response.data.msg);
+                    }, 900);
+                  }
+                });
               that.reload();
               setTimeout(() => {
                 alert(request.data.msg);
@@ -297,19 +348,20 @@ export default {
           })
           .catch(function (error) {
             if (error.request.status == 500) {
+              that.reload();
               setTimeout(() => {
                 alert(error.response.data.msg);
               }, 900);
             }
           });
         this.del_account = "";
-        this.reload();
       } else {
         setTimeout(() => {
           alert("Administrator Account cannot be deleted");
         }, 1000);
       }
     },
+
     edit(item) {
       this.editObj.email = item.email;
       this.editObj.username = item.username;
@@ -340,6 +392,7 @@ export default {
             })
             .catch(function (error) {
               if (error.request.status == 500) {
+                that.reload();
                 setTimeout(() => {
                   alert(error.response.data.msg);
                 }, 900);
@@ -369,11 +422,13 @@ export default {
                     })
                     .catch(function (error) {
                       if (error.request.status == 500) {
+                        that.reload();
                         setTimeout(() => {
                           alert(error.response.data.msg);
                         }, 900);
                       }
                     });
+                  that.continues = false;
                 }
               }
             })
@@ -398,8 +453,24 @@ export default {
       localStorage.clear();
       setTimeout(() => {
         this.admin_system_close();
+        alert("Sign out!");
       }, 900);
     },
   },
 };
 </script>
+<style scoped>
+td {
+  text-align: center;
+  padding: 25px;
+}
+th {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+.Back {
+  padding-left: 20px;
+}
+</style>

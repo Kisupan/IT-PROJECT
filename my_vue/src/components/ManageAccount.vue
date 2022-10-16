@@ -1,6 +1,7 @@
 <template>
   <div id="table">
     <div class="add">
+      <br />
       <button
         id="search-btn"
         class="btn btn-outline-primary"
@@ -11,52 +12,50 @@
         Add Account
       </button>
     </div>
-
-    <div>
-      <table cellpadding="20" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Email Address</th>
-            <th>User Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item._id">
-            <td>{{ item.email }}</td>
-            <td>{{ item.username }}</td>
-            <td>{{ item.age }}</td>
-            <td>{{ item.gender }}</td>
-            <td>
-              <button
-                @click="del_click(item)"
-                id="search-btn"
-                class="btn btn-outline-primary"
-                style="color: red"
-                data-bs-toggle="modal"
-                type="button"
-                data-bs-target="#DeletingModal"
-              >
-                Delete
-              </button>
-              &nbsp;
-              <button
-                @click="edit(item)"
-                id="search-btn"
-                class="btn btn-outline-primary"
-                style="color: orange"
-                data-bs-toggle="modal"
-                type="button"
-                data-bs-target="#EditingModal"
-              >
-                Edit
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <br />
+    <table>
+      <thead>
+        <tr>
+          <th>Email Address</th>
+          <th>User Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in items" :key="item._id">
+          <td>{{ item.email }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.age }}</td>
+          <td>{{ item.gender }}</td>
+          <td>
+            <button
+              @click="del_click(item)"
+              id="search-btn"
+              class="btn btn-outline-primary"
+              style="color: red"
+              data-bs-toggle="modal"
+              type="button"
+              data-bs-target="#DeletingModal"
+            >
+              Delete
+            </button>
+            &nbsp;
+            <button
+              @click="edit(item)"
+              id="search-btn"
+              class="btn btn-outline-primary"
+              style="color: orange"
+              data-bs-toggle="modal"
+              type="button"
+              data-bs-target="#EditingModal"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
     <div
       class="modal fade"
@@ -272,8 +271,11 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      video_list: [],
+      del_videopath_list: [],
       continues: false,
       del_account: "",
+      del_username: "",
       items: null,
       editObj: { username: "", email: "", password: "", age: "", gender: "" },
       obj: {
@@ -348,7 +350,29 @@ export default {
     },
 
     del_click(item) {
+      var that = this;
       this.del_account = item.email;
+      this.del_username = item.username;
+      this.axios
+        .get("http://localhost:3000/api/user-video-search/", {
+          params: {
+            key: this.del_username,
+          },
+        })
+        .then(function (response) {
+          var result = response.data;
+          if (result.status != 700) {
+            that.video_list = result;
+            for (var i = 0; i < that.video_list.length; i++) {
+              var path = that.video_list[i].videopath;
+              that.del_videopath_list.push(path);
+            }
+          }
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
     },
 
     delete_account() {
@@ -361,6 +385,22 @@ export default {
           .post("http://localhost:3000/api/delete", params)
           .then(function (request) {
             if (request.status == 200) {
+              that.axios
+                .delete("http://localhost:3000/api/user-video-delete/", {
+                  params: {
+                    username: that.del_username,
+                    video_list: that.del_videopath_list,
+                  },
+                })
+                .then()
+                .catch(function (error) {
+                  if (error.request.status == 500) {
+                    that.reload();
+                    setTimeout(() => {
+                      alert(error.response.data.msg);
+                    }, 900);
+                  }
+                });
               that.reload();
               setTimeout(() => {
                 alert(request.data.msg);
@@ -449,6 +489,7 @@ export default {
                         }, 900);
                       }
                     });
+                  that.continues = false;
                 }
               }
             })
@@ -475,7 +516,6 @@ export default {
     this.axios
       .get("http://localhost:3000/api/findall")
       .then(function (response) {
-        console.log(response);
         that.items = response.data;
       })
       .catch(function (error) {
@@ -484,3 +524,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+td {
+  text-align: center;
+  padding: 25px;
+}
+th {
+  text-align: center;
+}
+.add {
+  padding-left: 20px;
+}
+</style>

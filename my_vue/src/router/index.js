@@ -49,34 +49,34 @@ const router = new VueRouter({
         //     component: VideoPage
         // }
         {
-			path:'/Pages',
-			component:PageP
-		},
-		{
-			path:'/SearchPage',
-			component:SearchPage
-		},
+            path: '/Pages',
+            component: PageP
+        },
         {
-			path:'/TermPage',
-			component:TermPage
-		},
+            path: '/SearchPage',
+            component: SearchPage
+        },
         {
-			path:'/HelpPage',
-			component:HelpPage
-		},
+            path: '/TermPage',
+            component: TermPage
+        },
         {
-			path:'/ResultPage2',
-			component:ResultPage2
-		},
-		{
-			path:'/ResultPage',
-			component:ResultPage,
-			children:[
-				{
-					path:'ResultPage',
-					component:ResultPage,
-				}]
-		}
+            path: '/HelpPage',
+            component: HelpPage
+        },
+        {
+            path: '/ResultPage2',
+            component: ResultPage2
+        },
+        {
+            path: '/ResultPage',
+            component: ResultPage,
+            children: [
+                {
+                    path: 'ResultPage',
+                    component: ResultPage,
+                }]
+        }
     ]
 })
 
@@ -92,7 +92,6 @@ router.beforeEach((to, from, next) => {
         next()
     } else {
         if (localStorage.getItem('Token') !== null) {
-            console.log(localStorage.getItem('Token'))
             next()
         } else {
             //next()
@@ -100,7 +99,6 @@ router.beforeEach((to, from, next) => {
             setTimeout(() => {
                 alert('Please sign in first!');
             }, 900);
-            console.log(localStorage.getItem('Token'))
         }
     }
 })
