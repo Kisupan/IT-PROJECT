@@ -33,7 +33,7 @@ router.get('/api/video-search/', (request, response) => {
 })
 
 // delete a video
-router.delete('/api/video/:video_id/:video_path', (request, response) => {
+router.delete('/api/video/', (request, response) => {
     Controller.delete(request, response)
 })
 
@@ -50,6 +50,10 @@ router.get('/api/cat-search/', (request, response) => {
 //find all videos and return 
 router.get('/api/findallV', (request, response) => {
     Controller.findAllVideo(request, response)
+})
+
+router.delete('/api/user-video-delete/', (request, response) => {
+    Controller.delete_user_all_videos(request, response)
 })
 
 export default router;

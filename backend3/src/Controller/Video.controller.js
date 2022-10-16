@@ -142,9 +142,8 @@ export class VideoController {
 
     delete(request, response) {
 
-        const video_id = request.params.video_id;
-        const video_path = request.params.video_path;
-
+        const video_id = request.query.video_id;
+        const video_path = request.query.video_path;
         const videopath = `videos/${video_path}`;
         if (fs.existsSync(videopath)) {
             fs.unlink(videopath, (error) => {
@@ -161,26 +160,22 @@ export class VideoController {
         }
     }
 
-    /*delete(request, response){
-        
-        const video_id = request.params.video_id;
-        const video_path = request.params.video_path;
-
-        const videopath = `videos/${video_path}`;   
-        if(fs.existsSync(videopath)){
-            fs.unlink(videopath, (error)=>{
-                if(error){
-                    return response.status(500).json({msg:'Network Error: Failed to delete video'})
+    async delete_user_all_videos(request, response) {
+        const delete_username = request.query.username;
+        const user_video_list = request.query.video_list;
+        if (user_video_list !== undefined) {
+            for (let i = 0; i < user_video_list.length; i++) {
+                var videopath = `videos/${user_video_list[i]}`;
+                if (fs.existsSync(videopath)) {
+                    fs.unlink(videopath, (error) => {
+                        if (error) {
+                            return response.status(500).json({ msg: 'Network Error: Failed to delete video' })
+                        }
+                    })
                 }
-                videoModel.findOneAndDelete({_id:video_id}, (error)=>{
-                    if (error){
-                        return response.status(500).json({msg:'Network Error: Failed to delete video'})
-                    }
-                    return response.status(200).json({msg:' video delete'})
-                })                
-            })
+            }
+
+            await videoModel.deleteMany({ username: delete_username });
         }
-    } */
-
-
+    }
 }
