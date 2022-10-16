@@ -3,21 +3,22 @@
     <div class="my-header" v-if="notlogin">
       <nav class="navbar bg-light">
         <div class="container-fluid">
-          <router-link class="navbar-brand" to="/homepage">
-            <img
-              src="resources/Logo03.PNG"
-              alt=""
-              width="50"
-              height="50"
-              class="d-inline-block align-text-center"
-            />
-            <p
-              class="web-name"
-              style="color: rgb(86, 121, 182); display: inline-block"
-            >
-              VShare
-            </p>
-          </router-link>
+          <div>
+            <router-link class="navbar-brand" to="/homepage">
+              <img
+                src="resources/Logo03.PNG"
+                width="50"
+                height="50"
+                class="d-inline-block align-text-center"
+              />
+              <span
+                class="web-name"
+                style="color: rgb(86, 121, 182); display: inline-block"
+              >
+                VShare
+              </span>
+            </router-link>
+          </div>
           <form class="d-flex" role="search">
             <input
               id="search-bar"
@@ -323,22 +324,16 @@ export default {
       this.axios
         .post("http://localhost:3000/api/signin", params)
         .then(function (response) {
-          console.log(response.data.token);
-          console.log(response.data.username);
           if (response.status == 200) {
             localStorage.setItem("Token", response.data.token);
             localStorage.setItem("Username", response.data.username);
             if (localStorage.getItem("Username") === "admin") {
-              // that.notadmin = false;
-              // that.notlogin = false;
-              // that.$router.push("/admin");
               localStorage.setItem("Stay", "True");
               that.admin_system_load();
-              return;
             }
             that.reload();
             setTimeout(() => {
-              alert("Login in successful!");
+              alert("Sign in successful!");
             }, 1000);
             that.SigninObj.account = "";
             that.SigninObj.password = "";
@@ -423,8 +418,9 @@ export default {
     Signout() {
       localStorage.clear();
       this.notadmin = true;
+      this.reload();
       setTimeout(() => {
-        this.reload();
+        alert("Sign out!");
       }, 900);
     },
   },

@@ -531,7 +531,6 @@ export default {
         ? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
         : baseURL;
     };
-    console.log(name);
     this.axios
       .get("http://localhost:3000/api/user-search/", {
         params: {
@@ -540,8 +539,6 @@ export default {
       })
       .then(function (response) {
         // handle success
-        var result = response.data;
-        console.log(result);
         that.profileFormData = response.data;
       })
       .catch(function (error) {

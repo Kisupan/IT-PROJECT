@@ -72,14 +72,12 @@ export default {
       .then(function (response) {
         // handle success
         var result = response.data;
-        console.log(result);
         if (result.status != 700) {
           that.recommandVideoList = result;
           for (var i = 0; i < that.recommandVideoList.length; i++) {
             var path = that.recommandVideoList[i].videopath;
             that.recommandVideoList[i].videopath = combineURLs(domain, path);
           }
-          console.log(that.recommandVideoList);
         }
       })
       .catch(function (error) {
