@@ -50,19 +50,23 @@ const router = new VueRouter({
         // }
         {
             path: '/Pages',
-            component: PageP
+            component: PageP,
+            meta: { title: 'Category' }
         },
         {
             path: '/SearchPage',
-            component: SearchPage
+            component: SearchPage,
+            meta: { title: 'Search' }
         },
         {
             path: '/TermPage',
-            component: TermPage
+            component: TermPage,
+            meta: { title: 'Term' }
         },
         {
             path: '/HelpPage',
-            component: HelpPage
+            component: HelpPage,
+            meta: { title: 'Help' }
         },
         {
             path: '/ResultPage2',
