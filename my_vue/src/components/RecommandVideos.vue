@@ -16,8 +16,8 @@
             <img src="resources/avatar.JPG" class="card-img-top" alt="..." />
           </router-link>
           <div class="card-body">
-            <h5>{{ video.name }}</h5>
-            <p>{{ video.username }}</p>
+            <h3>{{ video.name }}</h3>
+            <h5>{{ video.username }}</h5>
           </div>
         </div>
       </div>
@@ -72,9 +72,11 @@ export default {
       .then(function (response) {
         // handle success
         var result = response.data;
+        var len = result.length - 5;
+        console.log(result.length);
         if (result.status != 700) {
-          that.recommandVideoList = result;
-          for (var i = 0; i < that.recommandVideoList.length; i++) {
+          for (var i = 0; i < len; i++) {
+            that.recommandVideoList.push(result[i + 5]);
             var path = that.recommandVideoList[i].videopath;
             that.recommandVideoList[i].videopath = combineURLs(domain, path);
           }

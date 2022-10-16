@@ -17,7 +17,10 @@
               class="d-inline-block align-text-center"
               style="border-radius: 50%"
             />
-            <p class="web-name" style="color: black; display: inline-block">
+            <p
+              class="web-name"
+              style="color: black; display: inline-block; margin-left: 20px"
+            >
               {{ data.username }}
             </p>
           </div>
@@ -127,8 +130,8 @@
                     />
                   </router-link>
                   <div class="card-body">
-                    <h5>{{ video.name }}</h5>
-                    <p>{{ video.username }}</p>
+                    <h3>{{ video.name }}</h3>
+                    <h5>{{ video.username }}</h5>
                     <!-- <p>{{ video.date }}</p> -->
                   </div>
                 </div>
@@ -149,8 +152,8 @@
                 <div class="card">
                   <img src="resources/ZCC.JPG" class="card-img-top" alt="..." />
                   <div class="card-body">
-                    <h5>{{ video.name }}</h5>
-                    <p>{{ video.username }}</p>
+                    <h3>{{ video.name }}</h3>
+                    <h5>{{ video.username }}</h5>
                     <!-- <p>{{ video.date }}</p> -->
                     <button
                       type="button"
@@ -254,13 +257,50 @@
               :key="data._id"
             >
               <!-- {{info.email}} - {{info.password}} - {{info.username}} - {{info.age}} - {{info.Gender}} -->
-              E-Mail: {{ data.email }} <br />
+              <!-- E-Mail: {{ data.email }} <br />
               Username: {{ data.username }} <br />
               Age: {{ data.age }} <br />
-              Gender: {{ data.gender }} <br />
+              Gender: {{ data.gender }} <br /> -->
+              E-Mail:
+              <div class="intro-detail">
+                <el-input
+                  :placeholder="data.email"
+                  size="medium"
+                  disabled
+                ></el-input>
+              </div>
+              <!-- <input type="text" :placeholder="data.email" disabled /> -->
+              <br />Username:
+              <div class="intro-detail">
+                <el-input
+                  :placeholder="data.username"
+                  size="medium"
+                  disabled
+                ></el-input>
+              </div>
+              <!-- <input type="text" :placeholder="data.username" disabled /> -->
+              <br />Age:
+              <div class="intro-detail">
+                <el-input
+                  :placeholder="data.age"
+                  size="medium"
+                  disabled
+                ></el-input>
+              </div>
+              <!-- <input type="text" :placeholder="data.age" disabled /> -->
+              <br />Gender:
+              <div class="intro-detail">
+                <el-input
+                  :placeholder="data.gender"
+                  size="medium"
+                  disabled
+                ></el-input>
+              </div>
+              <!-- <input type="text" :placeholder="data.gender" disabled /><br /> -->
               <button
                 type="button"
                 class="btn btn-primary"
+                id="manage-profile-button"
                 data-bs-toggle="modal"
                 data-bs-target="#manage-profile"
                 @click="manage(data)"
@@ -626,5 +666,13 @@ export default {
 .profile-info {
   font-size: 20px;
   font-style: normal;
+}
+
+.intro-detail {
+  width: 500px;
+}
+
+#manage-profile-button {
+  margin-top: 30px;
 }
 </style>

@@ -12,8 +12,11 @@
               class="d-inline-block align-text-center"
               style="border-radius: 50%"
             />
-            <p class="web-name" style="color: black; display: inline-block">
-              Congcong Zhao
+            <p
+              class="web-name"
+              style="color: black; display: inline-block; margin-left: 20px"
+            >
+              {{ username }}
             </p>
           </a>
         </div>
@@ -96,6 +99,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      username: window.localStorage.getItem("Username"),
       fileList: [],
       files: [],
       file_name: "",
@@ -205,27 +209,52 @@ export default {
     uploadVideo: function () {
       var that = this;
       var formData = new FormData();
-      formData.append("username", window.localStorage.getItem("Username"));
-      formData.append("category", this.select);
-      formData.append("name", this.input);
-      formData.append("video", this.file);
-      this.axios({
-        url: "http://localhost:3000/api/video",
-        method: "post",
-        data: formData,
-        headers: this.headerObj,
-      })
-        .then(function (request) {
-          if (request.status == 201) {
-            that.reload();
-            setTimeout(() => {
-              alert("Upload successful!");
-            }, 1500);
-          }
+      if (this.select != "" && this.input != "" && this.file != null) {
+        formData.append("username", window.localStorage.getItem("Username"));
+        formData.append("category", this.select);
+        formData.append("name", this.input);
+        formData.append("video", this.file);
+        this.axios({
+          url: "http://localhost:3000/api/video",
+          method: "post",
+          data: formData,
+          headers: this.headerObj,
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(function (request) {
+            if (request.status == 201) {
+              that.reload();
+              setTimeout(() => {
+                alert("Upload successful!");
+              }, 1500);
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        alert("Please fill out the form or if check you have selected a file.");
+      }
+      // formData.append("username", window.localStorage.getItem("Username"));
+      // formData.append("category", this.select);
+      // formData.append("name", this.input);
+      // formData.append("video", this.file);
+      // this.axios({
+      //   url: "http://localhost:3000/api/video",
+      //   method: "post",
+      //   data: formData,
+      //   headers: this.headerObj,
+      // })
+      //   .then(function (request) {
+      //     if (request.status == 201) {
+      //       that.reload();
+      //       setTimeout(() => {
+      //         alert("Upload successful!");
+      //       }, 1500);
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     },
   },
 };
