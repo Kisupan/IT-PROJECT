@@ -73,7 +73,6 @@ export default {
         // handle success
         var result = response.data;
         var len = result.length - 5;
-        console.log(result.length);
         if (result.status != 700) {
           for (var i = 0; i < len; i++) {
             that.recommandVideoList.push(result[i + 5]);

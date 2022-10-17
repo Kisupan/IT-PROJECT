@@ -413,14 +413,14 @@ export default {
       manageObj: { username: "", email: "", password: "", age: "", gender: "" },
       myVideoList: [],
       manageVideoList: [],
-      videoData: {
-        id: 0,
-        imGenderAddr: "resources/ZCC.JPG",
-        videoAddr: "blankpGender.html",
-        title: "Title",
-        author: "ZCC",
-        date: "1/9/2022",
-      },
+      // videoData: {
+      //   id: 0,
+      //   imGenderAddr: "resources/ZCC.JPG",
+      //   videoAddr: "blankpGender.html",
+      //   title: "Title",
+      //   author: "ZCC",
+      //   date: "1/9/2022",
+      // },
       favouriteVideoList: [],
       videoObj: { video_id: "", video_path: "", video_name: "" },
     };
