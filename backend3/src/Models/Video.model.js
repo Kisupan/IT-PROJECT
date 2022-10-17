@@ -37,7 +37,11 @@ const videoSchema = new Schema({
     comments: {
         type: Array,
         default: []
-    }
+    },
+    description: {
+        type: String,
+        required: [true, 'Upload video needs a Description']
+    },
 
 })
 export const videoModel = model('video', videoSchema)

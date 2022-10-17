@@ -10,7 +10,8 @@ export class VideoController {
             username: request.body.username,
             category: request.body.category,
             name: request.body.name,
-            videopath: request.filename
+            videopath: request.filename,
+            description: request.body.description
         })
 
         try {
