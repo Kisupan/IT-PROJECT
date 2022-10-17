@@ -77,6 +77,20 @@
               <el-option label="Others" value="Others"></el-option>
             </el-select>
           </div>
+          <div class="description-selector">
+            Description
+            <div class="text-area">
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 4 }"
+                size="small"
+                placeholder="Please enter your video description"
+                v-model="description"
+              >
+              </el-input>
+            </div>
+          </div>
+          <br />
         </div>
       </div>
       <div class="submit-container">
@@ -110,6 +124,7 @@ export default {
       },
       input: "",
       select: "",
+      description: "",
       videoFlag: false,
       videoUploadPercent: "",
       isShowUploadVideo: false,
@@ -209,11 +224,17 @@ export default {
     uploadVideo: function () {
       var that = this;
       var formData = new FormData();
-      if (this.select != "" && this.input != "" && this.file != null) {
+      if (
+        this.select != "" &&
+        this.input != "" &&
+        this.file != null &&
+        this.description != ""
+      ) {
         formData.append("username", window.localStorage.getItem("Username"));
         formData.append("category", this.select);
         formData.append("name", this.input);
         formData.append("video", this.file);
+        formData.append("description", this.description);
         this.axios({
           url: "http://localhost:3000/api/video",
           method: "post",
@@ -234,33 +255,12 @@ export default {
       } else {
         alert("Please fill out the form or if check you have selected a file.");
       }
-      // formData.append("username", window.localStorage.getItem("Username"));
-      // formData.append("category", this.select);
-      // formData.append("name", this.input);
-      // formData.append("video", this.file);
-      // this.axios({
-      //   url: "http://localhost:3000/api/video",
-      //   method: "post",
-      //   data: formData,
-      //   headers: this.headerObj,
-      // })
-      //   .then(function (request) {
-      //     if (request.status == 201) {
-      //       that.reload();
-      //       setTimeout(() => {
-      //         alert("Upload successful!");
-      //       }, 1500);
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .account-area {
   padding-top: 30px;
   margin-left: 70px;
@@ -313,8 +313,15 @@ export default {
   display: inline-block;
   margin-left: 37px;
 }
+.text-area {
+  width: 300px;
+}
 
 .cate-selector {
+  margin-top: 20px;
+}
+
+.description-selector {
   margin-top: 20px;
 }
 

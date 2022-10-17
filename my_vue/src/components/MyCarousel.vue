@@ -183,29 +183,29 @@ export default {
   },
 
   methods: {
-    getCarouselVideoInfo: function () {
-      var that = this;
-      // Make a request for a user with a given ID
-      this.axios
-        .get("/user?ID=12345")
-        .then(function (response) {
-          // handle success
-          var result = response.data;
-          console.log(result);
-          if (result.status == 200) {
-            that.carouselVideoList = result;
-          }
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .then(function () {
-          // always executed
-        });
-    },
+    // getCarouselVideoInfo: function () {
+    //   var that = this;
+    //   // Make a request for a user with a given ID
+    //   this.axios
+    //     .get("/user?ID=12345")
+    //     .then(function (response) {
+    //       // handle success
+    //       var result = response.data;
+    //       console.log(result);
+    //       if (result.status == 200) {
+    //         that.carouselVideoList = result;
+    //       }
+    //     })
+    //     .catch(function (error) {
+    //       // handle error
+    //       console.log(error);
+    //     })
+    //     .then(function () {
+    //       // always executed
+    //     });
+    // },
   },
-  mounted() {
+  created() {
     var that = this;
     const domain = "http://localhost:3000/api/video/";
     const combineURLs = (baseURL, relativeURL) => {

@@ -82,32 +82,32 @@
           </span>
         </div>
       </div>
-      <!-- <div>
-          <h2 style="margin-top: 6px">Description</h2>
+      <div>
+        <h2 style="margin-top: 6px">Description</h2>
+      </div>
+      <div class="wrapper">
+        <input id="exp1" class="exp" type="checkbox" />
+        <div class="text">
+          <label class="btn-show" for="exp1"></label>
+          {{ video.description }}
         </div>
-        <div class="wrapper">
-          <input id="exp1" class="exp" type="checkbox" />
-          <div class="text">
-            <label class="btn-show" for="exp1"></label>
-            {{ description }}
-          </div>
-        </div>
+      </div>
+      <div>
+        <hr />
+      </div>
+      <div>
+        <h2 style="margin-top: 3px">Comment</h2>
+      </div>
+      <div>
         <div>
-          <hr />
+          <img class="user" src="/resources/vshare.png" />
+          <textarea
+            class="comment_textarea1"
+            placeholder="Start make comments"
+          ></textarea>
+          <button class="post-button">post</button>
         </div>
-        <div>
-          <h2 style="margin-top: 3px">Comment</h2>
-        </div>
-        <div>
-          <div>
-            <img class="user" src="/resources/vshare.png" />
-            <textarea
-              class="comment_textarea1"
-              placeholder="Start make comments"
-            ></textarea>
-            <button class="post-button">post</button>
-          </div>
-        </div> -->
+      </div>
     </div>
     <VShareFooter />
   </div>
@@ -229,7 +229,9 @@ export default {
       })
       .then(function (response) {
         if (response.status == 200) {
+          console.log(response);
           that.video = response.data[0];
+          console.log(that.video);
         }
       })
       .catch(function (error) {
