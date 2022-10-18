@@ -83,7 +83,6 @@ export default {
             var result = response.data;
             if (result.status != 700) {
               that.persons = result;
-              console.log(that.persons);
             }
           })
           .catch(function (error) {
@@ -100,6 +99,7 @@ export default {
 								return this.sortType === 1 ? p2.likes-p1.likes : p1.likes-p2.likes
 							})
 				}
+        console.log(this.persons);
         return this.persons
 					}
       },

@@ -64,7 +64,7 @@
 							</p>
 						</div>
 						<div class="col-md-4 column">
-							<img alt="140x140" src="resources\bird4.png"  width="400" height="400" class="img-circle" />
+							<img alt="140x140" src="resources\bird4.jpg"  width="400" height="400" class="img-circle" />
 							<h2>
 								Liping Meng
 							</h2>

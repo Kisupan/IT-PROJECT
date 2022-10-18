@@ -26,7 +26,7 @@
 
       <el-button @click="threeperpage" v-if="!pagesort" size="mini" type="primary"
         style=" margin-top: 10px">
-        8 items per page</el-button>
+        3 items per page</el-button>
       <el-button @click="onepage" v-if="pagesort" size="mini" type="primary" style="margin-top: 10px">
         just one page
       </el-button>
