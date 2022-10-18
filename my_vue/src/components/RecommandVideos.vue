@@ -13,7 +13,19 @@
               },
             }"
           >
-            <img src="resources/avatar.JPG" class="card-img-top" alt="..." />
+            <div class="video-container">
+              <video
+                :src="video.videopath"
+                style="
+                  background-color: black;
+                  width: 315px;
+                  height: 205px;video.controls=false;
+                "
+                id="upvideo"
+              >
+                您的浏览器不支持视频播放
+              </video>
+            </div>
           </router-link>
           <div class="card-body">
             <h3>{{ video.name }}</h3>

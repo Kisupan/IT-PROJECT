@@ -123,11 +123,19 @@
                       },
                     }"
                   >
-                    <img
-                      src="resources/ZCC.JPG"
-                      class="card-img-top"
-                      alt="..."
-                    />
+                    <div class="video-container">
+                      <video
+                        :src="video.videopath"
+                        style="
+                  background-color: black;
+                  width: 315px;
+                  height: 205px;video.controls=false;
+                "
+                        id="upvideo"
+                      >
+                        您的浏览器不支持视频播放
+                      </video>
+                    </div>
                   </router-link>
                   <div class="card-body">
                     <h3>{{ video.name }}</h3>
@@ -150,7 +158,19 @@
             <div class="row row-cols-4">
               <div class="col" v-for="video in myVideoList" :key="video._id">
                 <div class="card">
-                  <img src="resources/ZCC.JPG" class="card-img-top" alt="..." />
+                  <div class="video-container">
+                    <video
+                      :src="video.videopath"
+                      style="
+                  background-color: black;
+                  width: 315px;
+                  height: 205px;video.controls=false;
+                "
+                      id="upvideo"
+                    >
+                      您的浏览器不支持视频播放
+                    </video>
+                  </div>
                   <div class="card-body">
                     <h3>{{ video.name }}</h3>
                     <h5>{{ video.username }}</h5>
