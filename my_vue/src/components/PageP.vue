@@ -10,8 +10,8 @@
         </li>
       </div>
     </div>
-    <br>
-    <br>
+
+
     <el-row>
       <el-col :span="4" style="
           margin-left: 120px;

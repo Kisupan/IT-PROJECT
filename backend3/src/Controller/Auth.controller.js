@@ -3,6 +3,7 @@ import { genSalt, hash, compare } from 'bcrypt';
 import { config } from 'dotenv';
 import { verify, sign } from 'jsonwebtoken';
 import { userModel } from '../Models/User.model'
+import { videoModel } from '../Models/Video.model'
 config()
 
 export class AuthController {
@@ -148,6 +149,7 @@ export class AuthController {
                 /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
                  return response.status(200).json({msg:'Password rest successful'}) */
                 const updatedAccount = await userModel.findOneAndUpdate({ email: email }, { $set: { username: newUsername, age: newAge, gender: newGender } }, { new: true })
+                const updatedVideo_username = await videoModel.updateMany({ email: email }, { $set: { username: newUsername } }, { new: true })
                 return response.status(200).json({ msg: 'Edit successful' })
             } catch (error) {
                 return response.status(500).json({ msg: 'Failed to update. Change email or username and try again' })
