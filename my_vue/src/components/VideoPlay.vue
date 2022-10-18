@@ -95,7 +95,7 @@
       <div>
         <hr />
       </div>
-      <div>
+      <!-- <div>
         <h2 style="margin-top: 3px">Comment</h2>
       </div>
       <div>
@@ -107,9 +107,8 @@
           ></textarea>
           <button class="post-button">post</button>
         </div>
-      </div>
+      </div> -->
     </div>
-
   </div>
 </template>
 
