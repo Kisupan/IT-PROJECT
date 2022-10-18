@@ -281,7 +281,6 @@ export default {
         if (result.status != 700) {
           for (var i = 0; i < 5; i++) {
             that.carouselVideoList.push(result[i]);
-            that.carouselVideoList[i].imageURL = that.backgroundImage[i];
             var path = that.carouselVideoList[i].videopath;
             that.carouselVideoList[i].videopath = combineURLs(domain, path);
           }
