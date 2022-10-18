@@ -34,14 +34,14 @@
     <h1 v-if="state">
       <h1 v-if="pagesort">
         <li v-for="per of dataShow" :key="per.id">
-          <ResultPage :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes"
+          <ResultPage :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes" :description="per.description"
             :path="per.videopath">
           </ResultPage>
         </li>
       </h1>
       <h1 v-if="!pagesort">
         <li v-for="per of persons" :key="per.id">
-          <ResultPage :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes"
+          <ResultPage :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes" :description="per.description"
             :path="per.videopath" >
           </ResultPage>
         </li>
@@ -50,14 +50,14 @@
     <h1 v-if="!state">
       <h1 v-if="pagesort">
         <li v-for="per of dataShow" :key="per.id">
-          <ResultPage2 :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes"
+          <ResultPage2 :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes" :description="per.description"
             :path="per.videopath" >
           </ResultPage2>
         </li>
       </h1>
       <h1 v-if="!pagesort">
         <li v-for="per of persons" :key="per.id">
-          <ResultPage2 :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes"
+          <ResultPage2 :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes " :description="per.description"
             :path="per.videopath">
           </ResultPage2>
         </li>

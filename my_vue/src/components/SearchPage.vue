@@ -20,6 +20,7 @@
         :dislikes="per.dislikes"
         :label="per.category"
         :path="per.videopath"
+        :description="per.description"
       >
       </ResultPage>
     </li>

@@ -13,6 +13,7 @@
 						<li>
 							<h1>{{title || $route.query.title}}</h1>
 							<p>Author: {{author}}{{$route.query.author}}</p>
+							<p>Description:{{description}}{{$route.query.description}}</p>
 							<p>label: <el-button  plain>
 									<router-link target="_blank" :to="{path:'/Pages', query:{ title:label
 							}
@@ -38,6 +39,11 @@ export default {
 		}
 	},
 	props: {
+		description: {
+			type: String,
+			default: "no discription"
+		},
+
 		dislikes: {
 			type: Number,
 		},
