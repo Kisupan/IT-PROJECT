@@ -1,112 +1,112 @@
 <template>
 
-    <body>
-        <div class="container">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="resources/help1.png" width="200" height="100">
-                                <div class="caption">
-                                    <h3>
-                                        Why cant  access your account?
-                                    </h3>
-                                    <p>
-                                        if you want to see vedio ,lika a vedio or see your account page,you should log first, see the picture above.
-										To sign in, you need to provide account name and password.
-										To register , you need to provide email account name ,genderand password
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-primary" href="#">To register</a> <a class="btn"
-                                            href="#"></a>
-										<a class="btn btn-primary" href="#">To sign in</a> <a class="btn"
-                                            href="#"></a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="resources/help4.png" width="100" height="100"><img alt="300x200" src="resources/help2.png" width="100" height="100">
-                                <div class="caption">
-                                    <h3>
-                                        How to upload vedio?
-                                    </h3>
-                                    <p>
-                                       To upload a vedio, click the acount and find the button (upload the vedio), and then, you can upload the vedio in your computer         
-                                    </p>
-									<br><br><br>
-                                    <p>
-                                        <a class="btn btn-primary" href="#">upload vedio</a> 
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="resources/help4.png" width="100" height="100"><img alt="300x200" src="resources/help3.png" width="100" height="100">
-                                <div class="caption">
-                                    <h3>
-                                        How to see my uploaded vedio?
-                                    </h3>
-                                    <p>
-                                       Go to your own account, it is on the top right of the page, go to the first label "my vedio" and then all your uploaded vedio is here
-                                    </p>
-									<br><br>
-                                    <p>
-                                        <a class="btn btn-primary" href="#">My account</a> 
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<body>
 		<div class="container">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img alt="300x200" src="resources/help4.png" width="100" height="100">
-                                <div class="caption">
-                                    <h3>
-                                        How to change your account data
-                                    </h3>
-                                    <p>
-                                        if you want to see vedio ,lika a vedio or see your account page,you should log first, see the picture above.
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="resources/help1.png" width="200" height="100">
+								<div class="caption">
+									<h3>
+										how to change an account?
+									</h3>
+									<p>
+										if you want to change an account please sign out first, and sign in or sign up a
+										new account, if you want to delete an account,please contact the administer,she
+										will help you to delete your account.
+									</p>
+									<br><br>
+									<p>
+										<router-link class="btn btn-outline-primary" to="/profile" role="button"
+											target="_blank">my account</router-link>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="resources/help4.png" width="100" height="100"><img alt="300x200"
+									src="resources/help2.png" width="100" height="100">
+								<div class="caption">
+									<h3>
+										How to upload the vedio ?
+									</h3>
+									<p>
+										To upload a vedio, click the acount and find the button (upload the vedio), and
+										then, you can upload the vedio in your computer
+									</p>
+									<br><br><br><br>
+									<p>
+										<router-link class="btn btn-outline-primary" to="/upload" role="button"
+											target="_blank">Upload Video</router-link>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="resources/help4.png" width="100" height="100"><img alt="300x200"
+									src="resources/help3.png" width="100" height="100">
+								<div class="caption">
+									<h3>
+										How to see uploaded vedio?
+									</h3>
+									<p>
+										Go to your own account, it is on the top right of the page, go to the first
+										label "my vedio" and then all your uploaded vedio is here
+									</p>
+									<br><br><br>
+									<p>
+										<router-link class="btn btn-outline-primary" to="/profile" role="button"
+											target="_blank">my Video</router-link>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="resources/help4.png" width="100" height="100">
+								<div class="caption">
+									<h3>
+										How to change your account data
+									</h3>
+									<p>
+										if you want to see vedio ,lika a vedio or see your account page,you should log
+										first, see the picture above.
 										To sign in, you need to provide account name and password.
 										To register , you need to provide email account name ,genderand password
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-primary" href="#">To Homepage</a> <a class="btn"
-                                            href="#"></a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <VShareFooter></VShareFooter>
-    </body>
+									</p>
+									<br><br>
+									<p>
+										<router-link class="btn btn-outline-primary" to="/profile" role="button"
+											target="_blank">my account</router-link>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 
 </template>
 
 <script>
 
-import VShareFooter from './VShareFooter.vue';
 
 export default {
-    components: {
-        VShareFooter
-    },
-
-
-    name: 'TermPage'
+	name: 'TermPage'
 }
 
 </script>
@@ -343,5 +343,4 @@ li {
 	height: 30px;
 	margin-right: 10px;
 }
-
 </style>
