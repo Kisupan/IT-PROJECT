@@ -6,7 +6,7 @@
 				<div class="col-md-12 column">
 					<div class="row clearfix">
 						<div class="col-md-4 column">
-							<img alt="140x140" src="resources\pig.jpg"  width="400" height="400" class="img-circle" />
+							<img alt="140x140" src="resources/avatar.JPG"  width="400" height="400" class="img-circle" />
 							<h2>
 								HE XU XIAO
 							</h2>
@@ -20,7 +20,7 @@
 							</p>
 						</div>
 						<div class="col-md-4 column">
-							<img alt="140x140" src="resources\bird1.png"  width="400" height="400" class="img-circle" />
+							<img alt="140x140" src="resources/avatar.JPG"  width="400" height="400" class="img-circle" />
 							<h2>
 								QI GUO
 							</h2>
@@ -34,7 +34,7 @@
 							</p>
 						</div>
 						<div class="col-md-4 column">
-							<img alt="140x140" src="resources\bird2.jpg"  width="400" height="400" class="img-circle" />
+							<img alt="140x140" src="resources/ZCC.JPG"  width="400" height="400" class="img-circle" />
 							<h2>
 								CONG CONG ZHAO
 							</h2>
@@ -50,7 +50,7 @@
 					</div>
 					<div class="row clearfix">
 						<div class="col-md-4 column">
-							<img alt="140x140" src="resources\bird3.jpg"  width="400" height="400" class="img-circle" />
+							<img alt="140x140" src="resources//Logo03.png"  width="400" height="400" class="img-circle" />
 							<h2>
 								Jialin Ding
 							</h2>
@@ -64,7 +64,7 @@
 							</p>
 						</div>
 						<div class="col-md-4 column">
-							<img alt="140x140" src="resources\bird4.png"  width="400" height="400" class="img-circle" />
+							<img alt="140x140" src="resources/Logo03.png"  width="400" height="400" class="img-circle" />
 							<h2>
 								Liping Meng
 							</h2>
@@ -81,15 +81,19 @@
 				</div>
 			</div>
 		</div>
+		<VShareFooter></VShareFooter>
 	</body>
 
 </template>
 
 <script>
 
+import VShareFooter from './VShareFooter.vue';
 
 export default {
-	
+	components: {
+		VShareFooter
+	},
 
 
 	name: 'TermPage'
