@@ -1,12 +1,13 @@
 <template>
   <body>
-    <div>
-      <div class="caption">
+    <div class="Category">
+			<div class="box">
         <h3>
           {{ title || $route.query.title }}
         </h3>
-        <p>Author: {{ author }}{{ $route.query.author }}</p>
-        <p>label: {{ label }}{{ $route.query.label }}</p>
+        <p>Author: {{ author }}{{ $route.query.author }} 
+           label: {{ label }}{{ $route.query.label }}
+           likes: {{ likes }}{{ $route.query.likes }}</p>
         <p>
           <router-link
             target="_blank"
@@ -41,7 +42,7 @@ export default {
     title: {
       type: String,
     },
-    like: {
+    likes: {
       type: Number,
       default: 0,
     },
@@ -290,4 +291,5 @@ li {
   height: 30px;
   margin-right: 10px;
 }
+
 </style>

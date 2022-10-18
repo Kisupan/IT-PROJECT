@@ -1,88 +1,75 @@
 <template>
+
 	<body>
 
-	
-	<div class="Category">
-		<div class="box">
-			<router-link
-            target="_blank"
-            :to="{
-              path: '/video',
-              query: {
-                      videoname: title,
-                      videopath: videopath,
-                    },
-            }"
-          ><ul>
 
-				<li><img src="../../public/resources/Logo01.png" class="img-thumbnail" alt="" width="300" height="300"></li>
-				<li>
-					<h1>{{title || $route.query.title}}</h1>
-					<p>Author: {{author}}{{$route.query.author}}</p>
-					<p>Time:2001/01/01</p>
-					<p>label:  <el-button type="success" plain><router-link  target="_blank" :to="{
-                    path:'/Pages',
-
-                    query:{ title:label
-
-                    }
-                }">{{label}}{{$route.query.label}}</router-link></el-button>
-				</p>
-				</li>
-				<le>
-					<el-button @click="favour"  v-if="!iffavour " type="primary" icon="el-icon-star-off" >{{like}}{{$route.query.like}}</el-button>
-					<el-button @click="notfavour"  v-if="iffavour " type="primary" icon="el-icon-star-on">{{like}}{{$route.query.like}}</el-button>
-				</le>
-			</ul>
-
-            
-          </router-link>
-			
-
+		<div class="Category">
+			<div class="box">
+				<router-link target="_blank" :to="{path: '/video',query: {videoname: title,videopath: videopath,},
+				}">
+					<ul>
+						<li><img src="../../public/resources/Logo01.png" class="img-thumbnail" alt="" width="300"
+								height="300"></li>
+						<li>
+							<h1>{{title || $route.query.title}}</h1>
+							<p>Author: {{author}}{{$route.query.author}}</p>
+							<p>label: <el-button  plain>
+									<router-link target="_blank" :to="{path:'/Pages', query:{ title:label
+							}
+									}">{{label}}{{$route.query.label}}</router-link>
+								</el-button>
+							</p>
+							<p>	likes number:{{likes}}{{$route.query.likes}} 	dislikes number:{{dislikes}}{{$route.query.dislikes}}</p>
+						</li>
+					</ul>
+				</router-link>
+			</div>
 		</div>
-	</div>	
-</body>
+	</body>
 </template>
 
 <script>
 export default {
-	data(){
-		return{
+	data() {
+		return {
 
-			videopath : null,
-			iffavour : false,
+			videopath: null,
+			iffavour: false,
 		}
 	},
-	props:{
+	props: {
+		dislikes: {
+			type: Number,
+		},
 
+		author: {
+			type: String,
+			required: true,
+		},
+		title: {
+			type: String,
+		},
+		likes: {
+			type: Number,
+		},
+		label: {
+			type: String,
 
-			author:{
-				type:String, 
-				required:true, 
-			},
-			title:{
-				type:String,
-			},
-			like:{
-				type:Number,
-				default: 0
-			},
-			label:{
-				type:String,
-
-			},
-			path: {
+		},
+		path: {
 			type: String,
 		},
 
+	},
+	methods: {
+		favour() {
+			this.iffavour = true
+			alert('favoured！')
 		},
-	methods:{
-				favour(){this.iffavour = true
-					alert('favoured！')
-				},
-				notfavour(){this.iffavour = false
-					alert('not favoured！')
-				},
+		notfavour() {
+			this.iffavour = false
+			alert('not favoured！')
+		},
 	},
 
 	mounted() {
