@@ -1,24 +1,29 @@
 <template>
-
   <body>
     <div class="Category">
       <div class="box">
         <h3>
           {{ title || $route.query.title }}
         </h3>
-        <p>Author: {{ author }}{{ $route.query.author }} </p>
-        <p> Description:{{description}}{{$route.query.description}}</p>
-        <p> label: {{ label }}{{ $route.query.label }}
-          likes: {{ likes }}{{ $route.query.likes }}
-          dislikes number:{{dislikes}}{{$route.query.dislikes}}</p>
+        <p>Author: {{ author }}{{ $route.query.author }}</p>
+        <p>Description:{{ description }}{{ $route.query.description }}</p>
         <p>
-          <router-link target="_blank" :to="{
-            path: '/video',
-            query: {
-              videoname: title,
-              videopath: videopath,
-            },
-          }">watch video
+          label: {{ label }}{{ $route.query.label }} likes: {{ likes
+          }}{{ $route.query.likes }} dislikes number:{{ dislikes
+          }}{{ $route.query.dislikes }}
+        </p>
+        vedio:{{ path }}{{ $route.query.path }}
+        <p>
+          <router-link
+            target="_blank"
+            :to="{
+              path: '/video',
+              query: {
+                videoname: title,
+                videopath: videopath,
+              },
+            }"
+            >watch video
           </router-link>
         </p>
       </div>
@@ -37,7 +42,7 @@ export default {
   props: {
     description: {
       type: String,
-      default: "no discription"
+      default: "no discription",
     },
     author: {
       type: String,

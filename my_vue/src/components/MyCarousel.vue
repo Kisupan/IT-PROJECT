@@ -93,7 +93,7 @@
           <video
             :src="carouselVideoList[1].videopath"
             style="
-                  width: 1499px;
+                  width: 100%;
                   height: 512px;video.controls=false;
                   background-color: rgb(194 214 227 / 64%);
                 "
@@ -125,7 +125,7 @@
           <video
             :src="carouselVideoList[2].videopath"
             style="
-                  width: 1499px;
+                  width: 100%;
                   height: 512px;video.controls=false;
                   background-color: rgb(194 214 227 / 64%);
                 "
@@ -157,7 +157,7 @@
           <video
             :src="carouselVideoList[3].videopath"
             style="
-                  width: 1499px;
+                  width: 100%;
                   height: 512px;video.controls=false;
                   background-color: rgb(194 214 227 / 64%);
                 "
@@ -189,7 +189,7 @@
           <video
             :src="carouselVideoList[4].videopath"
             style="
-                  width: 1499px;
+                  width: 100%;
                   height: 512px;video.controls=false;
                   background-color: rgb(194 214 227 / 64%);
                 "
