@@ -38,7 +38,7 @@
         aria-label="Slide 5"
       ></button>
     </div>
-    <div class="carousel-inner">
+    <div class="carousel-inner" style="width: 100%">
       <div
         class="carousel-item active"
         data-bs-interval="6000"
@@ -58,7 +58,7 @@
             :src="carouselVideoList[0].videopath"
             style="
                   background-color: rgb(194 214 227 / 64%);
-                  width: 1499px;
+                  width: 100%;
                   height: 512px;video.controls=false;
                 "
             id="upvideo"

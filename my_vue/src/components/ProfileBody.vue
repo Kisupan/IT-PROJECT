@@ -128,7 +128,7 @@
                         :src="video.videopath"
                         style="
                   background-color: black;
-                  width: 315px;
+                  width: 280px;
                   height: 205px;video.controls=false;
                 "
                         id="upvideo"

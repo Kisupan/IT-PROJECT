@@ -18,8 +18,8 @@
                 :src="video.videopath"
                 style="
                   background-color: black;
-                  width: 315px;
-                  height: 205px;video.controls=false;
+                  width: 100%;
+                  height: 230px;video.controls=false;
                 "
                 id="upvideo"
               >
