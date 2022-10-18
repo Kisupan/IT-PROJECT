@@ -5,7 +5,8 @@
     </div>
     <div v-else>
       <VShareHeader v-if="isRouterAlive"></VShareHeader>
-      <router-view v-if="isRouterAlive"></router-view>
+      <router-view v-if="isRouterAlive" style="position:relative;height:auto;margin:0 auto; min-height: 100vh;;padding:10px;height:100%"></router-view>
+      <VShareFooter  v-if="isRouterAlive" style="position:absolute; width:100%"></VShareFooter>
     </div>
   </div>
 </template>
@@ -13,12 +14,13 @@
 <script>
 import VShareHeader from "./components/VShareHeader.vue";
 import ManagementSystem from "./components/ManagementSystem.vue";
-
+import VShareFooter from "./components/VShareFooter.vue";
 export default {
   name: "App",
   components: {
     VShareHeader,
     ManagementSystem,
+    VShareFooter,
   },
   provide() {
     return {

@@ -5,11 +5,11 @@
 
 		<div class="Category">
 			<div class="box">
-				<router-link target="_blank" :to="{path: '/video',query: {videoname: title,videopath: videopath,},
+				<router-link  target="_blank" :to="{path: '/video',query: {videoname: title,videopath: videopath,},
 				}">
 					<ul>
-						<li><img src="../../public/resources/Logo01.png" class="img-thumbnail" alt="" width="300"
-								height="300"></li>
+						<li><video :src="videopath" style="width:400px;height:200px;video.controls=false;"  
+								id="upvideo">您的浏览器不支持视频播放</video></li>
 						<li>
 							<h1>{{title || $route.query.title}}</h1>
 							<p>Author: {{author}}{{$route.query.author}}</p>

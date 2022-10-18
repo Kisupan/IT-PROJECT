@@ -109,17 +109,14 @@
         </div>
       </div>
     </div>
-    <VShareFooter />
+
   </div>
 </template>
 
 <script>
-import VShareFooter from "./VShareFooter.vue";
 export default {
   name: "VideoPlay",
-  components: {
-    VShareFooter,
-  },
+
   data() {
     return {
       video: {},
