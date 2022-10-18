@@ -91,13 +91,6 @@ export default {
       },
     },
   },
-  watch: {
-    sortType: {
-      immediate: true,
-      deep: true,
-
-    },
-  },
   computed:{
 					filPerons(){
 						//判断一下是否需要排序
