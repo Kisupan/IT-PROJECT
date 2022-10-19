@@ -128,7 +128,7 @@
                         :src="video.videopath"
                         style="
                   background-color: black;
-                  width: 280px;
+                  width: 100%;
                   height: 205px;video.controls=false;
                 "
                         id="upvideo"
@@ -163,7 +163,7 @@
                       :src="video.videopath"
                       style="
                   background-color: black;
-                  width: 315px;
+                  width: 100%;
                   height: 205px;video.controls=false;
                 "
                       id="upvideo"
@@ -443,6 +443,7 @@ export default {
       // },
       favouriteVideoList: [],
       videoObj: { video_id: "", video_path: "", video_name: "" },
+      old_username: "",
     };
   },
 
@@ -454,12 +455,14 @@ export default {
         username: this.manageObj.username,
         age: this.manageObj.age,
         gender: this.manageObj.gender,
+        old_username: this.old_username,
       };
       if (!this.manageObj.password) {
         this.axios
           .post("http://localhost:3000/api/update", params)
           .then(function (request) {
             if (request.status == 200) {
+              localStorage.setItem("Username", that.manageObj.username);
               that.reload();
               setTimeout(() => {
                 alert(request.data.msg);
@@ -467,6 +470,7 @@ export default {
             }
           })
           .catch(function (error) {
+            console.log(error);
             if (error.request.status == 500) {
               setTimeout(() => {
                 alert(error.response.data.msg);
@@ -544,6 +548,7 @@ export default {
       this.manageObj.age = item.age;
       this.manageObj.gender = item.gender;
       this.manageObj.password = "";
+      this.old_username = this.manageObj.username;
     },
     manageVideo(video_id) {
       var that = this;
@@ -595,6 +600,7 @@ export default {
       .get("http://localhost:3000/api/user-search/", {
         params: {
           username: name,
+          isadmin: false,
         },
       })
       .then(function (response) {

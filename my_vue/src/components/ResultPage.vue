@@ -104,6 +104,26 @@ export default {
     this.videopath = combineURLs(domain, this.path);
     console.log(this.videopath);
   },
+  watch: {
+    path: {
+      immediate: true,
+      deep: true,
+      handler() {
+        const domain = "http://localhost:3000/api/video/";
+        const combineURLs = (baseURL, relativeURL) => {
+          return relativeURL
+            ? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(
+                /^\/+/,
+                ""
+              )}`
+            : baseURL;
+        };
+        console.log(this.path);
+        this.videopath = combineURLs(domain, this.path);
+        console.log(this.videopath);
+      },
+    },
+  },
   name: "ResultPage",
 };
 </script>

@@ -29,7 +29,7 @@
     </div>
     <div v-else>
       <li v-for="per of filPerons" :key="per.id">
-        <ResultPage2
+        <ResultPage
           :id="per._id"
           :title="per.name"
           :author="per.username"
@@ -39,7 +39,7 @@
           :path="per.videopath"
           :description="per.description"
         >
-        </ResultPage2>
+        </ResultPage>
       </li>
     </div>
   </div>
@@ -47,10 +47,10 @@
 <router-view :key='$route.fullPath'></router-view >
 <script type="text/javascript"></script>
 <script>
-import ResultPage2 from "./ResultPage2.vue";
+import ResultPage from "./ResultPage.vue";
 export default {
   components: {
-    ResultPage2,
+    ResultPage,
   },
   data() {
     return {

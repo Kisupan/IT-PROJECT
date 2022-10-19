@@ -271,6 +271,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      old_username: "",
       video_list: [],
       del_videopath_list: [],
       continues: false,
@@ -429,6 +430,7 @@ export default {
       this.editObj.age = item.age;
       this.editObj.gender = item.gender;
       this.editObj.password = "";
+      this.old_username = this.editObj.username;
     },
 
     edit_Items() {
@@ -438,6 +440,7 @@ export default {
         username: this.editObj.username,
         age: this.editObj.age,
         gender: this.editObj.gender,
+        old_username: this.old_username,
       };
       if (this.editObj.username != "admin") {
         if (!this.editObj.password) {
