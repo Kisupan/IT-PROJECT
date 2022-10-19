@@ -1,4 +1,5 @@
 <template>
+
   <body>
     <div class="Category">
       <div class="box">
@@ -14,16 +15,13 @@
         </p>
         vedio:{{ path }}{{ $route.query.path }}
         <p>
-          <router-link
-            target="_blank"
-            :to="{
-              path: '/video',
-              query: {
-                videoname: title,
-                videopath: videopath,
-              },
-            }"
-            >watch video
+          <router-link target="_blank" :to="{
+            path: '/video',
+            query: {
+              videoname: title,
+              videopath: videopath,
+            },
+          }">watch video
           </router-link>
         </p>
       </div>
@@ -76,6 +74,23 @@ export default {
     console.log(this.path);
     this.videopath = combineURLs(domain, this.path);
     console.log(this.videopath);
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      deep: true,
+      handler() {
+        const domain = "http://localhost:3000/api/video/";
+        const combineURLs = (baseURL, relativeURL) => {
+          return relativeURL
+            ? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
+            : baseURL;
+        };
+        console.log(this.path);
+        this.videopath = combineURLs(domain, this.path);
+        console.log(this.videopath);
+      },
+    },
   },
   name: "ResultPage2",
 };
