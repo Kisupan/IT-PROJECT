@@ -23,7 +23,7 @@
               class="form-control"
               type="text"
               v-model="search_username"
-              placeholder="Search username"
+              placeholder="Search Email/Username"
               aria-label="Search"
             />
             <button

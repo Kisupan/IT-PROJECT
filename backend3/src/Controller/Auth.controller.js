@@ -203,8 +203,13 @@ export class AuthController {
             }
         } else {
             try {
-                let user = await userModel.find({ username: { $regex: name } })
-                return response.send(user)
+                var user = await userModel.find({ username: { $regex: name } })
+                if (user.length > 0) {
+                    return response.send(user)
+                } else {
+                    var user = await userModel.find({ email: { $regex: name } })
+                    return response.send(user)
+                }
             } catch (error) {
                 return response.status(500).json({ msg: 'No matching user' })
             }
