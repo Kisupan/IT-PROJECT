@@ -3,7 +3,7 @@
     <div class="account-area">
       <nav class="navbar bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="profilepage.html">
+          <router-link class="navbar-brand" to="/profile">
             <img
               src="resources/ZCC.JPG"
               alt=""
@@ -18,7 +18,7 @@
             >
               {{ username }}
             </p>
-          </a>
+          </router-link>
         </div>
       </nav>
     </div>

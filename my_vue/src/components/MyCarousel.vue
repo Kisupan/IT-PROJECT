@@ -1,7 +1,7 @@
 <template>
   <div
     id="homepage-carousel"
-    class="carousel carousel-dark slide"
+    class="carousel slide carousel-fade"
     data-bs-ride="carousel"
   >
     <div class="carousel-indicators">
@@ -38,8 +38,12 @@
         aria-label="Slide 5"
       ></button>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="8000">
+    <div class="carousel-inner" style="width: 100%">
+      <div
+        class="carousel-item active"
+        data-bs-interval="6000"
+        style="background-color: rgb(194 214 227 / 64%)"
+      >
         <router-link
           target="_blank"
           :to="{
@@ -50,17 +54,32 @@
             },
           }"
         >
-          <div
+          <video
+            :src="carouselVideoList[0].videopath"
+            style="
+                  background-color: rgb(194 214 227 / 64%);
+                  width: 100%;
+                  height: 512px;video.controls=false;
+                "
+            id="upvideo"
+          >
+            您的浏览器不支持视频播放
+          </video>
+          <!-- <div
             class="overlay-image"
             :style="`background-image: url(${carouselVideoList[0].imageURL})`"
-          ></div>
+          ></div> -->
         </router-link>
         <div class="carousel-item-container">
           <h1>{{ carouselVideoList[0].name }}</h1>
           <p>{{ carouselVideoList[0].username }}</p>
         </div>
       </div>
-      <div class="carousel-item" data-bs-interval="4000">
+      <div
+        class="carousel-item"
+        data-bs-interval="4000"
+        style="background-color: rgb(194 214 227 / 64%)"
+      >
         <router-link
           target="_blank"
           :to="{
@@ -71,17 +90,28 @@
             },
           }"
         >
-          <div
-            class="overlay-image"
-            :style="`background-image: url(${carouselVideoList[1].imageURL})`"
-          ></div>
+          <video
+            :src="carouselVideoList[1].videopath"
+            style="
+                  width: 100%;
+                  height: 512px;video.controls=false;
+                  background-color: rgb(194 214 227 / 64%);
+                "
+            id="upvideo"
+          >
+            您的浏览器不支持视频播放
+          </video>
         </router-link>
         <div class="carousel-item-container">
           <h1>{{ carouselVideoList[1].name }}</h1>
           <p>{{ carouselVideoList[1].username }}</p>
         </div>
       </div>
-      <div class="carousel-item" data-bs-interval="4000">
+      <div
+        class="carousel-item"
+        data-bs-interval="4000"
+        style="background-color: rgb(194 214 227 / 64%)"
+      >
         <router-link
           target="_blank"
           :to="{
@@ -92,17 +122,28 @@
             },
           }"
         >
-          <div
-            class="overlay-image"
-            :style="`background-image: url(${carouselVideoList[2].imageURL})`"
-          ></div>
+          <video
+            :src="carouselVideoList[2].videopath"
+            style="
+                  width: 100%;
+                  height: 512px;video.controls=false;
+                  background-color: rgb(194 214 227 / 64%);
+                "
+            id="upvideo"
+          >
+            您的浏览器不支持视频播放
+          </video>
         </router-link>
         <div class="carousel-item-container">
           <h1>{{ carouselVideoList[2].name }}</h1>
           <p>{{ carouselVideoList[2].username }}</p>
         </div>
       </div>
-      <div class="carousel-item" data-bs-interval="4000">
+      <div
+        class="carousel-item"
+        data-bs-interval="4000"
+        style="background-color: rgb(194 214 227 / 64%)"
+      >
         <router-link
           target="_blank"
           :to="{
@@ -113,17 +154,28 @@
             },
           }"
         >
-          <div
-            class="overlay-image"
-            :style="`background-image: url(${carouselVideoList[3].imageURL})`"
-          ></div>
+          <video
+            :src="carouselVideoList[3].videopath"
+            style="
+                  width: 100%;
+                  height: 512px;video.controls=false;
+                  background-color: rgb(194 214 227 / 64%);
+                "
+            id="upvideo"
+          >
+            您的浏览器不支持视频播放
+          </video>
         </router-link>
         <div class="carousel-item-container">
           <h1>{{ carouselVideoList[3].name }}</h1>
           <p>{{ carouselVideoList[3].username }}</p>
         </div>
       </div>
-      <div class="carousel-item" data-bs-interval="4000">
+      <div
+        class="carousel-item"
+        data-bs-interval="4000"
+        style="background-color: rgb(194 214 227 / 64%)"
+      >
         <router-link
           target="_blank"
           :to="{
@@ -134,10 +186,17 @@
             },
           }"
         >
-          <div
-            class="overlay-image"
-            :style="`background-image: url(${carouselVideoList[4].imageURL})`"
-          ></div>
+          <video
+            :src="carouselVideoList[4].videopath"
+            style="
+                  width: 100%;
+                  height: 512px;video.controls=false;
+                  background-color: rgb(194 214 227 / 64%);
+                "
+            id="upvideo"
+          >
+            您的浏览器不支持视频播放
+          </video>
         </router-link>
         <div class="carousel-item-container">
           <h1>{{ carouselVideoList[4].name }}</h1>
@@ -222,7 +281,6 @@ export default {
         if (result.status != 700) {
           for (var i = 0; i < 5; i++) {
             that.carouselVideoList.push(result[i]);
-            that.carouselVideoList[i].imageURL = that.backgroundImage[i];
             var path = that.carouselVideoList[i].videopath;
             that.carouselVideoList[i].videopath = combineURLs(domain, path);
           }

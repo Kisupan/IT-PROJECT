@@ -72,7 +72,7 @@ export class VideoController {
     async searchVideo(request, response) {
         const name = request.query.key.toLowerCase();
         try {
-            let video = await videoModel.find({ name: { $regex: name.toLowerCase() } })
+            let video = await videoModel.find({ name: { $regex: name } })
             return response.send(video)
 
         } catch (error) {
@@ -95,7 +95,7 @@ export class VideoController {
     async searchUVideo(request, response) {
         const name = request.query.key;
         try {
-            let video = await videoModel.find({ username: { $regex: name } })
+            let video = await videoModel.find({ username: name })
             return response.send(video)
 
         } catch (error) {

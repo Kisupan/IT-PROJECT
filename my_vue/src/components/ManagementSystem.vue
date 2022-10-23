@@ -23,7 +23,7 @@
               class="form-control"
               type="text"
               v-model="search_username"
-              placeholder="Search username"
+              placeholder="Search Email/Username"
               aria-label="Search"
             />
             <button
@@ -252,6 +252,7 @@ export default {
   },
   data() {
     return {
+      old_username: "",
       not_empty_table: true,
       video_list: [],
       del_videopath_list: [],
@@ -276,7 +277,7 @@ export default {
       var that = this;
       this.axios
         .get("http://localhost:3000/api/user-search/", {
-          params: { username: this.search_username },
+          params: { username: this.search_username, isadmin: true },
         })
         .then(function (response) {
           if (response.data.length == 0) {
@@ -368,6 +369,7 @@ export default {
       this.editObj.age = item.age;
       this.editObj.gender = item.gender;
       this.editObj.password = "";
+      this.old_username = this.editObj.username;
     },
 
     edit_Items() {
@@ -377,6 +379,7 @@ export default {
         username: this.editObj.username,
         age: this.editObj.age,
         gender: this.editObj.gender,
+        old_username: this.old_username,
       };
       if (this.editObj.username != "admin") {
         if (!this.editObj.password) {

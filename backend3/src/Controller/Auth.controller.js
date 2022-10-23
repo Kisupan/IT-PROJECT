@@ -129,14 +129,13 @@ export class AuthController {
     }
 
     // updat user info such as username, password, age and gender via email.
-    update(request, response) {
+    async update(request, response) {
         const form = new IncomingForm();
-
         form.parse(request, async (error, fields, files) => {
             if (error) {
                 return response.status(500).json({ msg: 'Failed to update. Try again later' })
             }
-            const { email, username, age, gender } = fields;
+            const { email, username, age, gender, old_username } = fields;
             const newUsername = username
             const newAge = age
             const newGender = gender
@@ -146,10 +145,8 @@ export class AuthController {
                 if (!user) {
                     return response.status(404).json({ msg: 'Account with this email does not exist' })
                 }
-                /* const updatedAccount = await userModel.findOneAndUpdate({email:email}, {$set:{password: hashedPassword}}, {new:true})
-                 return response.status(200).json({msg:'Password rest successful'}) */
-                const updatedAccount = await userModel.findOneAndUpdate({ email: email }, { $set: { username: newUsername, age: newAge, gender: newGender } }, { new: true })
-                const updatedVideo_username = await videoModel.updateMany({ email: email }, { $set: { username: newUsername } }, { new: true })
+                let updatedAccount = await userModel.findOneAndUpdate({ email: email }, { $set: { username: newUsername, age: newAge, gender: newGender } }, { new: true })
+                let updatedVideo_username = await videoModel.updateMany({ username: old_username }, { $set: { username: newUsername } }, { new: true })
                 return response.status(200).json({ msg: 'Edit successful' })
             } catch (error) {
                 return response.status(500).json({ msg: 'Failed to update. Change email or username and try again' })
@@ -196,11 +193,26 @@ export class AuthController {
     // search for a user by request 
     async searchUser(request, response) {
         const name = request.query.username;
-        try {
-            let user = await userModel.find({ username: { $regex: name } })
-            return response.send(user)
-        } catch (error) {
-            return response.status(500).json({ msg: 'No matching user' })
+        const isadmin = request.query.isadmin
+        if (isadmin === 'false') {
+            try {
+                let user = await userModel.find({ username: name })
+                return response.send(user)
+            } catch (error) {
+                return response.status(500).json({ msg: 'No matching user' })
+            }
+        } else {
+            try {
+                var user = await userModel.find({ username: { $regex: name } })
+                if (user.length > 0) {
+                    return response.send(user)
+                } else {
+                    var user = await userModel.find({ email: { $regex: name } })
+                    return response.send(user)
+                }
+            } catch (error) {
+                return response.status(500).json({ msg: 'No matching user' })
+            }
         }
     }
 

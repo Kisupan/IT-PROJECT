@@ -6,11 +6,14 @@
         <h3>
           {{ title || $route.query.title }}
         </h3>
-        <p>Author: {{ author }}{{ $route.query.author }} </p>
-        <p> Description:{{description}}{{$route.query.description}}</p>
-        <p> label: {{ label }}{{ $route.query.label }}
-          likes: {{ likes }}{{ $route.query.likes }}
-          dislikes number:{{dislikes}}{{$route.query.dislikes}}</p>
+        <p>Author: {{ author }}{{ $route.query.author }}</p>
+        <p>Description:{{ description }}{{ $route.query.description }}</p>
+        <p>
+          label: {{ label }}{{ $route.query.label }} likes: {{ likes
+          }}{{ $route.query.likes }} dislikes number:{{ dislikes
+          }}{{ $route.query.dislikes }}
+        </p>
+        vedio:{{ path }}{{ $route.query.path }}
         <p>
           <router-link target="_blank" :to="{
             path: '/video',
@@ -37,7 +40,7 @@ export default {
   props: {
     description: {
       type: String,
-      default: "no discription"
+      default: "no discription",
     },
     author: {
       type: String,
@@ -71,6 +74,23 @@ export default {
     console.log(this.path);
     this.videopath = combineURLs(domain, this.path);
     console.log(this.videopath);
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      deep: true,
+      handler() {
+        const domain = "http://localhost:3000/api/video/";
+        const combineURLs = (baseURL, relativeURL) => {
+          return relativeURL
+            ? `${baseURL.replace(/\/+$/, "")}/${relativeURL.replace(/^\/+/, "")}`
+            : baseURL;
+        };
+        console.log(this.path);
+        this.videopath = combineURLs(domain, this.path);
+        console.log(this.videopath);
+      },
+    },
   },
   name: "ResultPage2",
 };

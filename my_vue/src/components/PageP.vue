@@ -1,73 +1,144 @@
 <template>
-
-  <body >
+  <body>
     <HomePageChannel></HomePageChannel>
-    <div style="position:relative;height:auto;margin:0 auto; min-height: 100vh;;padding:10px;height:100%">
-    <div class="Category">
-      <div class="top">
-        <li>
-          <el-button type="primary" size="middle" round>like:{{ $route.query.title }}</el-button>
-        </li>
+    <div
+      style="
+        position: relative;
+        height: auto;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 10px;
+        height: 100%;
+      "
+    >
+      <div class="Category">
+        <div class="top">
+          <li>
+            <el-button type="primary" size="middle" round
+              >like:{{ $route.query.title }}</el-button
+            >
+          </li>
+        </div>
       </div>
+
+      <el-row>
+        <el-col
+          :span="4"
+          style="
+            margin-left: 120px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            margin-right: 50%;
+          "
+        >
+          <el-switch
+            v-model="state"
+            active-text="form detail"
+            inactive-text="form easy"
+          >
+          </el-switch>
+          <div class="grid-content bg-purple-light"></div>
+        </el-col>
+
+        <el-button
+          @click="threeperpage"
+          v-if="!pagesort"
+          size="mini"
+          type="primary"
+          style="margin-top: 10px"
+        >
+          just one page</el-button
+        >
+        <el-button
+          @click="onepage"
+          v-if="pagesort"
+          size="mini"
+          type="primary"
+          style="margin-top: 10px"
+        >
+          3 items per page
+        </el-button>
+      </el-row>
+      <h1 v-if="state">
+        <h1 v-if="pagesort">
+          <li v-for="per of dataShow" :key="per.id">
+            <ResultPage
+              :id="per.id"
+              :title="per.name"
+              :author="per.username"
+              :likes="per.likes"
+              :label="per.category"
+              :dislikes="per.dislikes"
+              :description="per.description"
+              :path="per.videopath"
+            >
+            </ResultPage>
+          </li>
+        </h1>
+        <h1 v-if="!pagesort">
+          <li v-for="per of persons" :key="per.id">
+            <ResultPage
+              :id="per.id"
+              :title="per.name"
+              :author="per.username"
+              :likes="per.likes"
+              :label="per.category"
+              :dislikes="per.dislikes"
+              :description="per.description"
+              :path="per.videopath"
+            >
+            </ResultPage>
+          </li>
+        </h1>
+      </h1>
+      <h1 v-if="!state">
+        <h1 v-if="pagesort">
+          <li v-for="per of dataShow" :key="per.id">
+            <ResultPage2
+              :id="per.id"
+              :title="per.name"
+              :author="per.username"
+              :likes="per.likes"
+              :label="per.category"
+              :dislikes="per.dislikes"
+              :description="per.description"
+              :path="per.videopath"
+            >
+            </ResultPage2>
+          </li>
+        </h1>
+        <h1 v-if="!pagesort">
+          <li v-for="per of persons" :key="per.id">
+            <ResultPage2
+              :id="per.id"
+              :title="per.name"
+              :author="per.username"
+              :likes="per.likes"
+              :label="per.category"
+              :dislikes="per.dislikes"
+              :description="per.description"
+              :path="per.videopath"
+            >
+            </ResultPage2>
+          </li>
+        </h1>
+      </h1>
     </div>
-
-
-    <el-row>
-      <el-col :span="4" style="
-          margin-left: 120px;
-          margin-top: 10px;
-          margin-bottom: 30px;
-          margin-right: 50%;
-        ">
-        <el-switch v-model="state" active-text="form detail" inactive-text="form easy">
-        </el-switch>
-        <div class="grid-content bg-purple-light"></div>
-      </el-col>
-
-      <el-button @click="threeperpage" v-if="!pagesort" size="mini" type="primary"
-        style=" margin-top: 10px">
-        8 items per page</el-button>
-      <el-button @click="onepage" v-if="pagesort" size="mini" type="primary" style="margin-top: 10px">
-        just one page
-      </el-button>
-    </el-row>
-    <h1 v-if="state">
-      <h1 v-if="pagesort">
-        <li v-for="per of dataShow" :key="per.id">
-          <ResultPage :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes" :description="per.description"
-            :path="per.videopath">
-          </ResultPage>
-        </li>
-      </h1>
-      <h1 v-if="!pagesort">
-        <li v-for="per of persons" :key="per.id">
-          <ResultPage :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes" :description="per.description"
-            :path="per.videopath" >
-          </ResultPage>
-        </li>
-      </h1>
-    </h1>
-    <h1 v-if="!state">
-      <h1 v-if="pagesort">
-        <li v-for="per of dataShow" :key="per.id">
-          <ResultPage2 :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes" :description="per.description"
-            :path="per.videopath" >
-          </ResultPage2>
-        </li>
-      </h1>
-      <h1 v-if="!pagesort">
-        <li v-for="per of persons" :key="per.id">
-          <ResultPage2 :id="per.id" :title="per.name" :author="per.username" :likes="per.likes" :label="per.category" :dislikes="per.dislikes " :description="per.description"
-            :path="per.videopath">
-          </ResultPage2>
-        </li>
-      </h1>
-    </h1>
-  </div>
     <ul class="pagination">
       <input type="button" value="pre" @click="prePage" class="btn btn-info" />
-      <span v-for="i in pageNum" @click="page(i)" :key="i" :style="{ cursor: 'pointer', margin: '10px' }">{{ i }}</span>
-      <input type="button" value="next" @click="nextPage" class="btn btn-info" />
+      <span
+        v-for="i in pageNum"
+        @click="page(i)"
+        :key="i"
+        :style="{ cursor: 'pointer', margin: '10px' }"
+        >{{ i }}</span
+      >
+      <input
+        type="button"
+        value="next"
+        @click="nextPage"
+        class="btn btn-info"
+      />
     </ul>
   </body>
 </template>
@@ -97,7 +168,6 @@ export default {
     };
   },
   methods: {
-    
     nextPage() {
       if (this.currentPage === this.pageNum - 1) return;
       this.dataShow = this.totalPage[++this.currentPage];
@@ -126,6 +196,7 @@ export default {
     },
     onepage() {
       this.pagesort = false;
+      this.pageNum = 1;
     },
   },
   mounted() {
