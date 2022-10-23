@@ -70,7 +70,7 @@ export class VideoController {
     }
 
     async searchVideo(request, response) {
-        const name = request.query.key;
+        const name = request.query.key.toLowerCase();
         try {
             let video = await videoModel.find({ name: { $regex: name.toLowerCase() } })
             return response.send(video)

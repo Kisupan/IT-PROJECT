@@ -1,0 +1,21 @@
+{
+  "name": "vshare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend3": "cd backend3 && npm start",
+    "my_vue": "cd my_vue && npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kisupan/IT-PROJECT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kisupan/IT-PROJECT/issues"
+  },
+  "homepage": "https://github.com/Kisupan/IT-PROJECT#readme"
+}
