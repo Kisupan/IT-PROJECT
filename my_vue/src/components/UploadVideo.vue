@@ -227,6 +227,7 @@ export default {
       if (
         this.select != "" &&
         this.input != "" &&
+        this.input == this.input.toLowerCase() &&
         this.file != null &&
         this.description != ""
       ) {
@@ -253,7 +254,9 @@ export default {
             console.log(error);
           });
       } else {
-        alert("Please fill out the form or if check you have selected a file.");
+        alert(
+          "Please fill out the correct form data or check if you have selected a file."
+        );
       }
     },
   },

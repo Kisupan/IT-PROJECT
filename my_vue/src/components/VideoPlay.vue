@@ -225,9 +225,12 @@ export default {
       })
       .then(function (response) {
         if (response.status == 200) {
-          console.log(response);
-          that.video = response.data[0];
-          console.log(that.video);
+          that.video = response.data;
+          for (let i = 0; i < response.data.length; i++) {
+            if (response.data[i].name == video_name) {
+              that.video = response.data[i];
+            }
+          }
         }
       })
       .catch(function (error) {
