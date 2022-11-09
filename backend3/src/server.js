@@ -1,10 +1,18 @@
 import express from 'express';
+<<<<<<< Updated upstream
 import connect  from 'mongoose';
 import config  from 'dotenv';
 import AuthRoutes from './Routes/Auth.routes.js'
 import cors from 'cors'
 import VideoRoutes from './Routes/Video.routes.js'
 
+=======
+import{ connect } from 'mongoose';
+import{ config } from 'dotenv';
+import AuthRoutes from './Routes/Auth_routes.js'
+import cors from 'cors'
+import VideoRoutes from './Routes/Video_routes.js'
+>>>>>>> Stashed changes
 
 
 const server = express();

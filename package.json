@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+<<<<<<< Updated upstream
     "start":"node backend3/src/server.js",
+=======
+    "start": "cd backend3 && npm start",
+>>>>>>> Stashed changes
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend3": "cd backend3 && npm start",
     "my_vue": "cd my_vue && npm run server"

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:backend3/src/Controller/Auth.controller.js
 import IncomingForm from 'formidable';
 import  {genSalt, hash, compare} from 'bcrypt';
 import  config  from 'dotenv';
@@ -5,6 +6,15 @@ import  sign  from 'jsonwebtoken';
 import  {userModel}  from '../Models/User.model.js'
 import  {videoModel}  from '../Models/Video.model.js'
 
+=======
+import { IncomingForm } from 'formidable';
+import { genSalt, hash, compare } from 'bcrypt';
+import { config } from 'dotenv';
+import { verify, sign } from 'jsonwebtoken';
+import { userModel } from '../Models/User_model.js'
+import { videoModel } from '../Models/Video_model.js'
+config()
+>>>>>>> Stashed changes:backend3/src/Controller/Auth_controller.js
 
 export class AuthController {
     //signup method

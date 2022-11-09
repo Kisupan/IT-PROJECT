@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
+<<<<<<< Updated upstream
   "type": "module",
+=======
+
+>>>>>>> Stashed changes
   "scripts": {
     "test": "jest",
     "start": "babel-node src/server.js",
     "watch-node": "nodeson src/server.js",
     "postinstall": "tsc",
     "dev": "nodemon --exec babel-node src/server.js"
+    
   },
   "author": "liping",
   "license": "ISC",

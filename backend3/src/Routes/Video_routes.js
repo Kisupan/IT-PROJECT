@@ -1,8 +1,15 @@
 import { response, Router } from 'express';
+<<<<<<< Updated upstream:backend3/src/Routes/Video.routes.js
 import { Authenticate } from '../Middlewares/Authenticate.middleware.js';
 import { videoUpload } from '../Middlewares/Video.middleware.js';
 import  json  from 'body-parser'
 import { VideoController } from '../Controller/Video.controller.js'
+=======
+import { Authenticate } from '../Middlewares/Authenticate_middleware.js';
+import { videoUpload } from '../Middlewares/Video_middleware.js';
+import { json } from 'body-parser'
+import { VideoController } from '../Controller/Video_controller.js'
+>>>>>>> Stashed changes:backend3/src/Routes/Video_routes.js
 
 const router = Router();
 const Controller = new VideoController();

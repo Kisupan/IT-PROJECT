@@ -1,5 +1,9 @@
 import { Router } from 'express';
+<<<<<<< Updated upstream:backend3/src/Routes/Auth.routes.js
 import { AuthController } from '../Controller/Auth.controller.js';
+=======
+import { AuthController } from '../Controller/Auth_controller.js';
+>>>>>>> Stashed changes:backend3/src/Routes/Auth_routes.js
 
 
 const router = Router();

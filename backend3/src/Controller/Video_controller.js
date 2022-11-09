@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream:backend3/src/Controller/Video.controller.js
 import { videoModel } from '../Models/Video.model.js'
+=======
+import { videoModel } from '../Models/Video_model.js'
+>>>>>>> Stashed changes:backend3/src/Controller/Video_controller.js
 import fs from 'fs'
 import { NONAME } from 'dns'
 
