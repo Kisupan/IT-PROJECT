@@ -1,10 +1,10 @@
-import { IncomingForm } from 'formidable';
-import { genSalt, hash, compare } from 'bcrypt';
-import { config } from 'dotenv';
-import { verify, sign } from 'jsonwebtoken';
-import { userModel } from '../Models/User.model'
-import { videoModel } from '../Models/Video.model'
-config()
+import IncomingForm from 'formidable';
+import  {genSalt, hash, compare} from 'bcrypt';
+import  config  from 'dotenv';
+import  sign  from 'jsonwebtoken';
+import  {userModel}  from '../Models/User.model.js'
+import  {videoModel}  from '../Models/Video.model.js'
+
 
 export class AuthController {
     //signup method

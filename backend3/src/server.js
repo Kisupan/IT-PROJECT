@@ -1,11 +1,11 @@
 import express from 'express';
-import{ connect } from 'mongoose';
-import{ config } from 'dotenv';
-import AuthRoutes from './Routes/Auth.routes'
+import connect  from 'mongoose';
+import config  from 'dotenv';
+import AuthRoutes from './Routes/Auth.routes.js'
 import cors from 'cors'
-import VideoRoutes from './Routes/Video.routes'
+import VideoRoutes from './Routes/Video.routes.js'
 
-config();
+
 
 const server = express();
 //==============MiddleWares===========================================

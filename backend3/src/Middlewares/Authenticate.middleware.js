@@ -1,6 +1,6 @@
-import {verify} from 'jsonwebtoken';
-import { config } from 'dotenv';
-config();
+import verify from 'jsonwebtoken';
+import  config  from 'dotenv';
+
 
 export const Authenticate = (request, response, next)=>{
     const token = request.headers['x-auth-token'];

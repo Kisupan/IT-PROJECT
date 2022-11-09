@@ -1,4 +1,4 @@
-import { videoModel } from '../Models/Video.model'
+import { videoModel } from '../Models/Video.model.js'
 import fs from 'fs'
 import { NONAME } from 'dns'
 

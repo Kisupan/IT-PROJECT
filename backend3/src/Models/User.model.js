@@ -1,4 +1,5 @@
-import{ Schema, model} from 'mongoose';
+import pkg from 'mongoose';
+const { Schema, model} = pkg;
 const uservalidator = (s) =>
     /^[a-zA-Z0-9]{1,20}$/.test(s)
 

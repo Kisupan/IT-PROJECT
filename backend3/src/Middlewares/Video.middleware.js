@@ -1,4 +1,4 @@
-import file from "@babel/core/lib/transformation/file/file";
+import file from "@babel/core/lib/transformation/file/file.js";
 import { request } from "express";
 import multer from "multer";
 import { v4 as uuidv4 } from 'uuid';

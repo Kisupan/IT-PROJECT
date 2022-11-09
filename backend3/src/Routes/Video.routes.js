@@ -1,8 +1,8 @@
 import { response, Router } from 'express';
-import { Authenticate } from '../Middlewares/Authenticate.middleware';
-import { videoUpload } from '../Middlewares/Video.middleware';
-import { json } from 'body-parser'
-import { VideoController } from '../Controller/Video.controller'
+import { Authenticate } from '../Middlewares/Authenticate.middleware.js';
+import { videoUpload } from '../Middlewares/Video.middleware.js';
+import  json  from 'body-parser'
+import { VideoController } from '../Controller/Video.controller.js'
 
 const router = Router();
 const Controller = new VideoController();
