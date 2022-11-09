@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <router-link class="navbar-brand" to="/profile">
             <img
-              src="resources/ZCC.JPG"
+              src="resources/avatar.png"
               alt=""
               width="100"
               height="100"

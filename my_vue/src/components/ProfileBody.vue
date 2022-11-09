@@ -10,7 +10,7 @@
             :key="data._id"
           >
             <img
-              src="/resources/ZCC.JPG"
+              src="/resources/avatar.png"
               alt=""
               width="100"
               height="100"

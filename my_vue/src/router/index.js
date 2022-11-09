@@ -13,6 +13,7 @@ import TermPage from '../components/TermPage.vue'
 import HelpPage from '../components/HelpPage.vue'
 import ResultPage2 from '../components/ResultPage2.vue'
 const router = new VueRouter({
+    mode: 'history',
     routes: [
         {
             path: "/",

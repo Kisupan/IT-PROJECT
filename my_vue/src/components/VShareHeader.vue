@@ -210,7 +210,7 @@
             <router-link to="/profile" target="_self"
               ><img
                 class="account-avatar"
-                src="resources/ZCC.JPG"
+                src="resources/avatar.png"
                 style="width: 50px; height: 50px"
             /></router-link>
           </div>
@@ -276,7 +276,7 @@
             <router-link to="/profile" target="_blank"
               ><img
                 class="account-avatar"
-                src="resources/ZCC.JPG"
+                src="resources/avatar.png"
                 style="width: 50px; height: 50px"
             /></router-link>
           </div>
